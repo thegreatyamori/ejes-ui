@@ -107,6 +107,9 @@ namespace EjesUI.ViewModels
                 FormDataModel.energia = "Consume";
                 FormDataModel.peso = 18;
                 FormDataModel.ubicacion = 6;
+
+                string isometrico = new GraphicService().Isometrico();
+                Console.Write(isometrico);
                 return;
             }
         }

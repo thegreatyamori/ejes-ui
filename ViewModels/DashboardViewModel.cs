@@ -35,20 +35,21 @@ namespace EjesUI.ViewModels
         [RelayCommand]
         private void OnClickSavePDF()
         {
-            dynamic rawPdf = this.api.Get(
+            /*dynamic rawPdf = this.api.Get(
                 "/join-pdf",
                 ("uuid", this.uuid)
             );
             string downloadURL = $"{this.defaultDownloadRoute}result_{this.uuid}.pdf";
-
+            
             File.WriteAllBytes(downloadURL, rawPdf);
-
+            */
             //MessageBox.Show("PDF descargado !", "PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         [RelayCommand]
         private void OnClickSaveWord()
         {
+            /*
             string pdfFileName = "";
             string downloadDocxURL = $"{this.defaultDownloadRoute}{pdfFileName}.docx";
             string pdfPathFile = $"{this.defaultDownloadRoute}{pdfFileName}.pdf";
@@ -66,6 +67,7 @@ namespace EjesUI.ViewModels
                     //MessageBox.Show("PDF convertido correctamente !", "Word", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+            */
         }
 
         private void InitializeViewModel()

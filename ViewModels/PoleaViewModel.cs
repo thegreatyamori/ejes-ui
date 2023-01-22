@@ -91,13 +91,13 @@ namespace EjesUI.ViewModels
             if (TestPoleaToggle)
             {
                 // Ejemplo 1 - Polea 1
-                //FormDataModel.peso = 13;
-                //FormDataModel.diametro = 4;
-                //FormDataModel.potencia = 3;
-                //FormDataModel.inclinacion = 90;
-                //FormDataModel.relacionTension = 3;
-                //FormDataModel.energia = "Consume";
-                //FormDataModel.ubicacion = 6;
+                FormDataModel.peso = 13;
+                FormDataModel.diametro = 4;
+                FormDataModel.potencia = 3;
+                FormDataModel.inclinacion = 90;
+                FormDataModel.relacionTension = 3;
+                FormDataModel.energia = "Consume";
+                FormDataModel.ubicacion = 6;
                 // Ejemplo 1 - Polea 2
                 //FormDataModel.peso = 13;
                 //FormDataModel.diametro = 4;
@@ -117,13 +117,13 @@ namespace EjesUI.ViewModels
                 //FormDataModel.ubicacion = 150;
 
                 // Ejemplo 3 - Polea 1
-                FormDataModel.peso = 0;
-                FormDataModel.diametro = 5;
-                FormDataModel.potencia = 12;
-                FormDataModel.inclinacion = 270;
-                FormDataModel.relacionTension = 3;
-                FormDataModel.energia = "Recibe";
-                FormDataModel.ubicacion = 4;
+                // FormDataModel.peso = 0;
+                //FormDataModel.diametro = 5;
+                //FormDataModel.potencia = 12;
+                //FormDataModel.inclinacion = 270;
+                //FormDataModel.relacionTension = 3;
+                //FormDataModel.energia = "Recibe";
+                //FormDataModel.ubicacion = 4;
                 return;
             }
         }

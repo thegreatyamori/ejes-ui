@@ -2,13 +2,10 @@
 {
     public class PoleaFormDataModel: FormDataModel
     {
-        public double peso {get;set;}
         public double diametro {get;set;}
         public double potencia {get;set;}
         public double inclinacion {get;set;}
         public double relacionTension {get;set;}
-        public string energia {get;set;}
-        public double ubicacion { get;set;}
     }
 
     public class PoleaCalculateModel: CalculateModel

@@ -6,21 +6,19 @@
         public CalculateModel Calculate { get; set; }
     }
 
-    public class FormDataModel: IFormDataModel
+    public class FormDataModel
     {
         public string title { get; set; }
         public Opts opts { get; set; }
+        public double ubicacion { get; set; }
+        public double peso { get; set; }
+        public string direccionFuerzaAxial { get; set; }
+        public string energia { get; set; }
     }
 
     public class CalculateModel
     {
         public double radio { get; set; }
         public double torque { get; set; }
-    }
-
-    public interface IFormDataModel
-    {
-        public string title { get; set; }
-        public Opts opts { get; set; }
     }
 }

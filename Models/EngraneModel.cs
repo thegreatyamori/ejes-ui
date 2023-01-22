@@ -7,15 +7,11 @@ namespace EjesUI.Models
     public class EngraneFormDataModel: FormDataModel
     {
         public string tipo { get; set; }
-        public double ubicacion { get; set; }
-        public string energia { get; set; }
-        public double peso { get; set; }
         public double diametro { get; set; }
         public double potencia { get; set; }
         public double presion { get; set; }
         public double helice { get; set; }
         public double inclinacion { get; set; }
-        public string direccionFuerzaAxial { get; set; }
     }
 
     public class EngraneCalculateModel: CalculateModel

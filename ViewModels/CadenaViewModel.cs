@@ -44,6 +44,7 @@ namespace EjesUI.ViewModels
         public void OnNavigatedTo()
         {
             DownloadPDFCadenaButton = false;
+            AddCadenaButton = true;
             CadenaImg = ImageProcessor.SetDefaultImage();
         }
 

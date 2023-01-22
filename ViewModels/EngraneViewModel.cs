@@ -46,6 +46,7 @@ namespace EjesUI.ViewModels
         public void OnNavigatedTo()
         {
             DownloadPDFEngraneButton = false;
+            AddEngraneButton = true;
             EngraneFrontalImg = ImageProcessor.SetDefaultImage("https://via.placeholder.com/345x143.png");
             EngraneLateralImg = ImageProcessor.SetDefaultImage("https://via.placeholder.com/345x143.png");
         }

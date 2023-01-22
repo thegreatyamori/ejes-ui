@@ -43,6 +43,7 @@ namespace EjesUI.ViewModels
         public void OnNavigatedTo()
         {
             DownloadPDFPoleaButton = false;
+            AddPoleaButton = true;
             PoleaImg = ImageProcessor.SetDefaultImage();
         }
 

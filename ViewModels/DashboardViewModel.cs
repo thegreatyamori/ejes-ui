@@ -30,7 +30,7 @@ namespace EjesUI.ViewModels
             this.appConfig = new AppConfig();
             this.pdf = new PdfService();
             this.snackbar = new SnackBarService(snackbarService);
-                
+
             Exercise = ExerciseModel.Name;
         }
 
@@ -47,12 +47,12 @@ namespace EjesUI.ViewModels
         [RelayCommand]
         private void OnClickSavePDF()
         {
-//#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-//            dynamic rawPdf = this.api.Get("/join-pdf", ("uuid", ExerciseModel.Uuid));
-//#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-//            string downloadURL = $"{this.appConfig.DefaultDownloadPath}result_{ExerciseModel.Uuid}.pdf";
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+           dynamic rawPdf = this.api.Get("/join-pdf", ("uuid", ExerciseModel.Uuid));
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+           string downloadURL = $"{this.appConfig.DefaultDownloadPath}result_{ExerciseModel.Uuid}.pdf";
 
-//            File.WriteAllBytes(downloadURL, rawPdf);
+           File.WriteAllBytes(downloadURL, rawPdf);
 
             snackbar.Show("PDF", "PDF descargado !");
         }
@@ -60,7 +60,6 @@ namespace EjesUI.ViewModels
         [RelayCommand]
         private void OnClickSaveWord()
         {
-            /*
             string pdfFileName = "";
             string downloadDocxURL = $"{this.appConfig.DefaultDownloadPath}{pdfFileName}.docx";
             string pdfPathFile = $"{this.appConfig.DefaultDownloadPath}{pdfFileName}.pdf";
@@ -77,7 +76,6 @@ namespace EjesUI.ViewModels
                     snackbar.Show("Word", "PDF convertido correctamente!", 3);
                 }
             }
-            */
         }
 
         private void InitializeViewModel()

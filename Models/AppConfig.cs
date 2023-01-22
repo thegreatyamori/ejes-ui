@@ -7,13 +7,13 @@ namespace EjesUI.Models
     {
         public string ConfigurationsFolder { get; set; }
         public string AppPropertiesFileName { get; set; }
-        public string ApiURL { 
+        public string ApiURL {
             get
             {
-                return "http://192.168.0.109:3003";
-            } 
+                return "http://nuc.jerson:3003";
+            }
         }
-        public string DefaultDownloadPath { 
+        public string DefaultDownloadPath {
             get
             {
                 string path = $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\Downloads\\Ejes Docs\\";
@@ -25,7 +25,7 @@ namespace EjesUI.Models
                 }
 
                 return path;
-            } 
+            }
         }
         public int CONSTANTE_TORQUE_SI = 9549;
         public int CONSTANTE_TORQUE_FPS = 63000;

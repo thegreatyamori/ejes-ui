@@ -16,7 +16,12 @@ namespace EjesUI.Views.Windows
             get;
         }
 
-        public MainWindow(ViewModels.MainWindowViewModel viewModel, IPageService pageService, INavigationService navigationService)
+        public MainWindow(
+            ViewModels.MainWindowViewModel viewModel, 
+            IPageService pageService, 
+            INavigationService navigationService,
+            ISnackbarService snackbarService
+        )
         {
             ViewModel = viewModel;
             DataContext = this;
@@ -24,6 +29,7 @@ namespace EjesUI.Views.Windows
             InitializeComponent();
             SetPageService(pageService);
 
+            snackbarService.SetSnackbarControl(RootSnackbar);
             navigationService.SetNavigationControl(RootNavigation);
         }
 

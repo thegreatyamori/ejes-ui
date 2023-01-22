@@ -9,6 +9,7 @@ namespace EjesUI.Models
         public static string Uuid { get; set; }
         public static GeneralDataModel GeneralData = new GeneralDataModel();
         public static List<ComponentModel> Components = new List<ComponentModel>();
+
         public static string GetNextComponentLetter()
         {
             int nextPosition = ExerciseModel.Components.Count;

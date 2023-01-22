@@ -23,15 +23,15 @@ namespace EjesUI.ViewModels
         [ObservableProperty]
         private string  _filenamePath = string.Empty;
         [ObservableProperty]
-        private BitmapImage _engraneFrontalImg = new BitmapImage();
+        private BitmapImage _engraneFrontalImg = new();
         [ObservableProperty]
-        private BitmapImage _engraneLateralImg = new BitmapImage();
+        private BitmapImage _engraneLateralImg = new();
         [ObservableProperty]
         private bool _downloadPDFEngraneButton = false;
         [ObservableProperty]
         private bool _addEngraneButton = true;
         [ObservableProperty]
-        private EngraneFormDataModel _formDataModel = new EngraneFormDataModel();
+        private EngraneFormDataModel _formDataModel = new();
         [ObservableProperty]
         private bool _testEngraneToggle = false;
 
@@ -87,7 +87,7 @@ namespace EjesUI.ViewModels
 
         private void PopulateFormData()
         {
-            FormDataModel.title = "Engrane";
+            FormDataModel.title = "Engrane " + ExerciseModel.GetNextComponentLetter();
             FormDataModel.opts = new Opts
             {
                 type = "engrane",
@@ -207,27 +207,27 @@ namespace EjesUI.ViewModels
             );
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
-            dynamic[] torqueValues = {};
-            dynamic?[] generalForces = {};
-            dynamic[] tangentialDescomposition = {};
-            dynamic[] radialDescomposition = {};
-            dynamic[] axialDescomposition = {};
-            dynamic[] descompositionZ = {};
-            dynamic[] descompositionY = {};
-            dynamic[] descomposition_torque = {};
-            dynamic[] momentDescomposition = {};
-            dynamic[] anguloTransversalPresion = {};
+            List<dynamic> torqueValues = new();
+            List<dynamic?> generalForces = new();
+            List<dynamic> tangentialDescomposition = new();
+            List<dynamic> radialDescomposition = new();
+            List<dynamic> axialDescomposition = new();
+            List<dynamic> descompositionZ = new();
+            List<dynamic> descompositionY = new();
+            List<dynamic> descomposition_torque = new();
+            List<dynamic> momentDescomposition = new();
+            List<dynamic> anguloTransversalPresion = new();
             FormDataModel.opts.system = generalData.sistemaUnidades;
 
-            //if (FormDataModel.tipo.Equals("Recto"))
-            //{
-            //    torqueValues = { FormDataModel.potencia, generalData.numeroVuelta, data.torque };
-            //    generalForces = { data.torque, data.fuerzaTangencial, data.fuerzaRadial, data.radio, FormDataModel.presion, null };
-            //    tangentialDescomposition = { data.inclinacionTangencial, data.fuerzaTangencial, data.fuerzaTangencialZ, data.fuerzaTangencialY };
-            //    radialDescomposition = { data.inclinacionRadial, data.fuerzaRadial, data.fuerzaRadialZ, data.fuerzaRadialY };
-            //    descompositionZ = { data.fuerzaRadialZ, data.fuerzaTangencialZ, data.fuerzaZ };
-            //    descompositionY = { data.fuerzaRadialY, data.fuerzaTangencialY, data.fuerzaY };
-            //}
+            if (FormDataModel.tipo.Equals("Recto"))
+            {
+                torqueValues = new List<dynamic> { FormDataModel.potencia, generalData.numeroVuelta, data.torque };
+                generalForces = new List<dynamic?> { data.torque, data.fuerzaTangencial, data.fuerzaRadial, data.radio, FormDataModel.presion, null };
+                tangentialDescomposition = new List<dynamic>{ data.inclinacionTangencial, data.fuerzaTangencial, data.fuerzaTangencialZ, data.fuerzaTangencialY };
+                radialDescomposition = new List<dynamic>{ data.inclinacionRadial, data.fuerzaRadial, data.fuerzaRadialZ, data.fuerzaRadialY };
+                descompositionZ = new List<dynamic>{ data.fuerzaRadialZ, data.fuerzaTangencialZ, data.fuerzaZ };
+                descompositionY = new List<dynamic>{ data.fuerzaRadialY, data.fuerzaTangencialY, data.fuerzaY };
+            }
 
             //if (FormDataModel.tipo.Equals("Helicoidal"))
             //{
@@ -246,22 +246,23 @@ namespace EjesUI.ViewModels
             //    momentDescomposition = { data.radio, FormDataModel.inclinacion, data.fuerzaAxial, data.momento, data.momentoZ, data.momentoY };
             //}
 
-            Pdf pdf = new Pdf();
-            pdf.uuid = ExerciseModel.Uuid;
-            pdf.title = FormDataModel.title;
-            pdf.images = images;
-            pdf.opts = FormDataModel.opts;
-            pdf.torque_values = new List<dynamic>(torqueValues);
-            pdf.general_forces = new List<dynamic?>(generalForces);
-            pdf.tangential_descomposition = new List<dynamic>(tangentialDescomposition);
-            pdf.radial_descomposition = new List<dynamic>(radialDescomposition);
-            pdf.axial_descomposition = new List<dynamic>(axialDescomposition);
-            pdf.descomposition_z = new List<dynamic>(descompositionZ);
-            pdf.descomposition_y = new List<dynamic>(descompositionY);
-            pdf.descomposition_torque = new List<dynamic>(descomposition_torque);
-            pdf.moment_descomposition = new List<dynamic>(momentDescomposition);
-            pdf.angulo_transversal_presion = new List<dynamic>(anguloTransversalPresion);
-
+            Pdf pdf = new()
+            {
+                uuid = ExerciseModel.Uuid,
+                title = FormDataModel.title,
+                images = images,
+                opts = FormDataModel.opts,
+                torque_values = new List<dynamic>(torqueValues),
+                general_forces = new List<dynamic?>(generalForces),
+                tangential_descomposition = new List<dynamic>(tangentialDescomposition),
+                radial_descomposition = new List<dynamic>(radialDescomposition),
+                axial_descomposition = new List<dynamic>(axialDescomposition),
+                descomposition_z = new List<dynamic>(descompositionZ),
+                descomposition_y = new List<dynamic>(descompositionY),
+                descomposition_torque = new List<dynamic>(descomposition_torque),
+                moment_descomposition = new List<dynamic>(momentDescomposition),
+                angulo_transversal_presion = new List<dynamic>(anguloTransversalPresion)
+            };
             return pdf;
         }
 

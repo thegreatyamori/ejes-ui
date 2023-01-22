@@ -26,8 +26,8 @@ namespace EjesUI.ViewModels
 
         private void SetTestData()
         {
-            string component = "polea";
-            int ejercicio = 3;
+            string component = "engrane";
+            int ejercicio = 1;
 
             GeneralDataModel generalData = ExerciseModel.GeneralData;
 

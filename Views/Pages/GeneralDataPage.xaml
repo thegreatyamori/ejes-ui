@@ -17,8 +17,7 @@
     <Grid Margin="0,10,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
-            <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="14*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -26,18 +25,24 @@
             <RowDefinition Height="340*"/>
             <RowDefinition Height="50*"/>
         </Grid.RowDefinitions>
-        <Grid VerticalAlignment="Top" Grid.Column="1" Height="206" Grid.Row="1">
-            <ui:TextBox Margin="41,1,10,0" PlaceholderText="Numero de Vueltas (N)" VerticalAlignment="Top" />
+        <Grid VerticalAlignment="Top" Grid.Column="1" Height="300" HorizontalAlignment="Left" Width="350" Grid.Row="1">
+            <ui:TextBox Margin="41,0,0,0" PlaceholderText="Numero de Vueltas (N)" VerticalAlignment="Top" />
             <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" Symbol="TextNumberFormat20"/>
-            <ui:TextBox x:Name="KR" Margin="41,50,10,0" PlaceholderText="Confiabilidad (kr)" VerticalAlignment="Top" />
+            <ui:TextBox x:Name="KR" Margin="41,50,0,0" PlaceholderText="Confiabilidad (kr)" VerticalAlignment="Top" />
             <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,59,0,0" VerticalAlignment="Top" Symbol="TextNumberFormat20"/>
-            <ui:TextBox x:Name="SY" Margin="41,100,10,0" PlaceholderText="Límite Fluencia (Sy)" VerticalAlignment="Top"/>
+            <ui:TextBox x:Name="SY" Margin="41,100,0,0" PlaceholderText="Límite Fluencia (Sy)" VerticalAlignment="Top"/>
             <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,109,0,0" VerticalAlignment="Top" Symbol="TextNumberFormat20" />
-            <ui:TextBox x:Name="SUT" Margin="41,150,10,0" PlaceholderText="Límite Máxima Fractura (Sut)" VerticalAlignment="Top"/>
+            <ui:TextBox x:Name="SUT" Margin="41,150,0,0" PlaceholderText="Límite Máxima Fractura (Sut)" VerticalAlignment="Top"/>
             <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,159,0,0"  VerticalAlignment="Top" Symbol="TextNumberFormat20"/>
+            <ComboBox VerticalAlignment="Top" Margin="41,200,0,0" Height="34.62">
+                <ComboBoxItem Content="Sentido de Giro del Eje" IsSelected="True" IsEnabled="False"/>
+                <ComboBoxItem Content="Horario"/>
+                <ComboBoxItem Content="Antihorario"/>
+            </ComboBox>
+            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,209,0,0"  VerticalAlignment="Top" Symbol="TextNumberFormat20"/>
         </Grid>
-        <Grid VerticalAlignment="Top" Grid.Column="1" Height="206" Grid.Row="1" Grid.ColumnSpan="2" Margin="340,0,10,0">
-            <ui:TextBox x:Name="n" Margin="41,1,10,0" PlaceholderText="Factor Seguridad (n)" VerticalAlignment="Top" />
+        <Grid VerticalAlignment="Top" Grid.Column="1" Height="250" HorizontalAlignment="Right" Width="350" Grid.Row="1">
+            <ui:TextBox x:Name="n" Margin="41,0,10,0" PlaceholderText="Factor Seguridad (n)" VerticalAlignment="Top" />
             <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" Symbol="TextNumberFormat20"/>
             <ui:TextBox x:Name="K" Margin="41,50,10,0" PlaceholderText="Coeficiente Global (k)" VerticalAlignment="Top" />
             <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,59,0,0" VerticalAlignment="Top" Symbol="TextNumberFormat20"/>
@@ -45,17 +50,20 @@
             <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,109,0,0" VerticalAlignment="Top" Symbol="TextNumberFormat20" />
             <ui:TextBox x:Name="KFS" Margin="41,150,10,0" PlaceholderText="Factor Concentrador Esfuerzo Torsión (kfs)" VerticalAlignment="Top"/>
             <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,159,0,0"  VerticalAlignment="Top" Symbol="TextNumberFormat20"/>
+            <ToggleButton
+                Content="{Binding ViewModel.UnitSystemContent, Mode=OneWay}"
+                Checked="ToggleButton_Checked"
+                Unchecked="ToggleButton_Checked"
+                Margin="41,201,0,0"
+                Height="34"
+                VerticalAlignment="Top"
+                Width="299" 
+                />
+            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,209,0,0"  VerticalAlignment="Top" Symbol="BracesVariable20"/>
         </Grid>
-        <Grid Grid.Column="1" Margin="10,211,10,0" Grid.Row="1" Grid.ColumnSpan="2">
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="10,10,0,0" Symbol="TextNumberFormat20" VerticalAlignment="Top"/>
-            <ComboBox x:Name="SentidoGiro" Margin="31,0,350,0" VerticalAlignment="Top" Width="299" >
-                <ComboBoxItem Content="Sentido de Giro del Eje" IsSelected="True" IsEnabled="False"/>
-                <ComboBoxItem Content="Horario"/>
-                <ComboBoxItem Content="Antihorario"/>
-            </ComboBox>
-            <ui:ToggleSwitch IsChecked="{Binding ViewModel.TestGeneralDataToggle}" Content="Probar" Margin="481,0,110,7" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="20"/>
-            <ui:Button Command="{Binding ViewModel.ClickGuardarGeneralDataCommand}" Content="Guardar" Icon="Save20" Margin="584,0,0,0" VerticalAlignment="Bottom" Appearance="Primary" BorderThickness="1,1,1,1" SnapsToDevicePixels="True" Height="35"/>
-        </Grid>
-        <Label Grid.Column="1" Content="Datos Generales" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.ColumnSpan="2" FontSize="22" FontWeight="Bold" Margin="0,1,0,0"/>
+
+        <ui:ToggleSwitch Content="Probar" IsChecked="{Binding ViewModel.TestGeneralDataToggle}" Grid.Column="1" Margin="509,0,103,44" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="20" Grid.RowSpan="2"/>
+        <ui:Button Content="Guardar" Command="{Binding ViewModel.ClickGuardarGeneralDataCommand, Mode=OneWay}" Icon="Add20" VerticalAlignment="Bottom" Appearance="Primary" BorderThickness="1,1,1,1" SnapsToDevicePixels="True" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" IsEnabled="{Binding ViewModel.SaveGeneralDataButton}" Margin="0,0,0,44" Grid.RowSpan="2"/>
+        <Label Grid.Column="1" Content="Datos Generales" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
     </Grid>
 </ui:UiPage>

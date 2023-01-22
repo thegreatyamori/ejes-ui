@@ -58,7 +58,6 @@
             <Image Source="{Binding ViewModel.EngraneLateralImg, Mode=OneWay}" Height="122" VerticalAlignment="Top" Margin="0,122,5,0"/>
         </Grid>
 
-        <!-- <ui:ToggleSwitch IsChecked="{Binding ViewModel.TestEngraneToggle}" Grid.Column="2" Content="Probar" Margin="0,0,90,7" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89"/> -->
         <ui:ToggleSwitch IsChecked="{Binding ViewModel.TestEngraneToggle}" Grid.Column="2" Content="Probar" Margin="0,0,180,7" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89"/>
         <ui:Button Content="Añadir" Command="{Binding ViewModel.ClickSaveButtonCommand, Mode=OneWay}" Icon="Add20" VerticalAlignment="Bottom" Appearance="Primary" BorderThickness="1,1,1,1" SnapsToDevicePixels="True" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" Width="87" Height="32" IsEnabled="{Binding ViewModel.AddEngraneButton}"/>
         <ui:Button Content="PDF" Command="{Binding ViewModel.ClickPDFButtonCommand, Mode=OneWay}" Icon="DocumentPdf20" Margin="0,0,89,0" VerticalAlignment="Bottom" Appearance="Danger" BorderThickness="1,1,1,1" SnapsToDevicePixels="True" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" Width="87" Height="32" IsEnabled="{Binding ViewModel.DownloadPDFEngraneButton}"/>

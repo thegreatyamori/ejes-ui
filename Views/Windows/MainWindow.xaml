@@ -9,7 +9,7 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="{Binding ViewModel.ApplicationTitle, Mode=OneWay}"
     Width="1100"
-    Height="650"
+    Height="500"
     d:DataContext="{d:DesignInstance local:MainWindow,
                                      IsDesignTimeCreatable=True}"
     d:Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -86,9 +86,6 @@
                         VerticalAlignment="Top"
                         FontSize="24"
                         Navigation="{Binding ElementName=RootNavigation, Mode=OneWay}" />
-                    <Grid>
-                        <ui:Snackbar x:Name="RootSnackbar" />
-                    </Grid>
                 </Grid>
             </Border>
             <Grid>

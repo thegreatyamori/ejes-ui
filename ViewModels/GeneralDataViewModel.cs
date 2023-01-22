@@ -2,13 +2,30 @@
 using CommunityToolkit.Mvvm.Input;
 using Wpf.Ui.Common.Interfaces;
 using EjesUI.Models;
+using Wpf.Ui.Mvvm.Contracts;
+using EjesUI.Services;
 
 namespace EjesUI.ViewModels
 {
     public partial class GeneralPageViewModel : ObservableObject, INavigationAware
     {
+        private AppConfig appConfig;
+        private SnackBarService snackbar;
+
         [ObservableProperty]
-        private bool _testGeneralDataToggle = false;
+        private bool _testGeneralDataToggle;
+        [ObservableProperty]
+        private bool _saveGeneralDataButton = true;
+        [ObservableProperty]
+        private bool _isUnitSystemToggleButtonEnabled = false;
+        [ObservableProperty]
+        private string _unitSystemContent = "Sistema de Unidades: FPS";
+
+        public GeneralPageViewModel(ISnackbarService snackbarService)
+        {
+            this.appConfig = new AppConfig();
+            this.snackbar = new SnackBarService(snackbarService);
+        }
 
         public void OnNavigatedTo()
         {
@@ -16,6 +33,13 @@ namespace EjesUI.ViewModels
 
         public void OnNavigatedFrom()
         {
+        }
+
+        public void OnChangeToggleButton(string system, bool isChecked)
+        {
+            snackbar.Show("test", system, 2);
+            IsUnitSystemToggleButtonEnabled = (bool)isChecked;
+            UnitSystemContent = $"Sistema de Unidades: {system}";
         }
 
         [RelayCommand]

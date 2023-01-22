@@ -8,6 +8,8 @@ using EjesUI.Models;
 using EjesUI.Services;
 using System.Collections.Generic;
 using Wpf.Ui.Common.Interfaces;
+using Wpf.Ui.Controls;
+using Wpf.Ui.Mvvm.Contracts;
 
 namespace EjesUI.ViewModels
 {
@@ -16,6 +18,7 @@ namespace EjesUI.ViewModels
         private ApiService api;
         private AppConfig appConfig;
         private PdfService pdf;
+        private SnackBarService snackbar;
 
         [ObservableProperty]
         private string _filenamePath = string.Empty;
@@ -28,11 +31,12 @@ namespace EjesUI.ViewModels
         [ObservableProperty]
         private bool _testCadenaToggle = false;
 
-        public CadenaViewModel()
+        public CadenaViewModel(ISnackbarService snackbarService)
         {
             this.api = new ApiService();
             this.appConfig = new AppConfig();
             this.pdf = new PdfService();
+            this.snackbar = new SnackBarService(snackbarService);
         }
 
         public void OnNavigatedTo()
@@ -76,6 +80,8 @@ namespace EjesUI.ViewModels
             FilenamePath = filename;
             CadenaImg = img;
             DownloadPDFCadenaButton = true;
+
+            snackbar.Show("Ejes", "Componente Añadido!", 3);
         }
 
         private void PopulateFormData()

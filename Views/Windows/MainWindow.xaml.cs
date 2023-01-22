@@ -29,7 +29,7 @@ namespace EjesUI.Views.Windows
             InitializeComponent();
             SetPageService(pageService);
 
-            snackbarService.SetSnackbarControl(RootSnackbar);
+            snackbarService.SetSnackbarControl(SidebarSnackbar);
             navigationService.SetNavigationControl(RootNavigation);
         }
 

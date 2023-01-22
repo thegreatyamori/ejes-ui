@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Media.Imaging;
 using Wpf.Ui.Common.Interfaces;
+using Wpf.Ui.Mvvm.Contracts;
+
 
 namespace EjesUI.ViewModels
 {
@@ -16,6 +18,7 @@ namespace EjesUI.ViewModels
         private ApiService api;
         private AppConfig appConfig;
         private PdfService pdf;
+        private SnackBarService snackbar;
 
         [ObservableProperty]
         private string  _filenamePath = string.Empty;
@@ -30,11 +33,12 @@ namespace EjesUI.ViewModels
         [ObservableProperty]
         private bool _testEngraneToggle = false;
 
-        public EngraneViewModel()
+        public EngraneViewModel(ISnackbarService snackbarService)
         {
             this.api = new ApiService();
             this.appConfig = new AppConfig();
             this.pdf = new PdfService();
+            this.snackbar = new SnackBarService(snackbarService);
         }
 
         public void OnNavigatedTo()
@@ -73,6 +77,8 @@ namespace EjesUI.ViewModels
             EngraneFrontalImg = img;
             EngraneLateralImg = img;
             DownloadPDFEngraneButton = true;
+
+            snackbar.Show("Ejes", "Componente Añadido!", 3);
         }
 
         private void PopulateFormData()
@@ -261,7 +267,7 @@ namespace EjesUI.ViewModels
             {
                 return CalculateRectoComponent();
             }
-            
+
             if (FormDataModel.tipo.Equals("Helicoidal"))
             {
                 return CalculateHelicoidalModel();
@@ -279,7 +285,7 @@ namespace EjesUI.ViewModels
             double radio = (generalData.sistemaUnidades == "SI") ? (FormDataModel.diametro / 2) / 1000 : FormDataModel.diametro / 2;
             double fuerzaTangencial = torque / radio;
             double fuerzaRadial = fuerzaTangencial * Math.Tan(FormDataModel.presion * Math.PI / 180);
-            
+
             // Angulos
             double inclinacionTangencial = 0;
             double inclinacionRadial = 0;
@@ -340,7 +346,7 @@ namespace EjesUI.ViewModels
             double fuerzaRadial = fuerzaTangencial * Math.Tan(anguloTransversalPresion);
             double fuerzaAxial = fuerzaTangencial * Math.Tan(FormDataModel.helice);
             double momento = fuerzaAxial * radio;
-            
+
             // Angulos
             double inclinacionTangencial = 0;
             double inclinacionRadial = 0;

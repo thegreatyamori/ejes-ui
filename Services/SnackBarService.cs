@@ -13,7 +13,7 @@ namespace EjesUI.Services
             _snackbarService = snackbarService;
         }
 
-        private void Show(string title, string message, int snackbarAppearance = 1)
+        public void Show(string title, string message, int snackbarAppearance = 1)
         {
             ControlAppearance _snackbarAppearance = UpdateSnackbarAppearance(snackbarAppearance);
             _snackbarService.Timeout = _snackbarTimeout;

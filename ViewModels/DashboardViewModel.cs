@@ -47,12 +47,12 @@ namespace EjesUI.ViewModels
         [RelayCommand]
         private void OnClickSavePDF()
         {
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            dynamic rawPdf = this.api.Get("/join-pdf", ("uuid", ExerciseModel.Uuid));
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            string downloadURL = $"{this.appConfig.DefaultDownloadPath}result_{ExerciseModel.Uuid}.pdf";
+//#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+//            dynamic rawPdf = this.api.Get("/join-pdf", ("uuid", ExerciseModel.Uuid));
+//#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+//            string downloadURL = $"{this.appConfig.DefaultDownloadPath}result_{ExerciseModel.Uuid}.pdf";
 
-            File.WriteAllBytes(downloadURL, rawPdf);
+//            File.WriteAllBytes(downloadURL, rawPdf);
 
             snackbar.Show("PDF", "PDF descargado !");
         }
@@ -72,10 +72,9 @@ namespace EjesUI.ViewModels
             {
                 int result = f.ToWord(downloadDocxURL);
 
-                // Open Word document
                 if (result == 0)
                 {
-                    //MessageBox.Show("PDF convertido correctamente !", "Word", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    snackbar.Show("Word", "PDF convertido correctamente!", 3);
                 }
             }
             */

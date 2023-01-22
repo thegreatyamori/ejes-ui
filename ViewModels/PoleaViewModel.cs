@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
 using Wpf.Ui.Common.Interfaces;
+using Wpf.Ui.Mvvm.Contracts;
 
 namespace EjesUI.ViewModels
 {
@@ -16,6 +17,7 @@ namespace EjesUI.ViewModels
         private ApiService api;
         private AppConfig appConfig;
         private PdfService pdf;
+        private SnackBarService snackbar;
 
         [ObservableProperty]
         private string _filenamePath = string.Empty;
@@ -28,11 +30,12 @@ namespace EjesUI.ViewModels
         [ObservableProperty]
         private bool _testPoleaToggle = false;
 
-        public PoleaViewModel()
+        public PoleaViewModel(ISnackbarService snackbarService)
         {
             this.api = new ApiService();
             this.appConfig = new AppConfig();
             this.pdf = new PdfService();
+            this.snackbar = new SnackBarService(snackbarService);
         }
 
         public void OnNavigatedTo()
@@ -74,6 +77,8 @@ namespace EjesUI.ViewModels
             FilenamePath = filename;
             PoleaImg = img;
             DownloadPDFPoleaButton = true;
+
+            snackbar.Show("Ejes", "Componente Añadido!", 3);
         }
 
         private void PopulateFormData()

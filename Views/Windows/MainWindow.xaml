@@ -57,7 +57,6 @@
                     HorizontalAlignment="Center" 
                     Width="250" 
                     Appearance="Light" 
-                    IsEnabled="{Binding ViewModel.IsNewExerciseEnabled, Mode=OneWay}"
                     />
 
                 <!--  This is the main navigation of the application.  -->
@@ -92,6 +91,9 @@
                     </Grid>
                 </Grid>
             </Border>
+            <Grid>
+                <ui:Snackbar x:Name="SidebarSnackbar" />
+            </Grid>
         </Grid>
 
         <!--  The title bar contains window navigation elements and some Tray related extras.  -->

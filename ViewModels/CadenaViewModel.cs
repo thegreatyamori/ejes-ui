@@ -23,13 +23,13 @@ namespace EjesUI.ViewModels
         [ObservableProperty]
         private string _filenamePath = string.Empty;
         [ObservableProperty]
-        private BitmapImage _cadenaImg = new BitmapImage();
+        private BitmapImage _cadenaImg = new();
         [ObservableProperty]
         private bool _downloadPDFCadenaButton = false;
         [ObservableProperty]
         private bool _addCadenaButton = true;
         [ObservableProperty]
-        private CadenaFormDataModel _formDataModel = new CadenaFormDataModel();
+        private CadenaFormDataModel _formDataModel = new();
         [ObservableProperty]
         private bool _testCadenaToggle = false;
 
@@ -91,7 +91,7 @@ namespace EjesUI.ViewModels
         private void PopulateFormData()
         {
             string title = "Cadena " + ExerciseModel.GetNextComponentLetter();
-            Opts opts = new Opts
+            Opts opts = new()
             {
                 type = "cadena",
                 subtype = null
@@ -145,7 +145,7 @@ namespace EjesUI.ViewModels
             dynamic?[] generalForces = { data.torque, data.fuerzaTangencial, null, data.radio, null, null };
             dynamic[] tangentialDescomposition = { data.inclinacion, data.fuerzaTangencial, data.fuerzaTangencialZ, data.fuerzaTangencialY };
 
-            Pdf pdf = new Pdf();
+            Pdf pdf = new();
             pdf.uuid = ExerciseModel.Uuid;
             pdf.title = FormDataModel.title;
             pdf.images = image;

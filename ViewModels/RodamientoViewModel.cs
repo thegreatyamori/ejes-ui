@@ -20,11 +20,11 @@ namespace EjesUI.ViewModels
         [ObservableProperty]
         private string _filenamePath = string.Empty;
         [ObservableProperty]
-        private BitmapImage _rodamientoImg = new BitmapImage();
+        private BitmapImage _rodamientoImg = new();
         [ObservableProperty]
         private bool _downloadPDFRodamientoButton = false;
         [ObservableProperty]
-        private RodamientoFormDataModel _formDataModel = new RodamientoFormDataModel();
+        private RodamientoFormDataModel _formDataModel = new();
         [ObservableProperty]
         private bool _testRodamientoToggle = false;
 

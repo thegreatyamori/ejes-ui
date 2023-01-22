@@ -22,13 +22,13 @@ namespace EjesUI.ViewModels
         [ObservableProperty]
         private string _filenamePath = string.Empty;
         [ObservableProperty]
-        private BitmapImage _poleaImg = new BitmapImage();
+        private BitmapImage _poleaImg = new();
         [ObservableProperty]
         private bool _downloadPDFPoleaButton = false;
         [ObservableProperty]
         private bool _addPoleaButton = true;
         [ObservableProperty]
-        private PoleaFormDataModel _formDataModel = new PoleaFormDataModel();
+        private PoleaFormDataModel _formDataModel = new();
         [ObservableProperty]
         private bool _testPoleaToggle = false;
 
@@ -88,7 +88,7 @@ namespace EjesUI.ViewModels
         private void PopulateFormData()
         {
             string title = "Polea " + ExerciseModel.GetNextComponentLetter();
-            Opts opts = new Opts
+            Opts opts = new()
             {
                 type = "polea",
                 subtype = null
@@ -157,7 +157,7 @@ namespace EjesUI.ViewModels
             dynamic[] descompositionTorque = { data.torque, data.radio, FormDataModel.relacionTension, data.T_1, data.T_2, data.fuerzaTension };
             dynamic[] tangentialDescomposition = { data.inclinacion, data.fuerzaTension, data.fuerzaZ, data.fuerzaY };
 
-            Pdf pdf = new Pdf();
+            Pdf pdf = new();
             pdf.uuid = ExerciseModel.Uuid;
             pdf.title = FormDataModel.title;
             pdf.images = image;

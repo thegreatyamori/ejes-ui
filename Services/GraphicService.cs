@@ -23,15 +23,15 @@ namespace EjesUI.Services
         public string Isometrico()
         {
             var components = ExerciseModel.Components;
-            List<string> nombre = new List<string>();
-            List<double> distancia = new List<double>();
-            List<double> peso = new List<double>();
-            List<string> energia = new List<string>();
-            List<double> fuerzaZ = new List<double>();
-            List<double> fuerzaY = new List<double>();
-            List<string> direccionFuerzaAxial = new List<string>();
-            List<double> momentoZ = new List<double>();
-            List<double> momentoY = new List<double>();
+            List<string> nombre = new();
+            List<double> distancia = new();
+            List<double> peso = new();
+            List<string> energia = new();
+            List<double> fuerzaZ = new();
+            List<double> fuerzaY = new();
+            List<string> direccionFuerzaAxial = new();
+            List<double> momentoZ = new();
+            List<double> momentoY = new();
 
             for (int i = 0; i < components.Count; i++)
             {
@@ -85,7 +85,7 @@ namespace EjesUI.Services
                     momentoY.Add(formData.momentoY);
                 }
             }
-            List<dynamic> arrayFinal = new List<dynamic>
+            List<dynamic> arrayFinal = new()
             {
                 nombre,
                 distancia,

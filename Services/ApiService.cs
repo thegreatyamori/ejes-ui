@@ -17,9 +17,9 @@ namespace EjesUI.Services
         public object? Get(string resource, params (string,string)[] queryParams)
         {
 
-            RestClient client = new RestClient(this.config.ApiURL);
+            RestClient client = new(this.config.ApiURL);
 
-            RestRequest request = new RestRequest(resource);
+            RestRequest request = new(resource);
             foreach (var (param, value) in queryParams)
             {
                 request.AddQueryParameter(param, value);
@@ -43,9 +43,9 @@ namespace EjesUI.Services
 
         public object? Post(string resource, string json)
         {
-            RestClient client = new RestClient(this.config.ApiURL);
+            RestClient client = new(this.config.ApiURL);
 
-            RestRequest request = new RestRequest(resource, Method.Post);
+            RestRequest request = new(resource, Method.Post);
             request.AddHeader("content-type", "application/json");
             request.AddParameter("application/json", json, ParameterType.RequestBody);
 

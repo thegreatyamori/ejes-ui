@@ -18,7 +18,7 @@ namespace EjesUI.Helpers
             string base64 = value.Split(",")[1];
             byte[] binaryData = Convert.FromBase64String(base64);
 
-            BitmapImage bi = new BitmapImage();
+            BitmapImage bi = new();
             bi.BeginInit();
             bi.StreamSource = new MemoryStream(binaryData);
             bi.EndInit();

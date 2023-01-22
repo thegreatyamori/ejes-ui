@@ -26,6 +26,8 @@ namespace EjesUI.ViewModels
         [ObservableProperty]
         private bool _downloadPDFPoleaButton = false;
         [ObservableProperty]
+        private bool _addPoleaButton = true;
+        [ObservableProperty]
         private PoleaFormDataModel _formDataModel = new PoleaFormDataModel();
         [ObservableProperty]
         private bool _testPoleaToggle = false;
@@ -77,6 +79,7 @@ namespace EjesUI.ViewModels
             FilenamePath = filename;
             PoleaImg = img;
             DownloadPDFPoleaButton = true;
+            AddPoleaButton = false;
 
             snackbar.Show("Ejes", "Componente Añadido!", 3);
         }

@@ -29,6 +29,8 @@ namespace EjesUI.ViewModels
         [ObservableProperty]
         private bool _downloadPDFEngraneButton = false;
         [ObservableProperty]
+        private bool _addEngraneButton = true;
+        [ObservableProperty]
         private EngraneFormDataModel _formDataModel = new EngraneFormDataModel();
         [ObservableProperty]
         private bool _testEngraneToggle = false;
@@ -77,6 +79,7 @@ namespace EjesUI.ViewModels
             EngraneFrontalImg = img;
             EngraneLateralImg = img;
             DownloadPDFEngraneButton = true;
+            AddEngraneButton = false;
 
             snackbar.Show("Ejes", "Componente Añadido!", 3);
         }

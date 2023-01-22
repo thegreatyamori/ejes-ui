@@ -27,6 +27,8 @@ namespace EjesUI.ViewModels
         [ObservableProperty]
         private bool _downloadPDFCadenaButton = false;
         [ObservableProperty]
+        private bool _addCadenaButton = true;
+        [ObservableProperty]
         private CadenaFormDataModel _formDataModel = new CadenaFormDataModel();
         [ObservableProperty]
         private bool _testCadenaToggle = false;
@@ -80,6 +82,7 @@ namespace EjesUI.ViewModels
             FilenamePath = filename;
             CadenaImg = img;
             DownloadPDFCadenaButton = true;
+            AddCadenaButton = false;
 
             snackbar.Show("Ejes", "Componente Añadido!", 3);
         }

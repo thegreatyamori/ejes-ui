@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls.Primitives;
 using Wpf.Ui.Common.Interfaces;
 
@@ -20,16 +21,17 @@ namespace EjesUI.Views.Pages
             InitializeComponent();
         }
 
-        private void ToggleButton_Checked(ToggleButton sender, RoutedEventArgs e)
+        private void ToggleButton_Checked(object sender, EventArgs e)
         {
+            ToggleButton someButton = (ToggleButton)sender;
 #pragma warning disable CS8629 // Nullable value type may be null.
-            if ((bool)sender.IsChecked)
+            if ((bool)someButton.IsChecked)
             {
-                ViewModel.OnChangeToggleButton("SI", (bool)sender.IsChecked);
+                ViewModel.OnChangeToggleButton("SI", (bool)someButton.IsChecked);
             }
             else
             {
-                ViewModel.OnChangeToggleButton("FPS", (bool)sender.IsChecked);
+                ViewModel.OnChangeToggleButton("FPS", (bool)someButton.IsChecked);
             }
 #pragma warning restore CS8629 // Nullable value type may be null.
         }

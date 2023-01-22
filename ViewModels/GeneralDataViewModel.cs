@@ -46,6 +46,10 @@ namespace EjesUI.ViewModels
         public void OnClickGuardarGeneralData()
         {
             SetTestData();
+
+            SaveGeneralDataButton = false;
+
+            snackbar.Show("Datos Generales", "Datos Añadidos!", 3);
         }
 
         private void SetTestData()

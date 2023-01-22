@@ -62,6 +62,7 @@ namespace EjesUI.ViewModels
                 string component = "polea";
                 int ejercicio = 3;
                 SetTestData(component, ejercicio);
+                return;
             }
 
             FormDataModel.unidades = IsUnitSystemToggleButtonEnabled;

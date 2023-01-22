@@ -61,6 +61,7 @@ namespace EjesUI.ViewModels
         {
             pdf.Download(FilenamePath);
             Process.Start("explorer.exe", this.appConfig.DefaultDownloadPath);
+            snackbar.Show("Ejes", "Componente Añadido!", 3);
         }
 
         [RelayCommand]

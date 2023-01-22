@@ -57,6 +57,7 @@ namespace EjesUI.ViewModels
         {
             pdf.Download(FilenamePath);
             Process.Start("explorer.exe", this.appConfig.DefaultDownloadPath);
+            snackbar.Show("PDF", "PDF Generado!", 2);
         }
 
         [RelayCommand]

@@ -45,6 +45,7 @@ namespace EjesUI
                 // Main window with navigation
                 services.AddScoped<INavigationWindow, Views.Windows.MainWindow>();
                 services.AddScoped<ViewModels.MainWindowViewModel>();
+                services.AddScoped<ISnackbarService, SnackbarService>();
 
                 // Views and ViewModels
                 services.AddScoped<Views.Pages.DashboardPage>();

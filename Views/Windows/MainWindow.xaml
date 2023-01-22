@@ -87,6 +87,9 @@
                         VerticalAlignment="Top"
                         FontSize="24"
                         Navigation="{Binding ElementName=RootNavigation, Mode=OneWay}" />
+                    <Grid>
+                        <ui:Snackbar x:Name="RootSnackbar" />
+                    </Grid>
                 </Grid>
             </Border>
         </Grid>

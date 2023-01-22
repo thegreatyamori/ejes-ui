@@ -7,18 +7,30 @@ using System;
 using EjesUI.Helpers;
 using System.Windows.Media.Imaging;
 using System.IO;
+using EjesUI.Services;
+using Wpf.Ui.Mvvm.Contracts;
 
 namespace EjesUI.ViewModels
 {
     public partial class DashboardViewModel : ObservableObject, INavigationAware
     {
+        private ApiService api;
+        private AppConfig appConfig;
+        private PdfService pdf;
+        private SnackBarService snackbar;
+
         [ObservableProperty]
         private string _exercise = string.Empty;
         [ObservableProperty]
         private IEnumerable<ComponentButton> _buttons;
 
-        public DashboardViewModel()
+        public DashboardViewModel(ISnackbarService snackbarService)
         {
+            this.api = new ApiService();
+            this.appConfig = new AppConfig();
+            this.pdf = new PdfService();
+            this.snackbar = new SnackBarService(snackbarService);
+                
             Exercise = ExerciseModel.Name;
         }
 
@@ -35,23 +47,22 @@ namespace EjesUI.ViewModels
         [RelayCommand]
         private void OnClickSavePDF()
         {
-            dynamic rawPdf = this.api.Get(
-                "/join-pdf",
-                ("uuid", this.uuid)
-            );
-            string downloadURL = $"{this.defaultDownloadRoute}result_{this.uuid}.pdf";
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+            dynamic rawPdf = this.api.Get("/join-pdf", ("uuid", ExerciseModel.Uuid));
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+            string downloadURL = $"{this.appConfig.DefaultDownloadPath}result_{ExerciseModel.Uuid}.pdf";
 
             File.WriteAllBytes(downloadURL, rawPdf);
 
-            //MessageBox.Show("PDF descargado !", "PDF", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            snackbar.Show("PDF", "PDF descargado !");
         }
 
         [RelayCommand]
         private void OnClickSaveWord()
         {
             string pdfFileName = "";
-            string downloadDocxURL = $"{this.defaultDownloadRoute}{pdfFileName}.docx";
-            string pdfPathFile = $"{this.defaultDownloadRoute}{pdfFileName}.pdf";
+            string downloadDocxURL = $"{this.appConfig.DefaultDownloadPath}{pdfFileName}.docx";
+            string pdfPathFile = $"{this.appConfig.DefaultDownloadPath}{pdfFileName}.pdf";
 
             SautinSoft.PdfFocus f = new SautinSoft.PdfFocus();
             f.OpenPdf(pdfPathFile);

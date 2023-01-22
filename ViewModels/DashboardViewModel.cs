@@ -60,9 +60,8 @@ namespace EjesUI.ViewModels
         [RelayCommand]
         private void OnClickSaveWord()
         {
-            string pdfFileName = "";
-            string downloadDocxURL = $"{this.appConfig.DefaultDownloadPath}{pdfFileName}.docx";
-            string pdfPathFile = $"{this.appConfig.DefaultDownloadPath}{pdfFileName}.pdf";
+            string downloadDocxURL = $"{this.appConfig.DefaultDownloadPath}result_{ExerciseModel.Uuid}.docx";
+            string pdfPathFile = $"{this.appConfig.DefaultDownloadPath}result_{ExerciseModel.Uuid}.pdf";
 
             SautinSoft.PdfFocus f = new SautinSoft.PdfFocus();
             f.OpenPdf(pdfPathFile);
@@ -73,7 +72,7 @@ namespace EjesUI.ViewModels
 
                 if (result == 0)
                 {
-                    snackbar.Show("Word", "PDF convertido correctamente!", 3);
+                    snackbar.Show("Word", "PDF convertido correctamente!", 2);
                 }
             }
         }

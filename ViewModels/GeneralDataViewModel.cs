@@ -4,6 +4,7 @@ using Wpf.Ui.Common.Interfaces;
 using EjesUI.Models;
 using Wpf.Ui.Mvvm.Contracts;
 using EjesUI.Services;
+using System;
 
 namespace EjesUI.ViewModels
 {
@@ -20,6 +21,8 @@ namespace EjesUI.ViewModels
         private bool _isUnitSystemToggleButtonEnabled = false;
         [ObservableProperty]
         private string _unitSystemContent = "Sistema de Unidades: FPS";
+        [ObservableProperty]
+        private GeneralDataModel _formDataModel = new GeneralDataModel();
 
         public GeneralPageViewModel(ISnackbarService snackbarService)
         {
@@ -45,21 +48,32 @@ namespace EjesUI.ViewModels
         [RelayCommand]
         public void OnClickGuardarGeneralData()
         {
-            SetTestData();
+            PopulateFormData();
 
             SaveGeneralDataButton = false;
 
             snackbar.Show("Datos Generales", "Datos Añadidos!", 3);
         }
 
-        private void SetTestData()
+        private void PopulateFormData()
         {
-            string component = "engrane";
-            int ejercicio = 1;
+            if (TestGeneralDataToggle)
+            {
+                string component = "polea";
+                int ejercicio = 3;
+                SetTestData(component, ejercicio);
+            }
 
+            FormDataModel.unidades = IsUnitSystemToggleButtonEnabled;
+            FormDataModel.sentidoGiro = FormDataModel.sentidoGiro.Split(":")[1].Trim();
+            ExerciseModel.GeneralData = FormDataModel;
+        }
+
+        private void SetTestData(string component, int ejercicio)
+        {
             GeneralDataModel generalData = ExerciseModel.GeneralData;
 
-            if (TestGeneralDataToggle && component == "engrane" && ejercicio == 1)
+            if (component == "engrane" && ejercicio == 1)
             {
                 generalData.numeroVuelta = 480;
                 generalData.confiabilidad = 2;
@@ -70,11 +84,11 @@ namespace EjesUI.ViewModels
                 generalData.factorConcentradorEsfuerzoFlexion = 7;
                 generalData.factorConcentradorEsfuerzoTorsion = 8;
                 generalData.sentidoGiro = "Horario";
-                generalData.sistemaUnidades = "FPS";
+                generalData.unidades = false;
                 return;
             }
 
-            if (TestGeneralDataToggle && component == "engrane" && ejercicio == 2)
+            if (component == "engrane" && ejercicio == 2)
             {
                 generalData.numeroVuelta = 1000;
                 generalData.confiabilidad = 1; //Falta dato
@@ -85,11 +99,11 @@ namespace EjesUI.ViewModels
                 generalData.factorConcentradorEsfuerzoFlexion = 1.6;
                 generalData.factorConcentradorEsfuerzoTorsion = 1.4;
                 generalData.sentidoGiro = "Horario";
-                generalData.sistemaUnidades = "SI";
+                generalData.unidades = true;
                 return;
             }
 
-            if (TestGeneralDataToggle && component == "engrane" && ejercicio == 3)
+            if (component == "engrane" && ejercicio == 3)
             {
                 generalData.numeroVuelta = 500;
                 generalData.confiabilidad = 1; //Falta dato
@@ -100,11 +114,11 @@ namespace EjesUI.ViewModels
                 generalData.factorConcentradorEsfuerzoFlexion = 6;
                 generalData.factorConcentradorEsfuerzoTorsion = 7;
                 generalData.sentidoGiro = "Antihorario";
-                generalData.sistemaUnidades = "FPS";
+                generalData.unidades = false;
                 return;
             }
 
-            if (TestGeneralDataToggle && component == "engrane" && ejercicio == 4)
+            if (component == "engrane" && ejercicio == 4)
             {
                 generalData.numeroVuelta = 1000;
                 generalData.confiabilidad = 1; //Falta dato
@@ -115,11 +129,11 @@ namespace EjesUI.ViewModels
                 generalData.factorConcentradorEsfuerzoFlexion = 2;
                 generalData.factorConcentradorEsfuerzoTorsion = 3;
                 generalData.sentidoGiro = "Antihorario";
-                generalData.sistemaUnidades = "FPS";
+                generalData.unidades = false;
                 return;
             }
 
-            if (TestGeneralDataToggle && component == "polea" && ejercicio == 1)
+            if (component == "polea" && ejercicio == 1)
             {
                 generalData.numeroVuelta = 480;
                 generalData.confiabilidad = 2;
@@ -130,11 +144,11 @@ namespace EjesUI.ViewModels
                 generalData.factorConcentradorEsfuerzoFlexion = 7;
                 generalData.factorConcentradorEsfuerzoTorsion = 8;
                 generalData.sentidoGiro = "Horario";
-                generalData.sistemaUnidades = "FPS";
+                generalData.unidades = false;
                 return;
             }
 
-            if (TestGeneralDataToggle && component == "polea" && ejercicio == 2)
+            if (component == "polea" && ejercicio == 2)
             {
                 generalData.numeroVuelta = 1000;
                 generalData.confiabilidad = 1; //Falta dato
@@ -145,11 +159,11 @@ namespace EjesUI.ViewModels
                 generalData.factorConcentradorEsfuerzoFlexion = 1.6;
                 generalData.factorConcentradorEsfuerzoTorsion = 1.4;
                 generalData.sentidoGiro = "Horario";
-                generalData.sistemaUnidades = "SI";
+                generalData.unidades = true;
                 return;
             }
 
-            if (TestGeneralDataToggle && component == "polea" && ejercicio == 3)
+            if (component == "polea" && ejercicio == 3)
             {
                 generalData.numeroVuelta = 500;
                 generalData.confiabilidad = 1; //Falta dato
@@ -160,11 +174,11 @@ namespace EjesUI.ViewModels
                 generalData.factorConcentradorEsfuerzoFlexion = 6;
                 generalData.factorConcentradorEsfuerzoTorsion = 7;
                 generalData.sentidoGiro = "Antihorario";
-                generalData.sistemaUnidades = "FPS";
+                generalData.unidades = false;
                 return;
             }
 
-            if (TestGeneralDataToggle && component == "cadena" && ejercicio == 1)
+            if (component == "cadena" && ejercicio == 1)
             {
                 generalData.numeroVuelta = 480;
                 generalData.confiabilidad = 2;
@@ -175,11 +189,11 @@ namespace EjesUI.ViewModels
                 generalData.factorConcentradorEsfuerzoFlexion = 7;
                 generalData.factorConcentradorEsfuerzoTorsion = 8;
                 generalData.sentidoGiro = "Horario";
-                generalData.sistemaUnidades = "FPS";
+                generalData.unidades = false;
                 return;
             }
 
-            if (TestGeneralDataToggle && component == "cadena" && ejercicio == 2)
+            if (component == "cadena" && ejercicio == 2)
             {
                 generalData.numeroVuelta = 500;
                 generalData.confiabilidad = 1; //Falta dato
@@ -190,7 +204,7 @@ namespace EjesUI.ViewModels
                 generalData.factorConcentradorEsfuerzoFlexion = 6;
                 generalData.factorConcentradorEsfuerzoTorsion = 7;
                 generalData.sentidoGiro = "Antihorario";
-                generalData.sistemaUnidades = "FPS";
+                generalData.unidades = false;
                 return;
             }
         }

@@ -18,7 +18,7 @@ namespace EjesUI.ViewModels
         private ApiService api;
         private AppConfig appConfig;
         private PdfService pdf;
-        private SnackBarService snackbar;
+        private SnackBarNotifierService snackbar;
 
         [ObservableProperty]
         private string  _filenamePath = string.Empty;
@@ -40,7 +40,7 @@ namespace EjesUI.ViewModels
             this.api = new ApiService();
             this.appConfig = new AppConfig();
             this.pdf = new PdfService();
-            this.snackbar = new SnackBarService(snackbarService);
+            this.snackbar = new SnackBarNotifierService(snackbarService);
         }
 
         public void OnNavigatedTo()

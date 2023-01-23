@@ -13,7 +13,7 @@ namespace EjesUI.ViewModels
     {
         private AppConfig appConfig;
         private ApiService api;
-        private SnackBarService snackbar;
+        private SnackBarNotifierService snackbar;
 
         [ObservableProperty]
         private bool _testGeneralDataToggle;
@@ -30,7 +30,7 @@ namespace EjesUI.ViewModels
         {
             this.api = new ApiService();
             this.appConfig = new AppConfig();
-            this.snackbar = new SnackBarService(snackbarService);
+            this.snackbar = new SnackBarNotifierService(snackbarService);
         }
 
         public void OnNavigatedTo()

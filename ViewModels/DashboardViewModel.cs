@@ -19,7 +19,7 @@ namespace EjesUI.ViewModels
         private PdfService pdf;
         private AppConfig appConfig;
         private GraphicService graphics;
-        private SnackBarService snackbar;
+        private SnackBarNotifierService snackbar;
 
         [ObservableProperty]
         private string _exercise = string.Empty;
@@ -39,7 +39,7 @@ namespace EjesUI.ViewModels
             this.api = new ApiService();
             this.appConfig = new AppConfig();
             this.pdf = new PdfService();
-            this.snackbar = new SnackBarService(snackbarService);
+            this.snackbar = new SnackBarNotifierService(snackbarService);
             this.graphics = new GraphicService();
 
             Exercise = ExerciseModel.Name;

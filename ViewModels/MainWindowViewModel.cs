@@ -14,7 +14,7 @@ namespace EjesUI.ViewModels
     public partial class MainWindowViewModel : ObservableObject
     {
         private bool _isInitialized = false;
-        private SnackBarService snackbar;
+        private SnackBarNotifierService snackbar;
 
         [ObservableProperty]
         private string _applicationTitle = String.Empty;
@@ -33,7 +33,7 @@ namespace EjesUI.ViewModels
 
         public MainWindowViewModel(INavigationService navigationService, ISnackbarService snackbarService)
         {
-            this.snackbar = new SnackBarService(snackbarService);
+            this.snackbar = new SnackBarNotifierService(snackbarService);
             if (!_isInitialized)
                 InitializeViewModel();
         }

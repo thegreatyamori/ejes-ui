@@ -1,13 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Wpf.Ui.Common.Interfaces;
-using EjesUI.Models;
 using System.Collections.Generic;
 using System;
+using EjesUI.Models;
 using EjesUI.Helpers;
+using EjesUI.Services;
 using System.Windows.Media.Imaging;
 using System.IO;
-using EjesUI.Services;
 using Wpf.Ui.Mvvm.Contracts;
 using System.Windows;
 
@@ -50,9 +50,7 @@ namespace EjesUI.ViewModels
             Exercise = ExerciseModel.Name;
             LabelVisibility = ExerciseModel.IsActive ? Visibility.Hidden : Visibility.Visible;
             ButtonsVisibility = ExerciseModel.IsActive ? Visibility.Visible : Visibility.Hidden;
-
-            var finishExercise = true; // this var is activated when we have two rodamientos
-            PdfButtonEnabled = finishExercise;
+            PdfButtonEnabled = ExerciseModel.rodamientoCount == 2;
 
             InitializeViewModel();
         }
@@ -64,14 +62,14 @@ namespace EjesUI.ViewModels
         [RelayCommand]
         private void OnClickSavePDF()
         {
-            //#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            //            dynamic rawPdf = api.Get("/join-pdf", ("uuid", ExerciseModel.Uuid));
-            //#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            //            string downloadURL = $"{this.appConfig.DefaultDownloadPath}result_{ExerciseModel.Uuid}.pdf";
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+            dynamic rawPdf = api.Get("/join-pdf", ("uuid", ExerciseModel.Uuid));
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+            string downloadURL = $"{this.appConfig.DefaultDownloadPath}result_{ExerciseModel.Uuid}.pdf";
 
-            //            File.WriteAllBytes(downloadURL, rawPdf);
+            File.WriteAllBytes(downloadURL, rawPdf);
 
-            //            WordButtonEnabled = PdfButtonEnabled;
+            WordButtonEnabled = PdfButtonEnabled;
 
 
             dynamic isometrico = graphics.Generate();

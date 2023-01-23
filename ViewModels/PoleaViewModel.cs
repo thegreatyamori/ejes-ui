@@ -136,6 +136,7 @@ namespace EjesUI.ViewModels
                 FormDataModel.ubicacion = 4;
                 return;
             }
+            FormDataModel.energia = FormDataModel.energia.Split(":")[1].Trim();
         }
 
         private Pdf BuildData(PoleaCalculateModel data)

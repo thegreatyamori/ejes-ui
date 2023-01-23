@@ -10,6 +10,7 @@ namespace EjesUI.Models
         public static bool IsActive { get; set; }
         public static GeneralDataModel GeneralData = new();
         public static List<ComponentModel> Components = new();
+        public static int rodamientoCount = 0;
 
         public static string GetNextComponentLetter()
         {

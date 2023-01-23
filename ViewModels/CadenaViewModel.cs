@@ -65,8 +65,6 @@ namespace EjesUI.ViewModels
         {
             GeneralDataModel generalData = ExerciseModel.GeneralData;
             PopulateFormData();
-            Console.Write(generalData.sentidoGiro);
-
 
             CadenaCalculateModel calculateData = CalculateComponent();
 
@@ -121,6 +119,8 @@ namespace EjesUI.ViewModels
                 FormDataModel.energia = "Consume";
                 return;
             }
+
+            FormDataModel.energia = FormDataModel.energia.Split(":")[1].Trim();
         }
 
         private Pdf BuildData(CadenaCalculateModel data)

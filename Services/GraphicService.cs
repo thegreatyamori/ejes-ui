@@ -34,14 +34,14 @@ namespace EjesUI.Services
             List<double> momentoY = new();
             List<double> torque = new();
 
-
-
             for (int i = 0; i < components.Count; i++)
             {
-                if(false) {
-                    nombre.Add(components[i].FormData.title.Split(" ")[1]);
-                    ubicacion.Add(components[i].FormData.ubicacion);
-                    energia.Add(components[i].FormData.energia); //Todo
+                if (components[i].FormData.GetType() == typeof(RodamientoFormDataModel)) {
+                    RodamientoFormDataModel formData = (RodamientoFormDataModel) components[i].FormData;
+
+                    nombre.Add(formData.title.Split(" ")[1]);
+                    ubicacion.Add(formData.ubicacion);
+                    energia.Add(formData.tipo);
                     peso.Add(0);
                     direccionFuerzaAxial.Add("");
                     direccionFuerzaAxial.Add("");
@@ -103,43 +103,52 @@ namespace EjesUI.Services
                     }
                 }
             }
-            //Graphic graphicData = new()
-            //{
-            //    uuid = ExerciseModel.Uuid,
-            //    sistema = ExerciseModel.GeneralData.unidades ? appConfig.SI : appConfig.FPS,
-            //    sentidoEje = ExerciseModel.GeneralData.sentidoGiro,
-            //    posicionRodamientoUno = 0,
-            //    posicionRodamientoDos = 1,
-            //    nombreArray = nombre,
-            //    ubicacionArray = ubicacion,
-            //    fuerzaZArray = fuerzaZ,
-            //    fuerzaYArray = fuerzaY,
-            //    direccionFuerzaAxialArray = direccionFuerzaAxial,
-            //    pesoArray = peso,
-            //    momentoZArray = momentoZ,
-            //    momentoYArray = momentoY,
-            //    energiaArray = energia,
-            //    torqueArray = torque
-            //};
+            List<int> posicionRodamiento = new();
 
-            Graphic graphicData = new Graphic
+            for (int i = 0; i < components.Count; i++)
+            {
+                if (components[i].FormData.GetType() == typeof(RodamientoFormDataModel))
+                    posicionRodamiento.Add(i);
+            }
+
+
+            Graphic graphicData = new()
             {
                 uuid = ExerciseModel.Uuid,
-                sistema = appConfig.FPS,
-                sentidoEje = "Horario",
-                posicionRodamientoUno = 0,
-                posicionRodamientoDos = 5,
-                nombre = new List<string> { "A", "B", "C", "D", "E", "F" },
-                ubicacion = new List<double> { 0, 4, 6, 6, 4, 4 },
-                fuerzaZ = new List<double> { 0, 437.5, -74.74, 0, 341, 0 },
-                fuerzaY = new List<double> { 0, 159.24, -278.91, 393.13, 196.84, 0 },
-                direccionFuerzaAxial = new List<string> { "", "", "", "", "", "" }, // mal
-                peso = new List<double> { 0, -5, -18, -13, -13, 0 },
-                momentoZ = new List<double> { 0, 0, 0, 0, 0, 0 },
-                momentoY = new List<double> { 0, 0, 0, 0, 0, 0 },
-                energia = new List<string> { "Empuje", "Consume", "Recibe", "Consume", "Consume", "Empuje" }, // mal
-                torque = new List<double> { 0, 656.25, 1443.75, 393.75, 393.75, 0 } // mal
+                sistema = ExerciseModel.GeneralData.unidades ? appConfig.SI : appConfig.FPS,
+                sentidoEje = ExerciseModel.GeneralData.sentidoGiro,
+                posicionRodamientoUno = posicionRodamiento[0],
+                posicionRodamientoDos = posicionRodamiento[1],
+                nombre = nombre,
+                ubicacion = ubicacion,
+                fuerzaZ = fuerzaZ,
+                fuerzaY = fuerzaY,
+                direccionFuerzaAxial = direccionFuerzaAxial,
+                peso = peso,
+                momentoZ = momentoZ,
+                momentoY = momentoY,
+                energia = energia,
+                torque = torque
             };
+
+            //Graphic graphicData = new Graphic
+            //{
+            //    uuid = ExerciseModel.Uuid,
+            //    sistema = appConfig.FPS,
+            //    sentidoEje = "Horario",
+            //    posicionRodamientoUno = 0,
+            //    posicionRodamientoDos = 5,
+            //    nombre = new List<string> { "A", "B", "C", "D", "E", "F" },
+            //    ubicacion = new List<double> { 0, 4, 6, 6, 4, 4 },
+            //    fuerzaZ = new List<double> { 0, 437.5, -74.74, 0, 341, 0 },
+            //    fuerzaY = new List<double> { 0, 159.24, -278.91, 393.13, 196.84, 0 },
+            //    direccionFuerzaAxial = new List<string> { "", "", "", "", "", "" }, // mal
+            //    peso = new List<double> { 0, -5, -18, -13, -13, 0 },
+            //    momentoZ = new List<double> { 0, 0, 0, 0, 0, 0 },
+            //    momentoY = new List<double> { 0, 0, 0, 0, 0, 0 },
+            //    energia = new List<string> { "Empuje", "Consume", "Recibe", "Consume", "Consume", "Empuje" },
+            //    torque = new List<double> { 0, 656.25, 1443.75, 393.75, 393.75, 0 }
+            //};
             string payloadGraphic = JsonConvert.SerializeObject(graphicData);
             dynamic? graphics = api.Post("/generate-graficos", payloadGraphic);
             return graphics;

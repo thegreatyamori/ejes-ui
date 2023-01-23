@@ -80,10 +80,6 @@ namespace EjesUI.ViewModels
             FilenamePath = filename;
             EngraneFrontalImg = img;
 
-            /*if (!string.IsNullOrEmpty((payload.images?.lateral.Value))
-            {
-                displayImage(lateralPictureBox, mainHandler.datoEngranes.lateral, imgs.lateral.Value);
-            }*/
             if (!string.IsNullOrEmpty(payload.images?.lateral.Value))
             {
                 BitmapImage imgL = ImageProcessor.ProcessImage(payload.images?.lateral.Value);
@@ -105,11 +101,12 @@ namespace EjesUI.ViewModels
 
         private void PopulateFormData()
         {
+            var tipo = FormDataModel.tipo.Split(":")[1].Trim();
             FormDataModel.title = "Engrane " + ExerciseModel.GetNextComponentLetter();
             FormDataModel.opts = new Opts
             {
                 type = "engrane",
-                subtype = FormDataModel.tipo
+                subtype = tipo
             };
 
             if (TestEngraneToggle)
@@ -207,6 +204,16 @@ namespace EjesUI.ViewModels
 
                 return;
             }
+
+            if (!FormDataModel.direccionFuerzaAxial.Equals("Dir. F. Axial"))
+            {
+                FormDataModel.direccionFuerzaAxial = FormDataModel.direccionFuerzaAxial.Split(":")[1].Trim();
+            } else
+            {
+                FormDataModel.direccionFuerzaAxial = "";
+            }
+            FormDataModel.tipo = tipo;
+            FormDataModel.energia = FormDataModel.energia.Split(":")[1].Trim();
         }
 
         private Pdf BuildData(EngraneCalculateModel data)

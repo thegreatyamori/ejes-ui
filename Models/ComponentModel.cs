@@ -3,7 +3,7 @@
     public class ComponentModel
     {
         public FormDataModel FormData { get; set; }
-        public CalculateModel Calculate { get; set; }
+        public CalculateModel? Calculate { get; set; }
     }
 
     public class FormDataModel

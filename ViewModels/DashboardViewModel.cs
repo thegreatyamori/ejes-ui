@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using System.IO;
 using Wpf.Ui.Mvvm.Contracts;
 using System.Windows;
+using System.Diagnostics;
 
 namespace EjesUI.ViewModels
 {
@@ -75,6 +76,7 @@ namespace EjesUI.ViewModels
             string downloadURL = $"{this.appConfig.DefaultDownloadPath}result_{ExerciseModel.Uuid}.pdf";
 
             File.WriteAllBytes(downloadURL, rawPdf);
+            Process.Start("explorer.exe", this.appConfig.DefaultDownloadPath);
 
             WordButtonEnabled = PdfButtonEnabled;
 

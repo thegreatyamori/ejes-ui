@@ -29,5 +29,7 @@ namespace EjesUI.Models
         }
         public int CONSTANTE_TORQUE_SI = 9549;
         public int CONSTANTE_TORQUE_FPS = 63000;
+        public string SI = "SI";
+        public string FPS = "FPS";
     }
 }

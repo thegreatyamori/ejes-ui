@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Windows;
+﻿using System.IO;
 using EjesUI.Models;
 using Newtonsoft.Json;
 
@@ -20,8 +18,6 @@ namespace EjesUI.Services
             string payloadPdf = JsonConvert.SerializeObject(pdfData); ;
             dynamic? pdfResult = api.Post("/generate-pdf", payloadPdf);
 
-            // MessageBox.Show("PDF Generado !", "Pdf", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
             return pdfResult.filename.Value;
         }
 
@@ -32,8 +28,6 @@ namespace EjesUI.Services
             dynamic? rawPdf = api.Get("/view-pdf", ("filename", $"{filename}.pdf"));
 
             File.WriteAllBytes(downloadURL, rawPdf);
-
-            MessageBox.Show("PDF descargado !", "PDF", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

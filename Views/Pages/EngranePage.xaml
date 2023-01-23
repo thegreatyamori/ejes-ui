@@ -1,66 +1,213 @@
-﻿<ui:UiPage x:Class="EjesUI.Views.Pages.EngranePage"
-  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-  xmlns:local="clr-namespace:EjesUI.Views.Pages"
-  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-  xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml" Title="EngranePage" d:DataContext="{d:DesignInstance local:EngranePage, IsDesignTimeCreatable=False}" d:DesignHeight="450" d:DesignWidth="800" d:Background="{DynamicResource ApplicationBackgroundBrush}" Foreground="{DynamicResource TextFillColorPrimaryBrush}" mc:Ignorable="d">
+﻿<ui:UiPage
+    x:Class="EjesUI.Views.Pages.EngranePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="clr-namespace:EjesUI.Helpers"
+    xmlns:local="clr-namespace:EjesUI.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="EngranePage"
+    d:Background="{DynamicResource ApplicationBackgroundBrush}"
+    d:DataContext="{d:DesignInstance local:EngranePage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    mc:Ignorable="d">
+    <ui:UiPage.Resources>
+        <helpers:StringToDoubleConverter x:Key="StringToDoubleConverter" />
+    </ui:UiPage.Resources>
 
     <Grid Margin="0,10,0,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="7*"/>
-            <ColumnDefinition/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="7*" />
+            <ColumnDefinition Width="7*" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="340*"/>
-            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="340*" />
+            <RowDefinition Height="50*" />
         </Grid.RowDefinitions>
-        <Grid VerticalAlignment="Top" Grid.Column="1" Height="340" Grid.Row="1">
-            <ComboBox SelectedValue="{Binding ViewModel.FormDataModel.tipo, Mode=TwoWay}" Margin="41,1,10,0" VerticalAlignment="Top" Width="299">
-                <ComboBoxItem Content="Tipo" IsSelected="True" IsEnabled="False"/>
-                <ComboBoxItem Content="Recto"/>
-                <ComboBoxItem Content="Helicoidal"/>
-                <ComboBoxItem Content="Conico"/>
+        <Grid
+            Grid.Row="1"
+            Grid.Column="1"
+            Height="340"
+            VerticalAlignment="Top">
+            <ComboBox
+                Width="299"
+                Height="34.62"
+                Margin="41,0,10,0"
+                VerticalAlignment="Top"
+                IsEditable="True"
+                SelectedValue="{Binding ViewModel.FormDataModel.tipo, Mode=TwoWay}"
+                Text="Tipo">
+                <ComboBoxItem Content="Recto" />
+                <ComboBoxItem Content="Helicoidal" />
+                <ComboBoxItem Content="Conico" />
             </ComboBox>
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" Symbol="SelectAllOn20" />
-            <ui:TextBox Text="{Binding ViewModel.FormDataModel.ubicacion, Mode=TwoWay}" Margin="41,50,10,0" PlaceholderText="Ubicación (mm)" VerticalAlignment="Top" />
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,59,0,0" VerticalAlignment="Top" Symbol="TextNumberFormat20"/>
-            <ComboBox SelectedValue="{Binding ViewModel.FormDataModel.energia, Mode=TwoWay}" Margin="41,100,10,0" VerticalAlignment="Top" Width="299">
-                <ComboBoxItem Content="Energía" IsSelected="True" IsEnabled="False"/>
-                <ComboBoxItem Content="Recibe"/>
-                <ComboBoxItem Content="Consume"/>
+            <ui:SymbolIcon
+                Margin="20,10,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Symbol="SelectAllOn20" />
+            <ui:TextBox
+                Margin="41,40,10,0"
+                VerticalAlignment="Top"
+                PlaceholderText="Ubicación (mm)"
+                Text="{Binding ViewModel.FormDataModel.ubicacion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
+            <ui:SymbolIcon
+                Margin="20,50,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Symbol="TextNumberFormat20" />
+            <ui:TextBox
+                Margin="41,80,10,0"
+                VerticalAlignment="Top"
+                PlaceholderText="Peso (N)"
+                Text="{Binding ViewModel.FormDataModel.peso, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
+            <ui:SymbolIcon
+                Margin="20,90,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Symbol="TextNumberFormat20" />
+            <ui:TextBox
+                Margin="41,120,10,0"
+                VerticalAlignment="Top"
+                PlaceholderText="Diametro (mm)"
+                Text="{Binding ViewModel.FormDataModel.diametro, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
+            <ui:SymbolIcon
+                Margin="20,130,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Symbol="TextNumberFormat20" />
+            <ui:TextBox
+                Margin="41,160,10,0"
+                VerticalAlignment="Top"
+                PlaceholderText="Potencia (kW)"
+                Text="{Binding ViewModel.FormDataModel.potencia, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
+            <ui:SymbolIcon
+                Margin="20,170,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Symbol="TextNumberFormat20" />
+            <ui:TextBox
+                Width="145"
+                Margin="41,200,164,0"
+                VerticalAlignment="Top"
+                PlaceholderText="Áng. Presión (°)"
+                Text="{Binding ViewModel.FormDataModel.presion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
+            <ui:TextBox
+                Width="145"
+                Margin="195,200,10,0"
+                VerticalAlignment="Top"
+                PlaceholderText="Áng. Hélice (°)"
+                Text="{Binding ViewModel.FormDataModel.helice, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
+            <ui:SymbolIcon
+                Margin="20,210,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Symbol="TextNumberFormat20" />
+            <ui:TextBox
+                Margin="41,240,10,0"
+                VerticalAlignment="Top"
+                PlaceholderText="Inclinación"
+                Text="{Binding ViewModel.FormDataModel.inclinacion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
+            <ui:SymbolIcon
+                Margin="20,250,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Symbol="TextNumberFormat20" />
+            <ComboBox
+                Width="145"
+                Margin="195,280,10,0"
+                VerticalAlignment="Top"
+                IsEditable="True"
+                SelectedValue="{Binding ViewModel.FormDataModel.energia, Mode=TwoWay}"
+                Text="Energía">
+                <ComboBoxItem Content="Recibe" />
+                <ComboBoxItem Content="Consume" />
             </ComboBox>
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,109,0,0" VerticalAlignment="Top" Symbol="SelectAllOn20" />
-            <ui:TextBox Text="{Binding ViewModel.FormDataModel.peso, Mode=TwoWay}" Margin="41,150,10,0" PlaceholderText="Peso (N)" VerticalAlignment="Top" />
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,159,0,0" VerticalAlignment="Top" Symbol="TextNumberFormat20"/>
-            <ui:TextBox Text="{Binding ViewModel.FormDataModel.diametro, Mode=TwoWay}" Margin="41,200,10,0" PlaceholderText="Diametro (mm)" VerticalAlignment="Top" />
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,209,0,0" VerticalAlignment="Top" Symbol="TextNumberFormat20"/>
-            <ui:TextBox Text="{Binding ViewModel.FormDataModel.potencia, Mode=TwoWay}" Margin="41,250,10,0" PlaceholderText="Potencia (kW)" VerticalAlignment="Top"/>
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,259,0,0" VerticalAlignment="Top" Symbol="TextNumberFormat20" />
-            <ui:TextBox Text="{Binding ViewModel.FormDataModel.presion, Mode=TwoWay}" Margin="41,300,10,0" PlaceholderText="Ángulo de Inclinación (°)" VerticalAlignment="Top" />
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,309,0,0" VerticalAlignment="Top" Symbol="TextNumberFormat20"/>
-            <ui:TextBox Text="{Binding ViewModel.FormDataModel.helice, Mode=TwoWay}" Margin="41,300,10,0" PlaceholderText="Ángulo de Inclinación (°)" VerticalAlignment="Top" />
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,309,0,0" VerticalAlignment="Top" Symbol="TextNumberFormat20"/>
-            <ui:TextBox Text="{Binding ViewModel.FormDataModel.inclinacion, Mode=TwoWay}" Margin="41,350,10,0" PlaceholderText="Relación de Tensiones" VerticalAlignment="Top" />
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,359,0,0" VerticalAlignment="Top" Symbol="TextNumberFormat20"/>
-            <ComboBox SelectedValue="{Binding ViewModel.FormDataModel.direccionFuerzaAxial, Mode=TwoWay}" Margin="41,400,10,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="299">
-                <ComboBoxItem Content="Dirección Fuerza Axial" IsSelected="True" IsEnabled="False"/>
-                <ComboBoxItem Content="Derecha"/>
-                <ComboBoxItem Content="Izquierda"/>
+            <ui:SymbolIcon
+                Margin="20,290,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Symbol="SelectAllOn20" />
+            <ComboBox
+                Width="145"
+                Margin="41,280,164,0"
+                VerticalAlignment="Top"
+                IsEditable="True"
+                SelectedValue="{Binding ViewModel.FormDataModel.direccionFuerzaAxial, Mode=TwoWay}"
+                Text="Dir. F. Axial">
+                <ComboBoxItem Content="Derecha" />
+                <ComboBoxItem Content="Izquierda" />
             </ComboBox>
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,409,0,0" Symbol="SelectAllOn20" VerticalAlignment="Top"/>
         </Grid>
-        <Grid Grid.Column="2" Grid.Row="1" Margin="0,0,0,54">
-            <Image Source="{Binding ViewModel.EngraneFrontalImg, Mode=OneWay}" Height="122" VerticalAlignment="Top" Margin="0,0,5,0"/>
-            <Image Source="{Binding ViewModel.EngraneLateralImg, Mode=OneWay}" Height="122" VerticalAlignment="Top" Margin="0,122,5,0"/>
+        <Grid
+            Grid.Row="1"
+            Grid.Column="2"
+            Margin="0,0,0,54">
+            <Image
+                Height="122"
+                Margin="0,0,5,0"
+                VerticalAlignment="Top"
+                Source="{Binding ViewModel.EngraneFrontalImg, Mode=OneWay}" />
+            <Image
+                Height="122"
+                Margin="0,122,5,0"
+                VerticalAlignment="Top"
+                Source="{Binding ViewModel.EngraneLateralImg, Mode=OneWay}" />
         </Grid>
 
-        <ui:ToggleSwitch IsChecked="{Binding ViewModel.TestEngraneToggle}" Grid.Column="2" Content="Probar" Margin="0,0,180,7" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="89"/>
-        <ui:Button Content="Añadir" Command="{Binding ViewModel.ClickSaveButtonCommand, Mode=OneWay}" Icon="Add20" VerticalAlignment="Bottom" Appearance="Primary" BorderThickness="1,1,1,1" SnapsToDevicePixels="True" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" Width="87" Height="32" IsEnabled="{Binding ViewModel.AddEngraneButton}"/>
-        <ui:Button Content="PDF" Command="{Binding ViewModel.ClickPDFButtonCommand, Mode=OneWay}" Icon="DocumentPdf20" Margin="0,0,89,0" VerticalAlignment="Bottom" Appearance="Danger" BorderThickness="1,1,1,1" SnapsToDevicePixels="True" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Right" Width="87" Height="32" IsEnabled="{Binding ViewModel.DownloadPDFEngraneButton}"/>
-        <Label Grid.Column="1" Content="Añade un elemento" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="22" FontWeight="Bold" Margin="251,0,0,0" Grid.ColumnSpan="2"/>
+        <ui:ToggleSwitch
+            Grid.Row="1"
+            Grid.Column="2"
+            Width="89"
+            Margin="0,0,180,7"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Content="Probar"
+            IsChecked="{Binding ViewModel.TestEngraneToggle}" />
+        <ui:Button
+            Grid.Row="1"
+            Grid.Column="2"
+            Width="87"
+            Height="32"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Appearance="Primary"
+            BorderThickness="1,1,1,1"
+            Command="{Binding ViewModel.ClickSaveButtonCommand, Mode=OneWay}"
+            Content="Añadir"
+            Icon="Add20"
+            IsEnabled="{Binding ViewModel.AddEngraneButton}"
+            SnapsToDevicePixels="True" />
+        <ui:Button
+            Grid.Row="1"
+            Grid.Column="2"
+            Width="87"
+            Height="32"
+            Margin="0,0,89,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Appearance="Danger"
+            BorderThickness="1,1,1,1"
+            Command="{Binding ViewModel.ClickPDFButtonCommand, Mode=OneWay}"
+            Content="PDF"
+            Icon="DocumentPdf20"
+            IsEnabled="{Binding ViewModel.DownloadPDFEngraneButton}"
+            SnapsToDevicePixels="True" />
+        <Label
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            Margin="251,0,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Content="Añade un elemento"
+            FontSize="22"
+            FontWeight="Bold" />
     </Grid>
 </ui:UiPage>

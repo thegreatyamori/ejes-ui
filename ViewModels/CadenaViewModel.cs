@@ -50,7 +50,7 @@ namespace EjesUI.ViewModels
 
         public void OnNavigatedFrom()
         {
-            // TODO: Limpiar formulario
+            ResetForm();
         }
 
         [RelayCommand]
@@ -58,6 +58,7 @@ namespace EjesUI.ViewModels
         {
             pdf.Download(FilenamePath);
             Process.Start("explorer.exe", this.appConfig.DefaultDownloadPath);
+            snackbar.Show("Ejes", "Componente Añadido!", 3);
         }
 
         [RelayCommand]
@@ -65,6 +66,8 @@ namespace EjesUI.ViewModels
         {
             GeneralDataModel generalData = ExerciseModel.GeneralData;
             PopulateFormData();
+            Console.Write(generalData.sentidoGiro);
+
 
             CadenaCalculateModel calculateData = CalculateComponent();
 
@@ -127,11 +130,12 @@ namespace EjesUI.ViewModels
         private Pdf BuildData(CadenaCalculateModel data)
         {
             GeneralDataModel generalData = ExerciseModel.GeneralData;
+            FormDataModel.opts.system = generalData.unidades ? appConfig.SI : appConfig.FPS;
 
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
             dynamic image = api.Get(
                 "/cadena",
-                ("system", generalData.sistemaUnidades),
+                ("system", FormDataModel.opts.system),
                 ("diameter", FormDataModel.diametro.ToString()),
                 ("inclination_degree", FormDataModel.inclinacion.ToString()),
                 ("orientation", FormDataModel.energia),
@@ -140,7 +144,6 @@ namespace EjesUI.ViewModels
             );
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
-            FormDataModel.opts.system = generalData.sistemaUnidades;
             dynamic[] torqueValues = { FormDataModel.potencia, generalData.numeroVuelta, data.torque };
             dynamic?[] generalForces = { data.torque, data.fuerzaTangencial, null, data.radio, null, null };
             dynamic[] tangentialDescomposition = { data.inclinacion, data.fuerzaTangencial, data.fuerzaTangencialZ, data.fuerzaTangencialY };
@@ -162,7 +165,7 @@ namespace EjesUI.ViewModels
             GeneralDataModel generalData = ExerciseModel.GeneralData;
 
             double peso = FormDataModel.peso;
-            int constante = (generalData.sistemaUnidades == "SI") ? appConfig.CONSTANTE_TORQUE_SI : appConfig.CONSTANTE_TORQUE_FPS;
+            int constante = generalData.unidades ? this.appConfig.CONSTANTE_TORQUE_SI : appConfig.CONSTANTE_TORQUE_FPS;
             double torque = constante * (FormDataModel.potencia / generalData.numeroVuelta);
             double radio = FormDataModel.diametro / 2;
             double fuerzaTangencial = torque / radio;
@@ -197,6 +200,11 @@ namespace EjesUI.ViewModels
                 fuerzaTangencialZ = fuerzaTangencialZ,
                 fuerzaTangencialY = fuerzaTangencialY
             };
+        }
+
+        private void ResetForm()
+        {
+            FormDataModel = new CadenaFormDataModel();
         }
     }
 }

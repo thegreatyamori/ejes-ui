@@ -65,10 +65,5 @@ namespace EjesUI.Views.Windows
             // Make sure that closing this window will begin the process of closing the application.
             Application.Current.Shutdown();
         }
-
-        private void AutoSuggestBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
     }
 }

@@ -10,7 +10,7 @@ namespace EjesUI.Models
         public string ApiURL {
             get
             {
-                return "http://nuc.jerson:3003";
+                return "https://a14a-190-110-60-138.sa.ngrok.io";
             }
         }
         public string DefaultDownloadPath {

@@ -36,6 +36,7 @@ namespace EjesUI.ViewModels
 
         public void OnNavigatedFrom()
         {
+            // FormDataModel = new GeneralDataModel();
         }
 
         public void OnChangeToggleButton(string system, bool isChecked)
@@ -208,6 +209,20 @@ namespace EjesUI.ViewModels
                 generalData.unidades = false;
                 return;
             }
+        }
+
+        private void BlockForm()
+        {
+            FormDataModel.numeroVuelta = 0;
+            FormDataModel.confiabilidad = 0;
+            FormDataModel.limiteFluencia = 0;
+            FormDataModel.limiteMaximaFractura = 0;
+            FormDataModel.factorSeguridad = 0;
+            FormDataModel.coeficienteGlobal = 0;
+            FormDataModel.factorConcentradorEsfuerzoFlexion = 0;
+            FormDataModel.factorConcentradorEsfuerzoTorsion = 0;
+            FormDataModel.sentidoGiro = "";
+            FormDataModel.unidades = false;
         }
     }
 }

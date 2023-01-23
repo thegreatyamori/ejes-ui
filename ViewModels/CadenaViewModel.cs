@@ -50,7 +50,7 @@ namespace EjesUI.ViewModels
 
         public void OnNavigatedFrom()
         {
-            // TODO: Limpiar formulario
+            ResetForm();
         }
 
         [RelayCommand]
@@ -200,6 +200,11 @@ namespace EjesUI.ViewModels
                 fuerzaTangencialZ = fuerzaTangencialZ,
                 fuerzaTangencialY = fuerzaTangencialY
             };
+        }
+
+        private void ResetForm()
+        {
+            FormDataModel = new CadenaFormDataModel();
         }
     }
 }

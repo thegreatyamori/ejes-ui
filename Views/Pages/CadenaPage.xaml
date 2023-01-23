@@ -90,11 +90,9 @@
                 Width="299"
                 Margin="41,250,10,0"
                 VerticalAlignment="Top"
+                IsEditable="True"
+                Text="Energía"
                 SelectedValue="{Binding ViewModel.FormDataModel.energia, Mode=TwoWay}">
-                <ComboBoxItem
-                    Content="Energía"
-                    IsEnabled="False"
-                    IsSelected="True" />
                 <ComboBoxItem Content="Recibe" />
                 <ComboBoxItem Content="Consume" />
             </ComboBox>

@@ -38,13 +38,12 @@
             VerticalAlignment="Top">
             <ComboBox
                 Width="299"
-                Margin="41,1,10,0"
+                Height="34.62"
+                Margin="41,0,10,0"
                 VerticalAlignment="Top"
-                SelectedValue="{Binding ViewModel.FormDataModel.tipo, Mode=TwoWay}">
-                <ComboBoxItem
-                    Content="Tipo"
-                    IsEnabled="False"
-                    IsSelected="True" />
+                IsEditable="True"
+                SelectedValue="{Binding ViewModel.FormDataModel.tipo, Mode=TwoWay}"
+                Text="Tipo">
                 <ComboBoxItem Content="Recto" />
                 <ComboBoxItem Content="Helicoidal" />
                 <ComboBoxItem Content="Conico" />
@@ -55,110 +54,97 @@
                 VerticalAlignment="Top"
                 Symbol="SelectAllOn20" />
             <ui:TextBox
-                Margin="41,50,10,0"
+                Margin="41,40,10,0"
                 VerticalAlignment="Top"
                 PlaceholderText="Ubicación (mm)"
                 Text="{Binding ViewModel.FormDataModel.ubicacion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <ui:SymbolIcon
-                Margin="20,59,0,0"
+                Margin="20,50,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Symbol="TextNumberFormat20" />
-            <ComboBox
-                Width="299"
-                Margin="41,100,10,0"
-                VerticalAlignment="Top"
-                SelectedValue="{Binding ViewModel.FormDataModel.energia, Mode=TwoWay}">
-                <ComboBoxItem
-                    Content="Energía"
-                    IsEnabled="False"
-                    IsSelected="True" />
-                <ComboBoxItem Content="Recibe" />
-                <ComboBoxItem Content="Consume" />
-            </ComboBox>
-            <ui:SymbolIcon
-                Margin="20,109,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Symbol="SelectAllOn20" />
             <ui:TextBox
-                Margin="41,150,10,0"
+                Margin="41,80,10,0"
                 VerticalAlignment="Top"
                 PlaceholderText="Peso (N)"
                 Text="{Binding ViewModel.FormDataModel.peso, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <ui:SymbolIcon
-                Margin="20,159,0,0"
+                Margin="20,90,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Symbol="TextNumberFormat20" />
             <ui:TextBox
-                Margin="41,200,10,0"
+                Margin="41,120,10,0"
                 VerticalAlignment="Top"
                 PlaceholderText="Diametro (mm)"
                 Text="{Binding ViewModel.FormDataModel.diametro, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <ui:SymbolIcon
-                Margin="20,209,0,0"
+                Margin="20,130,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Symbol="TextNumberFormat20" />
             <ui:TextBox
-                Margin="41,250,10,0"
+                Margin="41,160,10,0"
                 VerticalAlignment="Top"
                 PlaceholderText="Potencia (kW)"
                 Text="{Binding ViewModel.FormDataModel.potencia, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <ui:SymbolIcon
-                Margin="20,259,0,0"
+                Margin="20,170,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Symbol="TextNumberFormat20" />
             <ui:TextBox
-                Margin="41,300,10,0"
+                Width="145"
+                Margin="41,200,164,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Ángulo de Inclinación (°)"
+                PlaceholderText="Áng. Presión (°)"
                 Text="{Binding ViewModel.FormDataModel.presion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
-            <ui:SymbolIcon
-                Margin="20,309,0,0"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Symbol="TextNumberFormat20" />
             <ui:TextBox
-                Margin="41,300,10,0"
+                Width="145"
+                Margin="195,200,10,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Ángulo de Inclinación (°)"
+                PlaceholderText="Áng. Hélice (°)"
                 Text="{Binding ViewModel.FormDataModel.helice, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <ui:SymbolIcon
-                Margin="20,309,0,0"
+                Margin="20,210,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Symbol="TextNumberFormat20" />
             <ui:TextBox
-                Margin="41,350,10,0"
+                Margin="41,240,10,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Relación de Tensiones"
+                PlaceholderText="Inclinación"
                 Text="{Binding ViewModel.FormDataModel.inclinacion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <ui:SymbolIcon
-                Margin="20,359,0,0"
+                Margin="20,250,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Symbol="TextNumberFormat20" />
             <ComboBox
-                Width="299"
-                Margin="41,400,10,0"
-                HorizontalAlignment="Left"
+                Width="145"
+                Margin="195,280,10,0"
                 VerticalAlignment="Top"
-                SelectedValue="{Binding ViewModel.FormDataModel.direccionFuerzaAxial, Mode=TwoWay}">
-                <ComboBoxItem
-                    Content="Dirección Fuerza Axial"
-                    IsEnabled="False"
-                    IsSelected="True" />
-                <ComboBoxItem Content="Derecha" />
-                <ComboBoxItem Content="Izquierda" />
+                IsEditable="True"
+                SelectedValue="{Binding ViewModel.FormDataModel.energia, Mode=TwoWay}"
+                Text="Energía">
+                <ComboBoxItem Content="Recibe" />
+                <ComboBoxItem Content="Consume" />
             </ComboBox>
             <ui:SymbolIcon
-                Margin="20,409,0,0"
+                Margin="20,290,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Symbol="SelectAllOn20" />
+            <ComboBox
+                Width="145"
+                Margin="41,280,164,0"
+                VerticalAlignment="Top"
+                IsEditable="True"
+                SelectedValue="{Binding ViewModel.FormDataModel.direccionFuerzaAxial, Mode=TwoWay}"
+                Text="Dir. F. Axial">
+                <ComboBoxItem Content="Derecha" />
+                <ComboBoxItem Content="Izquierda" />
+            </ComboBox>
         </Grid>
         <Grid
             Grid.Row="1"

@@ -49,7 +49,7 @@ namespace EjesUI.ViewModels
 
         public void OnNavigatedFrom()
         {
-            // TODO: Limpiar formulario
+            ResetForm();
         }
 
         [RelayCommand]
@@ -214,6 +214,11 @@ namespace EjesUI.ViewModels
                 fuerzaZ = fuerzaZ,
                 fuerzaY = fuerzaY
             };
+        }
+
+        private void ResetForm()
+        {
+            FormDataModel = new PoleaFormDataModel();
         }
     }
 }

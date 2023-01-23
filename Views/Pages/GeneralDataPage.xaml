@@ -11,7 +11,7 @@
     d:Background="{DynamicResource ApplicationBackgroundBrush}"
     d:DataContext="{d:DesignInstance local:GeneralDataPage,
                                      IsDesignTimeCreatable=False}"
-    d:DesignHeight="400            "
+    d:DesignHeight="400"
     d:DesignWidth="800"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
@@ -40,6 +40,7 @@
             <ui:TextBox
                 Margin="41,0,0,0"
                 VerticalAlignment="Top"
+                IsReadOnly="True"
                 PlaceholderText="Numero de Vueltas (N)"
                 Text="{Binding ViewModel.FormDataModel.numeroVuelta, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <ui:SymbolIcon
@@ -84,11 +85,9 @@
                 Height="34.62"
                 Margin="41,200,0,0"
                 VerticalAlignment="Top"
+                Text="Sentido de Giro del Eje"
+                IsEditable="True"
                 SelectedValue="{Binding ViewModel.FormDataModel.sentidoGiro, Mode=TwoWay}">
-                <ComboBoxItem
-                    Content="Sentido de Giro del Eje"
-                    IsEnabled="False"
-                    IsSelected="True" />
                 <ComboBoxItem Content="Horario" />
                 <ComboBoxItem Content="Antihorario" />
             </ComboBox>

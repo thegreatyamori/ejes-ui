@@ -53,7 +53,7 @@ namespace EjesUI.ViewModels
 
         public void OnNavigatedFrom()
         {
-            // TODO: Limpiar formulario
+            ResetForm();
         }
 
         [RelayCommand]
@@ -79,7 +79,13 @@ namespace EjesUI.ViewModels
 
             FilenamePath = filename;
             EngraneFrontalImg = img;
-            EngraneLateralImg = img;
+
+            if (payload.images?.lateral)
+            {
+                BitmapImage imgL = ImageProcessor.ProcessImage(payload.images?.frontal.Value);
+                EngraneLateralImg = imgL;
+            }
+
             DownloadPDFEngraneButton = true;
             AddEngraneButton = false;
 
@@ -474,6 +480,11 @@ namespace EjesUI.ViewModels
                 fuerzaZ = fuerzaZ,
                 fuerzaY = fuerzaY
             };
+        }
+
+        private void ResetForm()
+        {
+            FormDataModel = new EngraneFormDataModel();
         }
     }
 }

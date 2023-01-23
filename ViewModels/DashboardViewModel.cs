@@ -74,8 +74,7 @@ namespace EjesUI.ViewModels
             //            WordButtonEnabled = PdfButtonEnabled;
 
 
-            string isometrico = graphics.Generate();
-            Console.Write(isometrico);
+            dynamic isometrico = graphics.Generate();
 
             snackbar.Show("PDF", "PDF descargado !", 2);
         }

@@ -90,6 +90,12 @@ namespace EjesUI.ViewModels
                 EngraneLateralImg = imgL;
             }
 
+            ExerciseModel.Components.Add(new ComponentModel
+            {
+                FormData = FormDataModel,
+                Calculate = calculateData
+            });
+
             DownloadPDFEngraneButton = true;
             AddEngraneButton = false;
                 

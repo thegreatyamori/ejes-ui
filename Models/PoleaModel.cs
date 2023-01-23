@@ -10,8 +10,6 @@
 
     public class PoleaCalculateModel: CalculateModel
     {
-        public double radio { get; set; }
-        public double torque { get; set; }
         public double T_1 { get; set; }
         public double T_2 { get; set; }
         public double fuerzaTension { get; set; }

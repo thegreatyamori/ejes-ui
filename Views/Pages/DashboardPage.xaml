@@ -31,32 +31,55 @@
             Grid.Column="1"
             Margin="4,0,0,0"
             VerticalAlignment="Top"
-            Appearance="Primary"
-            BorderThickness="1,1,1,1"
-            Command="{Binding ViewModel.ClickSaveWordCommand, Mode=OneWay}"
-            Content="Word"
-            Icon="DocumentText20"
-            SnapsToDevicePixels="True" />
-        <ui:Button
-            Grid.Column="1"
-            Width="70"
-            Margin="100,0,0,0"
-            VerticalAlignment="Top"
             Appearance="Danger"
             BorderThickness="1,1,1,1"
             Command="{Binding ViewModel.ClickSavePDFCommand, Mode=OneWay}"
             Content="PDF"
             Icon="DocumentPdf20"
+            IsEnabled="{Binding ViewModel.PdfButtonEnabled}"
+            SnapsToDevicePixels="True" />
+        <ui:Button
+            Grid.Column="1"
+            Margin="85,0,0,0"
+            VerticalAlignment="Top"
+            Appearance="Primary"
+            BorderThickness="1,1,1,1"
+            Command="{Binding ViewModel.ClickSaveWordCommand, Mode=OneWay}"
+            Content="Word"
+            Icon="DocumentText20"
+            IsEnabled="{Binding ViewModel.WordButtonEnabled}"
             SnapsToDevicePixels="True" />
         <ScrollViewer Grid.Row="1" Grid.Column="1">
-            <!-- <ui:Card VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1" Grid.RowSpan="2" HorizontalContentAlignment="Stretch">
+            <!-- <ui:Card
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                VerticalAlignment="Top"
+                HorizontalContentAlignment="Stretch">
                 <Grid>
-                    <ui:Button Command="{Binding OnClick}">
-                        <Grid Width="100" Height="100">
-                            <Label Content="Engrane A" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent" Foreground="#FBFFFFFF" FontWeight="Bold" />
-                        </Grid>
-                    </ui:Button>
-                    <ui:SymbolIcon HorizontalAlignment="Left" Margin="130,0,0,0" Symbol="AddCircle20"/>
+                    <Label
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="{Binding ViewModel.Exercise, Mode=OneWay}"
+                        Visibility="{Binding ViewModel.LabelVisibility}" />
+
+                    <Grid Visibility="{Binding ViewModel.ButtonsVisibility}">
+                        <ui:Button Command="{Binding OnClick}">
+                            <Grid Width="100" Height="100">
+                                <Label
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    Content="Engrane A"
+                                    FontWeight="Bold"
+                                    Foreground="#FBFFFFFF" />
+                            </Grid>
+                        </ui:Button>
+                        <ui:SymbolIcon
+                            Margin="130,0,0,0"
+                            HorizontalAlignment="Left"
+                            Symbol="AddCircle20" />
+                    </Grid>
                 </Grid>
             </ui:Card>-->
 
@@ -67,30 +90,35 @@
                 VerticalAlignment="Top"
                 HorizontalContentAlignment="Stretch">
                 <Grid>
-                    <ui:VirtualizingItemsControl
-                        ItemsSource="{Binding ViewModel.Buttons, Mode=OneWay}"
-                        VirtualizingPanel.CacheLengthUnit="Item">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type models:ComponentButton}">
-                                <Grid>
-                                    <ui:Button Command="{Binding OnClick}">
-                                        <Grid Width="100" Height="100">
-                                            <Label
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                Content="{Binding Title}"
-                                                FontWeight="Bold"
-                                                Foreground="#FBFFFFFF" />
-                                        </Grid>
-                                    </ui:Button>
-                                    <ui:SymbolIcon
-                                        Margin="130,0,0,0"
-                                        HorizontalAlignment="Left"
-                                        Symbol="AddCircle20" />
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ui:VirtualizingItemsControl>
+                    <Label
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="{Binding ViewModel.Exercise, Mode=OneWay}"
+                        Visibility="{Binding ViewModel.LabelVisibility}" />
+                    <Grid Visibility="{Binding ViewModel.ButtonsVisibility}">
+                        <ui:VirtualizingItemsControl ItemsSource="{Binding ViewModel.Buttons, Mode=OneWay}" VirtualizingPanel.CacheLengthUnit="Item">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="{x:Type models:ComponentButton}">
+                                    <Grid>
+                                        <ui:Button Command="{Binding OnClick}">
+                                            <Grid Width="100" Height="100">
+                                                <Label
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Content="{Binding Title}"
+                                                    FontWeight="Bold"
+                                                    Foreground="#FBFFFFFF" />
+                                            </Grid>
+                                        </ui:Button>
+                                        <ui:SymbolIcon
+                                            Margin="130,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            Symbol="AddCircle20" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ui:VirtualizingItemsControl>
+                    </Grid>
                 </Grid>
             </ui:Card>
         </ScrollViewer>

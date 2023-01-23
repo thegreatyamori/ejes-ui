@@ -40,9 +40,9 @@
             <ui:TextBox
                 Margin="41,0,0,0"
                 VerticalAlignment="Top"
-                IsReadOnly="True"
                 PlaceholderText="Numero de Vueltas (N)"
                 Text="{Binding ViewModel.FormDataModel.numeroVuelta, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
+                <!-- IsReadOnly="True" -->
             <ui:SymbolIcon
                 Margin="20,10,0,0"
                 HorizontalAlignment="Left"

@@ -114,12 +114,12 @@ namespace EjesUI.ViewModels
                 //FormDataModel.ubicacion = 6;
 
                 // Ejemplo 2
-                FormDataModel.potencia = 5;
-                FormDataModel.diametro = 10;
-                FormDataModel.inclinacion = 30;
-                FormDataModel.energia = "Consume";
                 FormDataModel.peso = 18;
+                FormDataModel.diametro = 10;
+                FormDataModel.potencia = 5;
+                FormDataModel.inclinacion = 30;
                 FormDataModel.ubicacion = 6;
+                FormDataModel.energia = "Consume";
 
                 string isometrico = new GraphicService().Isometrico();
                 Console.Write(isometrico);

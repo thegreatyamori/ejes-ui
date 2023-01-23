@@ -5,12 +5,14 @@ using EjesUI.Models;
 using Wpf.Ui.Mvvm.Contracts;
 using EjesUI.Services;
 using System;
+using EjesUI.Services;
 
 namespace EjesUI.ViewModels
 {
     public partial class GeneralPageViewModel : ObservableObject, INavigationAware
     {
         private AppConfig appConfig;
+        private ApiService api;
         private SnackBarService snackbar;
 
         [ObservableProperty]
@@ -26,6 +28,7 @@ namespace EjesUI.ViewModels
 
         public GeneralPageViewModel(ISnackbarService snackbarService)
         {
+            this.api = new ApiService();
             this.appConfig = new AppConfig();
             this.snackbar = new SnackBarService(snackbarService);
         }
@@ -41,7 +44,6 @@ namespace EjesUI.ViewModels
 
         public void OnChangeToggleButton(string system, bool isChecked)
         {
-            snackbar.Show("test", system, 2);
             IsUnitSystemToggleButtonEnabled = (bool)isChecked;
             UnitSystemContent = $"Sistema de Unidades: {system}";
         }
@@ -50,6 +52,8 @@ namespace EjesUI.ViewModels
         public void OnClickGuardarGeneralData()
         {
             PopulateFormData();
+
+            api.Post("/generate-caratula", "");
 
             SaveGeneralDataButton = false;
 

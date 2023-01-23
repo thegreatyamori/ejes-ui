@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System.IO;
 using EjesUI.Services;
 using Wpf.Ui.Mvvm.Contracts;
+using System.Windows;
 
 namespace EjesUI.ViewModels
 {
@@ -21,6 +22,14 @@ namespace EjesUI.ViewModels
 
         [ObservableProperty]
         private string _exercise = string.Empty;
+        [ObservableProperty]
+        private Visibility _labelVisibility = Visibility.Visible;
+        [ObservableProperty]
+        private Visibility _buttonsVisibility = Visibility.Hidden;
+        [ObservableProperty]
+        private bool _pdfButtonEnabled = false;
+        [ObservableProperty]
+        private bool _wordButtonEnabled = false;
         [ObservableProperty]
         private IEnumerable<ComponentButton> _buttons;
 
@@ -37,6 +46,12 @@ namespace EjesUI.ViewModels
         public void OnNavigatedTo()
         {
             Exercise = ExerciseModel.Name;
+            LabelVisibility = ExerciseModel.IsActive ? Visibility.Hidden : Visibility.Visible;
+            ButtonsVisibility = ExerciseModel.IsActive ? Visibility.Visible : Visibility.Hidden;
+
+            var finishExercise = true; // this var is activated when we have two rodamientos
+            PdfButtonEnabled = finishExercise;
+
             InitializeViewModel();
         }
 
@@ -48,13 +63,15 @@ namespace EjesUI.ViewModels
         private void OnClickSavePDF()
         {
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-           dynamic rawPdf = this.api.Get("/join-pdf", ("uuid", ExerciseModel.Uuid));
+            dynamic rawPdf = api.Get("/join-pdf", ("uuid", ExerciseModel.Uuid));
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-           string downloadURL = $"{this.appConfig.DefaultDownloadPath}result_{ExerciseModel.Uuid}.pdf";
+            string downloadURL = $"{this.appConfig.DefaultDownloadPath}result_{ExerciseModel.Uuid}.pdf";
 
-           File.WriteAllBytes(downloadURL, rawPdf);
+            File.WriteAllBytes(downloadURL, rawPdf);
 
-            snackbar.Show("PDF", "PDF descargado !");
+            WordButtonEnabled = PdfButtonEnabled;
+
+            snackbar.Show("PDF", "PDF descargado !", 2);
         }
 
         [RelayCommand]
@@ -117,7 +134,7 @@ namespace EjesUI.ViewModels
 
         private Action NavigateTo(string message)
         {
-            return () => { System.Windows.MessageBox.Show(message); };
+            return () => { snackbar.Show("Componente", message, 2); };
         }
     }
 }

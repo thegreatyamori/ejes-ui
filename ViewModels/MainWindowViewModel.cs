@@ -29,7 +29,7 @@ namespace EjesUI.ViewModels
         private ObservableCollection<MenuItem> _trayMenuItems = new();
 
         //[ObservableProperty]
-        //private bool _isNewExerciseEnabled = true;
+        //private bool _isNewExerciseEnabled = false;
 
         public MainWindowViewModel(INavigationService navigationService, ISnackbarService snackbarService)
         {
@@ -116,7 +116,7 @@ namespace EjesUI.ViewModels
         {
             ExerciseModel.Name = "Ejercicio Ejes #1";
             ExerciseModel.Uuid = Guid.NewGuid().ToString();
-            ExerciseModel.IsExerciseActive = false;
+            ExerciseModel.IsActive = true;
             snackbar.Show("Nuevo Ejercicio", "En progreso!", 2);
         }
     }

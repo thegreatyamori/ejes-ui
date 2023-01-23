@@ -73,23 +73,38 @@ namespace EjesUI.ViewModels
 
             Pdf payload = BuildData(calculateData);
 
-            BitmapImage img = ImageProcessor.ProcessImage(payload.images?.frontal.Value);
-
-            string filename = pdf.Generate(payload);
-
-            FilenamePath = filename;
-            EngraneFrontalImg = img;
-
-            if (payload.images?.lateral)
+            if (!string.IsNullOrEmpty(payload.images))
             {
-                BitmapImage imgL = ImageProcessor.ProcessImage(payload.images?.frontal.Value);
-                EngraneLateralImg = imgL;
+                BitmapImage img = ImageProcessor.ProcessImage(payload.images?.frontal.Value);
+
+                string filename = pdf.Generate(payload);
+
+                FilenamePath = filename;
+                EngraneFrontalImg = img;
+
+                /*if (!string.IsNullOrEmpty((payload.images?.lateral))
+                {
+                    displayImage(lateralPictureBox, mainHandler.datoEngranes.lateral, imgs.lateral.Value);
+                }*/
+                Console.Write(payload.images?.lateral);
+                Console.Write(!string.IsNullOrEmpty(payload.images?.lateral));
+                if (payload.images?.lateral.Value)
+                {
+                    BitmapImage imgL = ImageProcessor.ProcessImage(payload.images?.lateral.Value);
+                    EngraneLateralImg = imgL;
+                }
+
+                
+
+                snackbar.Show("Ejes", "Componente Añadido!", 3);
+            }
+            else
+            {
+                snackbar.Show("Ejes", "Componente Añadido sin Imagen!", 3);
             }
 
             DownloadPDFEngraneButton = true;
             AddEngraneButton = false;
-
-            snackbar.Show("Ejes", "Componente Añadido!", 3);
         }
 
         private void PopulateFormData()
@@ -122,10 +137,10 @@ namespace EjesUI.ViewModels
                 FormDataModel.ubicacion = 0;
                 FormDataModel.energia = "Consume";
                 FormDataModel.peso = 0;
-                FormDataModel.diametro = 70;
+                FormDataModel.diametro = 140;
                 FormDataModel.potencia = 3.191;
                 FormDataModel.presion = 20;
-                FormDataModel.inclinacion = 270;
+                FormDataModel.inclinacion = 180;
                 FormDataModel.helice = 25;
                 FormDataModel.direccionFuerzaAxial = "Derecha";
 
@@ -473,7 +488,7 @@ namespace EjesUI.ViewModels
             double fuerzaRadialY = Math.Round(fuerzaRadial * Math.Sin(inclinacionRadial), 3);
             double fuerzaY = fuerzaRadialY + fuerzaTangencialY;
             // Momento
-            double momentoZ = momento * Math.Cos(inclinacionTangencial);
+            double momentoZ = momento * Math.Sin(inclinacionTangencial);
             double momentoY = momento * Math.Cos(inclinacionTangencial);
             // TODO: mover esta logica al cs de la page
             //mainHandler.datoEngranes.fuerzaFinalZ.Add(fuerzaZ);
@@ -483,6 +498,8 @@ namespace EjesUI.ViewModels
 
             return new EngraneConicoCalculateModel
             {
+                radio = radio,
+                torque = torque,
                 fuerzaAxial = fuerzaAxial,
                 momento = momento,
                 momentoZ = momentoZ,

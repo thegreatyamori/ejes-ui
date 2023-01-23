@@ -60,8 +60,8 @@ namespace EjesUI.ViewModels
         {
             if (TestGeneralDataToggle)
             {
-                string component = "polea";
-                int ejercicio = 3;
+                string component = "engrane";
+                int ejercicio = 2;
                 SetTestData(component, ejercicio);
                 return;
             }

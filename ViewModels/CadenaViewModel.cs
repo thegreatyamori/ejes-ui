@@ -8,7 +8,6 @@ using EjesUI.Models;
 using EjesUI.Services;
 using System.Collections.Generic;
 using Wpf.Ui.Common.Interfaces;
-using Wpf.Ui.Controls;
 using Wpf.Ui.Mvvm.Contracts;
 
 namespace EjesUI.ViewModels
@@ -120,9 +119,6 @@ namespace EjesUI.ViewModels
                 FormDataModel.inclinacion = 30;
                 FormDataModel.ubicacion = 6;
                 FormDataModel.energia = "Consume";
-
-                string isometrico = new GraphicService().Isometrico();
-                Console.Write(isometrico);
                 return;
             }
         }

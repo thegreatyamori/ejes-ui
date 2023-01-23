@@ -16,8 +16,9 @@ namespace EjesUI.ViewModels
     public partial class DashboardViewModel : ObservableObject, INavigationAware
     {
         private ApiService api;
-        private AppConfig appConfig;
         private PdfService pdf;
+        private AppConfig appConfig;
+        private GraphicService graphics;
         private SnackBarService snackbar;
 
         [ObservableProperty]
@@ -39,6 +40,7 @@ namespace EjesUI.ViewModels
             this.appConfig = new AppConfig();
             this.pdf = new PdfService();
             this.snackbar = new SnackBarService(snackbarService);
+            this.graphics = new GraphicService();
 
             Exercise = ExerciseModel.Name;
         }
@@ -62,14 +64,18 @@ namespace EjesUI.ViewModels
         [RelayCommand]
         private void OnClickSavePDF()
         {
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-            dynamic rawPdf = api.Get("/join-pdf", ("uuid", ExerciseModel.Uuid));
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-            string downloadURL = $"{this.appConfig.DefaultDownloadPath}result_{ExerciseModel.Uuid}.pdf";
+            //#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
+            //            dynamic rawPdf = api.Get("/join-pdf", ("uuid", ExerciseModel.Uuid));
+            //#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+            //            string downloadURL = $"{this.appConfig.DefaultDownloadPath}result_{ExerciseModel.Uuid}.pdf";
 
-            File.WriteAllBytes(downloadURL, rawPdf);
+            //            File.WriteAllBytes(downloadURL, rawPdf);
 
-            WordButtonEnabled = PdfButtonEnabled;
+            //            WordButtonEnabled = PdfButtonEnabled;
+
+
+            string isometrico = graphics.Generate();
+            Console.Write(isometrico);
 
             snackbar.Show("PDF", "PDF descargado !", 2);
         }

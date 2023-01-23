@@ -20,25 +20,29 @@ namespace EjesUI.Services
             this.appConfig = new AppConfig();
         }
 
-        public string Isometrico()
+        public string Generate()
         {
             var components = ExerciseModel.Components;
             List<string> nombre = new();
-            List<double> distancia = new();
-            List<double> peso = new();
             List<string> energia = new();
+            List<string> direccionFuerzaAxial = new();
+            List<double> peso = new();
+            List<double> ubicacion = new();
             List<double> fuerzaZ = new();
             List<double> fuerzaY = new();
-            List<string> direccionFuerzaAxial = new();
             List<double> momentoZ = new();
             List<double> momentoY = new();
+            List<double> torque = new();
+
+
 
             for (int i = 0; i < components.Count; i++)
             {
                 nombre.Add(components[i].FormData.title.Split(" ")[1]);
-                distancia.Add(components[i].FormData.ubicacion);
+                ubicacion.Add(components[i].FormData.ubicacion);
                 peso.Add(components[i].FormData.peso);
                 energia.Add(components[i].FormData.energia);
+                torque.Add(components[i].Calculate.torque);
                 if (components[i].Calculate.GetType() == typeof(CadenaCalculateModel))
                 {
                     CadenaCalculateModel formData = (CadenaCalculateModel) components[i].Calculate;
@@ -85,20 +89,26 @@ namespace EjesUI.Services
                     momentoY.Add(formData.momentoY);
                 }
             }
-            List<dynamic> arrayFinal = new()
+            Graphic graphicData = new()
             {
-                nombre,
-                distancia,
-                fuerzaZ,
-                fuerzaY,
-                peso,
-                direccionFuerzaAxial,
-                momentoZ,
-                momentoY,
-                energia
+                uuid = ExerciseModel.Uuid,
+                sistema = ExerciseModel.GeneralData.unidades ? appConfig.SI : appConfig.FPS,
+                sentidoEje = ExerciseModel.GeneralData.sentidoGiro,
+                posicionRodamientoUno = 0,
+                posicionRodamientoDos = 1,
+                nombreArray = nombre,
+                ubicacionArray = ubicacion,
+                fuerzaZArray = fuerzaZ,
+                fuerzaYArray = fuerzaY,
+                direccionFuerzaAxialArray = direccionFuerzaAxial,
+                pesoArray = peso,
+                momentoZArray = momentoZ,
+                momentoYArray = momentoY,
+                energiaArray = energia,
+                torqueArray = torque
             };
-            string payloadGraphic = JsonConvert.SerializeObject(arrayFinal);
-            dynamic? graphics = api.Post("/isometrico", payloadGraphic);
+            string payloadGraphic = JsonConvert.SerializeObject(graphicData);
+            dynamic? graphics = api.Post("/generate-graficos", payloadGraphic);
             return graphics;
         }
     }

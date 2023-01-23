@@ -97,30 +97,30 @@ namespace EjesUI.ViewModels
             if (TestEngraneToggle)
             {
                 // Ejemplo 1 - Engrane Recto
-                FormDataModel.tipo = "Recto";
-                FormDataModel.opts.subtype = "Recto";
-                FormDataModel.ubicacion = 4;
-                FormDataModel.energia = "Consume";
-                FormDataModel.peso = 5;
-                FormDataModel.diametro = 3;
-                FormDataModel.potencia = 5;
-                FormDataModel.presion = 20;
-                FormDataModel.inclinacion = 270;
-                FormDataModel.helice = 0;
-                FormDataModel.direccionFuerzaAxial = "";
+                // FormDataModel.tipo = "Recto";
+                //FormDataModel.opts.subtype = "Recto";
+                //FormDataModel.ubicacion = 4;
+                //FormDataModel.energia = "Consume";
+                //FormDataModel.peso = 5;
+                //FormDataModel.diametro = 3;
+                //FormDataModel.potencia = 5;
+                //FormDataModel.presion = 20;
+                //FormDataModel.inclinacion = 270;
+                //FormDataModel.helice = 0;
+                //FormDataModel.direccionFuerzaAxial = "";
 
                 // Ejemplo 2 - Engrane Cónico
-                // FormDataModel.tipo = "Conico";
-                // FormDataModel.opts.subtype = "Conico";
-                // FormDataModel.ubicacion = 0;
-                // FormDataModel.energia = "Consume";
-                // FormDataModel.peso = 0;
-                // FormDataModel.diametro = 70;
-                // FormDataModel.potencia = 3.191;
-                // FormDataModel.presion = 20;
-                // FormDataModel.inclinacion = 270;
-                // FormDataModel.helice = 25;
-                // FormDataModel.direccionFuerzaAxial = "Derecha";
+                FormDataModel.tipo = "Conico";
+                FormDataModel.opts.subtype = "Conico";
+                FormDataModel.ubicacion = 0;
+                FormDataModel.energia = "Consume";
+                FormDataModel.peso = 0;
+                FormDataModel.diametro = 70;
+                FormDataModel.potencia = 3.191;
+                FormDataModel.presion = 20;
+                FormDataModel.inclinacion = 270;
+                FormDataModel.helice = 25;
+                FormDataModel.direccionFuerzaAxial = "Derecha";
 
                 // Ejemplo 2 - Engrane Helicoidal
                 // FormDataModel.tipo = "Helicoidal";
@@ -203,7 +203,8 @@ namespace EjesUI.ViewModels
                 ("orientation", FormDataModel.energia),
                 ("type", FormDataModel.tipo.ToString()),
                 ("direction", generalData.sentidoGiro),
-                ("name", ExerciseModel.GetNextComponentLetter())
+                ("name", ExerciseModel.GetNextComponentLetter()),
+                ("directionFa", FormDataModel.direccionFuerzaAxial.ToString())
             );
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
@@ -229,22 +230,39 @@ namespace EjesUI.ViewModels
                 descompositionY = new List<dynamic>{ data.fuerzaRadialY, data.fuerzaTangencialY, data.fuerzaY };
             }
 
-            //if (FormDataModel.tipo.Equals("Helicoidal"))
-            //{
-            //    torqueValues = { FormDataModel.potencia, generalData.numeroVuelta, data.torque };
-            //    generalForces = { data.torque, data.fuerzaTangencial, data.fuerzaRadial, data.radio, FormDataModel.presion, FormDataModel.helice };
-            //    axialDescomposition = { null /* TODO: verificar a que corresponde f*/, null, data.fuerzaTangencial, data.fuerzaAxial };
-            //    momentDescomposition = { data.radio, FormDataModel.inclinacion, data.fuerzaAxial, data.momento, data.momentoZ, data.momentoY };
-            //    anguloTransversalPresion = { FormDataModel.presion, FormDataModel.helice, data.anguloTransversalPresion };
-            //}
+            if (FormDataModel.tipo.Equals("Helicoidal"))
+            {
+                torqueValues = new List<dynamic> { FormDataModel.potencia, generalData.numeroVuelta, data.torque };
+                generalForces = new List<dynamic?> { data.torque, data.fuerzaTangencial, data.fuerzaRadial, data.radio, FormDataModel.presion, FormDataModel.helice };
+                tangentialDescomposition = new List<dynamic> { data.inclinacionTangencial, data.fuerzaTangencial, data.fuerzaTangencialZ, data.fuerzaTangencialY };
+                radialDescomposition = new List<dynamic> { data.inclinacionRadial, data.fuerzaRadial, data.fuerzaRadialZ, data.fuerzaRadialY };
+                descompositionZ = new List<dynamic> { data.fuerzaRadialZ, data.fuerzaTangencialZ, data.fuerzaZ };
+                descompositionY = new List<dynamic> { data.fuerzaRadialY, data.fuerzaTangencialY, data.fuerzaY };
+                if (data.GetType() == typeof(EngraneHelicoidalCalculateModel))
+                {
+                    EngraneHelicoidalCalculateModel dataHelicoidal = (EngraneHelicoidalCalculateModel)data;
+                    momentDescomposition = new List<dynamic> { data.radio, FormDataModel.inclinacion, dataHelicoidal.fuerzaAxial, dataHelicoidal.momento, dataHelicoidal.momentoZ, dataHelicoidal.momentoY };
+                    axialDescomposition = new List<dynamic> { FormDataModel.presion, null, data.fuerzaTangencial, dataHelicoidal.fuerzaAxial };
+                    anguloTransversalPresion = new List<dynamic> { FormDataModel.presion, FormDataModel.helice, dataHelicoidal.anguloTransversalPresion };
+                }
+            }
 
-            //if (FormDataModel.tipo.Equals("Conico"))
-            //{
-            //    torqueValues = { FormDataModel.potencia, generalData.numeroVuelta, data.torque };
-            //    generalForces = { data.torque, data.fuerzaTangencial, data.fuerzaRadial, data.radio, FormDataModel.presion, FormDataModel.helice };
-            //    axialDescomposition = { null /* TODO: verificar a que corresponde f*/, FormDataModel.helice, data.fuerzaTangencial, data.fuerzaAxial };
-            //    momentDescomposition = { data.radio, FormDataModel.inclinacion, data.fuerzaAxial, data.momento, data.momentoZ, data.momentoY };
-            //}
+            if (FormDataModel.tipo.Equals("Conico"))
+            {
+                torqueValues = new List<dynamic> { FormDataModel.potencia, generalData.numeroVuelta, data.torque };
+                generalForces = new List<dynamic?> { data.torque, data.fuerzaTangencial, data.fuerzaRadial, data.radio, FormDataModel.presion, FormDataModel.helice };
+                tangentialDescomposition = new List<dynamic> { data.inclinacionTangencial, data.fuerzaTangencial, data.fuerzaTangencialZ, data.fuerzaTangencialY };
+                radialDescomposition = new List<dynamic> { data.inclinacionRadial, data.fuerzaRadial, data.fuerzaRadialZ, data.fuerzaRadialY };
+                descompositionZ = new List<dynamic> { data.fuerzaRadialZ, data.fuerzaTangencialZ, data.fuerzaZ };
+                descompositionY = new List<dynamic> { data.fuerzaRadialY, data.fuerzaTangencialY, data.fuerzaY };
+
+                if (data.GetType() == typeof(EngraneConicoCalculateModel))
+                {
+                    EngraneConicoCalculateModel dataConico = (EngraneConicoCalculateModel) data;
+                    momentDescomposition = new List<dynamic> { data.radio, FormDataModel.inclinacion, dataConico.fuerzaAxial, dataConico.momento, dataConico.momentoZ, dataConico.momentoY };
+                    axialDescomposition = new List<dynamic> { FormDataModel.presion, FormDataModel.helice, data.fuerzaTangencial, dataConico.fuerzaAxial };
+                }
+            }
 
             Pdf pdf = new()
             {

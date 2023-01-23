@@ -55,7 +55,7 @@ namespace EjesUI.ViewModels
         private void SetTestData()
         {
             string component = "engrane";
-            int ejercicio = 1;
+            int ejercicio = 2;
 
             GeneralDataModel generalData = ExerciseModel.GeneralData;
 

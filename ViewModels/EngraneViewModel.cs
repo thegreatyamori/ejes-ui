@@ -73,38 +73,28 @@ namespace EjesUI.ViewModels
 
             Pdf payload = BuildData(calculateData);
 
-            if (!string.IsNullOrEmpty(payload.images))
+            BitmapImage img = ImageProcessor.ProcessImage(payload.images?.frontal.Value);
+
+            string filename = pdf.Generate(payload);
+
+            FilenamePath = filename;
+            EngraneFrontalImg = img;
+
+            /*if (!string.IsNullOrEmpty((payload.images?.lateral.Value))
             {
-                BitmapImage img = ImageProcessor.ProcessImage(payload.images?.frontal.Value);
-
-                string filename = pdf.Generate(payload);
-
-                FilenamePath = filename;
-                EngraneFrontalImg = img;
-
-                /*if (!string.IsNullOrEmpty((payload.images?.lateral))
-                {
-                    displayImage(lateralPictureBox, mainHandler.datoEngranes.lateral, imgs.lateral.Value);
-                }*/
-                Console.Write(payload.images?.lateral);
-                Console.Write(!string.IsNullOrEmpty(payload.images?.lateral));
-                if (payload.images?.lateral.Value)
-                {
-                    BitmapImage imgL = ImageProcessor.ProcessImage(payload.images?.lateral.Value);
-                    EngraneLateralImg = imgL;
-                }
-
-                
-
-                snackbar.Show("Ejes", "Componente Añadido!", 3);
-            }
-            else
+                displayImage(lateralPictureBox, mainHandler.datoEngranes.lateral, imgs.lateral.Value);
+            }*/
+            if (!string.IsNullOrEmpty(payload.images?.lateral.Value))
             {
-                snackbar.Show("Ejes", "Componente Añadido sin Imagen!", 3);
+                BitmapImage imgL = ImageProcessor.ProcessImage(payload.images?.lateral.Value);
+                EngraneLateralImg = imgL;
             }
 
             DownloadPDFEngraneButton = true;
             AddEngraneButton = false;
+                
+            snackbar.Show("Ejes", "Componente Añadido!", 3);
+
         }
 
         private void PopulateFormData()
@@ -389,7 +379,7 @@ namespace EjesUI.ViewModels
             double fuerzaTangencial = torque / radio;
             double anguloTransversalPresion = Math.Atan(Math.Tan(FormDataModel.presion * Math.PI / 180) / Math.Cos(FormDataModel.helice * Math.PI / 180));
             double fuerzaRadial = fuerzaTangencial * Math.Tan(anguloTransversalPresion);
-            double fuerzaAxial = fuerzaTangencial * Math.Tan(FormDataModel.helice);
+            double fuerzaAxial = fuerzaTangencial * Math.Tan(FormDataModel.helice * Math.PI / 180);
             double momento = fuerzaAxial * radio;
 
             // Angulos
@@ -421,7 +411,7 @@ namespace EjesUI.ViewModels
             double fuerzaY = fuerzaRadialY + fuerzaTangencialY;
             // Momento
             double momentoZ = momento * Math.Cos(inclinacionTangencial);
-            double momentoY = momento * Math.Cos(inclinacionTangencial);
+            double momentoY = momento * Math.Sin(inclinacionTangencial);
             // TODO: mover esta logica al cs de la page
             //mainHandler.datoEngranes.fuerzaFinalZ.Add(fuerzaZ);
             //mainHandler.datoEngranes.fuerzaFinalY.Add(fuerzaY - FormDataModel.peso);
@@ -430,6 +420,8 @@ namespace EjesUI.ViewModels
 
             return new EngraneHelicoidalCalculateModel
             {
+                radio = radio,
+                torque = torque,
                 fuerzaAxial = fuerzaAxial,
                 momento = momento,
                 momentoZ = momentoZ,
@@ -488,8 +480,8 @@ namespace EjesUI.ViewModels
             double fuerzaRadialY = Math.Round(fuerzaRadial * Math.Sin(inclinacionRadial), 3);
             double fuerzaY = fuerzaRadialY + fuerzaTangencialY;
             // Momento
-            double momentoZ = momento * Math.Sin(inclinacionTangencial);
-            double momentoY = momento * Math.Cos(inclinacionTangencial);
+            double momentoZ = momento * Math.Cos(inclinacionTangencial);
+            double momentoY = momento * Math.Sin(inclinacionTangencial);
             // TODO: mover esta logica al cs de la page
             //mainHandler.datoEngranes.fuerzaFinalZ.Add(fuerzaZ);
             //mainHandler.datoEngranes.fuerzaFinalY.Add(fuerzaY - FormDataModel.peso);

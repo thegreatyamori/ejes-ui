@@ -47,10 +47,16 @@ namespace EjesUI.ViewModels
 
         public void OnNavigatedTo()
         {
+            var rodamientoItems = ExerciseModel.rodamientoCount == 2;
+            if (rodamientoItems)
+            {
+                graphics.Generate();
+            }
+
             Exercise = ExerciseModel.Name;
             LabelVisibility = ExerciseModel.IsActive ? Visibility.Hidden : Visibility.Visible;
             ButtonsVisibility = ExerciseModel.IsActive ? Visibility.Visible : Visibility.Hidden;
-            PdfButtonEnabled = ExerciseModel.rodamientoCount == 2;
+            PdfButtonEnabled = rodamientoItems;
 
             InitializeViewModel();
         }
@@ -62,6 +68,7 @@ namespace EjesUI.ViewModels
         [RelayCommand]
         private void OnClickSavePDF()
         {
+
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
             dynamic rawPdf = api.Get("/join-pdf", ("uuid", ExerciseModel.Uuid));
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
@@ -70,9 +77,6 @@ namespace EjesUI.ViewModels
             File.WriteAllBytes(downloadURL, rawPdf);
 
             WordButtonEnabled = PdfButtonEnabled;
-
-
-            dynamic isometrico = graphics.Generate();
 
             snackbar.Show("PDF", "PDF descargado !", 2);
         }
@@ -122,10 +126,15 @@ namespace EjesUI.ViewModels
                     image = ImageProcessor.SetDefaultImage("/Assets/polea.png");
                 }
 
+                if (title == "Rodamiento")
+                {
+                    image = ImageProcessor.SetDefaultImage("/Assets/polea.png");
+                }
+
                 buttonCollection.Add(new ComponentButton
                 {
-                    Title= components[i].FormData.title,
-                    OnClick= new RelayCommand(NavigateTo(components[i].FormData.title)),
+                    Title= title,
+                    OnClick= new RelayCommand(NavigateTo(title)),
                     Image= image
                 });
             };

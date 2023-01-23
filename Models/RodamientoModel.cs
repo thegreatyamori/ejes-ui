@@ -4,14 +4,11 @@
     {
         private string _tipo = "Tipo";
         
-        public string title {get;set;}
-        public Opts opts {get;set;}
         public string tipo
         {
             get { return _tipo; }
             set { _tipo = value; }
         }
-        public double ubicacion { get;set;}
     }
 
     public class RodamientoCalculateModel

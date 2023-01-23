@@ -48,7 +48,7 @@ namespace EjesUI.Services
                     fuerzaZ.Add(0);
                     fuerzaY.Add(0);
                     momentoY.Add(0);
-                    momentoY.Add(0);
+                    momentoZ.Add(0);
                     torque.Add(0);
                 } else {
                     nombre.Add(components[i].FormData.title.Split(" ")[1]);

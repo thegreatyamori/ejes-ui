@@ -17,7 +17,7 @@ namespace EjesUI.ViewModels
         private ApiService api;
         private AppConfig appConfig;
         private PdfService pdf;
-        private SnackBarService snackbar;
+        private SnackBarNotifierService snackbar;
 
         [ObservableProperty]
         private string _filenamePath = string.Empty;
@@ -37,7 +37,7 @@ namespace EjesUI.ViewModels
             this.api = new ApiService();
             this.appConfig = new AppConfig();
             this.pdf = new PdfService();
-            this.snackbar = new SnackBarService(snackbarService);
+            this.snackbar = new SnackBarNotifierService(snackbarService);
         }
 
         public void OnNavigatedTo()
@@ -49,7 +49,7 @@ namespace EjesUI.ViewModels
 
         public void OnNavigatedFrom()
         {
-            // TODO: Limpiar formulario
+            ResetForm();
         }
 
         [RelayCommand]
@@ -57,6 +57,7 @@ namespace EjesUI.ViewModels
         {
             pdf.Download(FilenamePath);
             Process.Start("explorer.exe", this.appConfig.DefaultDownloadPath);
+            snackbar.Show("PDF", "PDF Generado!", 2);
         }
 
         [RelayCommand]
@@ -135,15 +136,17 @@ namespace EjesUI.ViewModels
                 FormDataModel.ubicacion = 4;
                 return;
             }
+            FormDataModel.energia = FormDataModel.energia.Split(":")[1].Trim();
         }
 
         private Pdf BuildData(PoleaCalculateModel data)
         {
             GeneralDataModel generalData = ExerciseModel.GeneralData;
+            FormDataModel.opts.system = generalData.unidades ? appConfig.SI : appConfig.FPS;
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
             dynamic image = api.Get(
                 "/polea",
-                ("system", generalData.sistemaUnidades),
+                ("system", FormDataModel.opts.system),
                 ("diameter", FormDataModel.diametro.ToString()),
                 ("inclination_degree", FormDataModel.inclinacion.ToString()),
                 ("orientation", FormDataModel.energia),
@@ -152,7 +155,6 @@ namespace EjesUI.ViewModels
             );
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
-            FormDataModel.opts.system = generalData.sistemaUnidades;
             dynamic[] torqueValues = { FormDataModel.potencia, generalData.numeroVuelta, data.torque };
             dynamic[] descompositionTorque = { data.torque, data.radio, FormDataModel.relacionTension, data.T_1, data.T_2, data.fuerzaTension };
             dynamic[] tangentialDescomposition = { data.inclinacion, data.fuerzaTension, data.fuerzaZ, data.fuerzaY };
@@ -175,8 +177,8 @@ namespace EjesUI.ViewModels
 
             double peso = FormDataModel.peso;
             double inclinacion = FormDataModel.inclinacion;
-            double radio = (generalData.sistemaUnidades == "SI") ? (FormDataModel.diametro / 2) / 1000 : FormDataModel.diametro / 2;
-            int constante = (generalData.sistemaUnidades == "SI") ? appConfig.CONSTANTE_TORQUE_SI : appConfig.CONSTANTE_TORQUE_FPS;
+            double radio = generalData.unidades ? (FormDataModel.diametro / 2) / 1000 : FormDataModel.diametro / 2;
+            int constante = generalData.unidades ? appConfig.CONSTANTE_TORQUE_SI : appConfig.CONSTANTE_TORQUE_FPS;
             double torque = constante * (FormDataModel.potencia / generalData.numeroVuelta);
 
             if (
@@ -213,6 +215,11 @@ namespace EjesUI.ViewModels
                 fuerzaZ = fuerzaZ,
                 fuerzaY = fuerzaY
             };
+        }
+
+        private void ResetForm()
+        {
+            FormDataModel = new PoleaFormDataModel();
         }
     }
 }

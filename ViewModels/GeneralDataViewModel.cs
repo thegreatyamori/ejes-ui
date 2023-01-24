@@ -4,13 +4,16 @@ using Wpf.Ui.Common.Interfaces;
 using EjesUI.Models;
 using Wpf.Ui.Mvvm.Contracts;
 using EjesUI.Services;
+using System;
+using EjesUI.Services;
 
 namespace EjesUI.ViewModels
 {
     public partial class GeneralPageViewModel : ObservableObject, INavigationAware
     {
         private AppConfig appConfig;
-        private SnackBarService snackbar;
+        private ApiService api;
+        private SnackBarNotifierService snackbar;
 
         [ObservableProperty]
         private bool _testGeneralDataToggle;
@@ -20,11 +23,14 @@ namespace EjesUI.ViewModels
         private bool _isUnitSystemToggleButtonEnabled = false;
         [ObservableProperty]
         private string _unitSystemContent = "Sistema de Unidades: FPS";
+        [ObservableProperty]
+        private GeneralDataModel _formDataModel = new GeneralDataModel();
 
         public GeneralPageViewModel(ISnackbarService snackbarService)
         {
+            this.api = new ApiService();
             this.appConfig = new AppConfig();
-            this.snackbar = new SnackBarService(snackbarService);
+            this.snackbar = new SnackBarNotifierService(snackbarService);
         }
 
         public void OnNavigatedTo()
@@ -33,11 +39,11 @@ namespace EjesUI.ViewModels
 
         public void OnNavigatedFrom()
         {
+            // FormDataModel = new GeneralDataModel();
         }
 
         public void OnChangeToggleButton(string system, bool isChecked)
         {
-            snackbar.Show("test", system, 2);
             IsUnitSystemToggleButtonEnabled = (bool)isChecked;
             UnitSystemContent = $"Sistema de Unidades: {system}";
         }
@@ -45,21 +51,35 @@ namespace EjesUI.ViewModels
         [RelayCommand]
         public void OnClickGuardarGeneralData()
         {
-            SetTestData();
+            PopulateFormData();
+
+            api.Post("/generate-caratula", "");
 
             SaveGeneralDataButton = false;
 
             snackbar.Show("Datos Generales", "Datos Añadidos!", 3);
         }
 
-        private void SetTestData()
+        private void PopulateFormData()
         {
-            string component = "engrane";
-            int ejercicio = 1;
+            if (TestGeneralDataToggle)
+            {
+                string component = "engrane";
+                int ejercicio = 2;
+                SetTestData(component, ejercicio);
+                return;
+            }
 
+            FormDataModel.unidades = IsUnitSystemToggleButtonEnabled;
+            FormDataModel.sentidoGiro = FormDataModel.sentidoGiro.Split(":")[1].Trim();
+            ExerciseModel.GeneralData = FormDataModel;
+        }
+
+        private void SetTestData(string component, int ejercicio)
+        {
             GeneralDataModel generalData = ExerciseModel.GeneralData;
 
-            if (TestGeneralDataToggle && component == "engrane" && ejercicio == 1)
+            if (component == "engrane" && ejercicio == 1)
             {
                 generalData.numeroVuelta = 480;
                 generalData.confiabilidad = 2;
@@ -70,11 +90,11 @@ namespace EjesUI.ViewModels
                 generalData.factorConcentradorEsfuerzoFlexion = 7;
                 generalData.factorConcentradorEsfuerzoTorsion = 8;
                 generalData.sentidoGiro = "Horario";
-                generalData.sistemaUnidades = "FPS";
+                generalData.unidades = false;
                 return;
             }
 
-            if (TestGeneralDataToggle && component == "engrane" && ejercicio == 2)
+            if (component == "engrane" && ejercicio == 2)
             {
                 generalData.numeroVuelta = 1000;
                 generalData.confiabilidad = 1; //Falta dato
@@ -85,11 +105,11 @@ namespace EjesUI.ViewModels
                 generalData.factorConcentradorEsfuerzoFlexion = 1.6;
                 generalData.factorConcentradorEsfuerzoTorsion = 1.4;
                 generalData.sentidoGiro = "Horario";
-                generalData.sistemaUnidades = "SI";
+                generalData.unidades = true;
                 return;
             }
 
-            if (TestGeneralDataToggle && component == "engrane" && ejercicio == 3)
+            if (component == "engrane" && ejercicio == 3)
             {
                 generalData.numeroVuelta = 500;
                 generalData.confiabilidad = 1; //Falta dato
@@ -100,11 +120,11 @@ namespace EjesUI.ViewModels
                 generalData.factorConcentradorEsfuerzoFlexion = 6;
                 generalData.factorConcentradorEsfuerzoTorsion = 7;
                 generalData.sentidoGiro = "Antihorario";
-                generalData.sistemaUnidades = "FPS";
+                generalData.unidades = false;
                 return;
             }
 
-            if (TestGeneralDataToggle && component == "engrane" && ejercicio == 4)
+            if (component == "engrane" && ejercicio == 4)
             {
                 generalData.numeroVuelta = 1000;
                 generalData.confiabilidad = 1; //Falta dato
@@ -115,11 +135,11 @@ namespace EjesUI.ViewModels
                 generalData.factorConcentradorEsfuerzoFlexion = 2;
                 generalData.factorConcentradorEsfuerzoTorsion = 3;
                 generalData.sentidoGiro = "Antihorario";
-                generalData.sistemaUnidades = "FPS";
+                generalData.unidades = false;
                 return;
             }
 
-            if (TestGeneralDataToggle && component == "polea" && ejercicio == 1)
+            if (component == "polea" && ejercicio == 1)
             {
                 generalData.numeroVuelta = 480;
                 generalData.confiabilidad = 2;
@@ -130,11 +150,11 @@ namespace EjesUI.ViewModels
                 generalData.factorConcentradorEsfuerzoFlexion = 7;
                 generalData.factorConcentradorEsfuerzoTorsion = 8;
                 generalData.sentidoGiro = "Horario";
-                generalData.sistemaUnidades = "FPS";
+                generalData.unidades = false;
                 return;
             }
 
-            if (TestGeneralDataToggle && component == "polea" && ejercicio == 2)
+            if (component == "polea" && ejercicio == 2)
             {
                 generalData.numeroVuelta = 1000;
                 generalData.confiabilidad = 1; //Falta dato
@@ -145,11 +165,11 @@ namespace EjesUI.ViewModels
                 generalData.factorConcentradorEsfuerzoFlexion = 1.6;
                 generalData.factorConcentradorEsfuerzoTorsion = 1.4;
                 generalData.sentidoGiro = "Horario";
-                generalData.sistemaUnidades = "SI";
+                generalData.unidades = true;
                 return;
             }
 
-            if (TestGeneralDataToggle && component == "polea" && ejercicio == 3)
+            if (component == "polea" && ejercicio == 3)
             {
                 generalData.numeroVuelta = 500;
                 generalData.confiabilidad = 1; //Falta dato
@@ -160,11 +180,11 @@ namespace EjesUI.ViewModels
                 generalData.factorConcentradorEsfuerzoFlexion = 6;
                 generalData.factorConcentradorEsfuerzoTorsion = 7;
                 generalData.sentidoGiro = "Antihorario";
-                generalData.sistemaUnidades = "FPS";
+                generalData.unidades = false;
                 return;
             }
 
-            if (TestGeneralDataToggle && component == "cadena" && ejercicio == 1)
+            if (component == "cadena" && ejercicio == 1)
             {
                 generalData.numeroVuelta = 480;
                 generalData.confiabilidad = 2;
@@ -175,11 +195,11 @@ namespace EjesUI.ViewModels
                 generalData.factorConcentradorEsfuerzoFlexion = 7;
                 generalData.factorConcentradorEsfuerzoTorsion = 8;
                 generalData.sentidoGiro = "Horario";
-                generalData.sistemaUnidades = "FPS";
+                generalData.unidades = false;
                 return;
             }
 
-            if (TestGeneralDataToggle && component == "cadena" && ejercicio == 2)
+            if (component == "cadena" && ejercicio == 2)
             {
                 generalData.numeroVuelta = 500;
                 generalData.confiabilidad = 1; //Falta dato
@@ -190,9 +210,23 @@ namespace EjesUI.ViewModels
                 generalData.factorConcentradorEsfuerzoFlexion = 6;
                 generalData.factorConcentradorEsfuerzoTorsion = 7;
                 generalData.sentidoGiro = "Antihorario";
-                generalData.sistemaUnidades = "FPS";
+                generalData.unidades = false;
                 return;
             }
+        }
+
+        private void BlockForm()
+        {
+            FormDataModel.numeroVuelta = 0;
+            FormDataModel.confiabilidad = 0;
+            FormDataModel.limiteFluencia = 0;
+            FormDataModel.limiteMaximaFractura = 0;
+            FormDataModel.factorSeguridad = 0;
+            FormDataModel.coeficienteGlobal = 0;
+            FormDataModel.factorConcentradorEsfuerzoFlexion = 0;
+            FormDataModel.factorConcentradorEsfuerzoTorsion = 0;
+            FormDataModel.sentidoGiro = "";
+            FormDataModel.unidades = false;
         }
     }
 }

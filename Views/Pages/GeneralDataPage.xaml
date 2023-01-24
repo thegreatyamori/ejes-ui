@@ -1,68 +1,197 @@
-﻿<ui:UiPage x:Class="EjesUI.Views.Pages.GeneralDataPage"
+﻿<ui:UiPage
+    x:Class="EjesUI.Views.Pages.GeneralDataPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="clr-namespace:EjesUI.Helpers"
     xmlns:local="clr-namespace:EjesUI.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="GeneralDataPage"
-    d:DataContext="{d:DesignInstance local:GeneralDataPage, IsDesignTimeCreatable=False}"
-    d:DesignHeight="400
-           "
-    d:DesignWidth="800"
     d:Background="{DynamicResource ApplicationBackgroundBrush}"
+    d:DataContext="{d:DesignInstance local:GeneralDataPage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="400"
+    d:DesignWidth="800"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
+    <ui:UiPage.Resources>
+        <helpers:StringToDoubleConverter x:Key="StringToDoubleConverter" />
+    </ui:UiPage.Resources>
 
     <Grid Margin="0,10,0,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="14*"/>
-            <ColumnDefinition/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="14*" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="340*"/>
-            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*" />
+            <RowDefinition Height="340*" />
+            <RowDefinition Height="50*" />
         </Grid.RowDefinitions>
-        <Grid VerticalAlignment="Top" Grid.Column="1" Height="300" HorizontalAlignment="Left" Width="350" Grid.Row="1">
-            <ui:TextBox Margin="41,0,0,0" PlaceholderText="Numero de Vueltas (N)" VerticalAlignment="Top" />
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" Symbol="TextNumberFormat20"/>
-            <ui:TextBox x:Name="KR" Margin="41,50,0,0" PlaceholderText="Confiabilidad (kr)" VerticalAlignment="Top" />
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,59,0,0" VerticalAlignment="Top" Symbol="TextNumberFormat20"/>
-            <ui:TextBox x:Name="SY" Margin="41,100,0,0" PlaceholderText="Límite Fluencia (Sy)" VerticalAlignment="Top"/>
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,109,0,0" VerticalAlignment="Top" Symbol="TextNumberFormat20" />
-            <ui:TextBox x:Name="SUT" Margin="41,150,0,0" PlaceholderText="Límite Máxima Fractura (Sut)" VerticalAlignment="Top"/>
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,159,0,0"  VerticalAlignment="Top" Symbol="TextNumberFormat20"/>
-            <ComboBox VerticalAlignment="Top" Margin="41,200,0,0" Height="34.62">
-                <ComboBoxItem Content="Sentido de Giro del Eje" IsSelected="True" IsEnabled="False"/>
-                <ComboBoxItem Content="Horario"/>
-                <ComboBoxItem Content="Antihorario"/>
-            </ComboBox>
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,209,0,0"  VerticalAlignment="Top" Symbol="TextNumberFormat20"/>
-        </Grid>
-        <Grid VerticalAlignment="Top" Grid.Column="1" Height="250" HorizontalAlignment="Right" Width="350" Grid.Row="1">
-            <ui:TextBox x:Name="n" Margin="41,0,10,0" PlaceholderText="Factor Seguridad (n)" VerticalAlignment="Top" />
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top" Symbol="TextNumberFormat20"/>
-            <ui:TextBox x:Name="K" Margin="41,50,10,0" PlaceholderText="Coeficiente Global (k)" VerticalAlignment="Top" />
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,59,0,0" VerticalAlignment="Top" Symbol="TextNumberFormat20"/>
-            <ui:TextBox x:Name="KF" Margin="41,100,10,0" PlaceholderText="Factor Concentrador Esfuerzo Flexión (kf)" VerticalAlignment="Top"/>
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,109,0,0" VerticalAlignment="Top" Symbol="TextNumberFormat20" />
-            <ui:TextBox x:Name="KFS" Margin="41,150,10,0" PlaceholderText="Factor Concentrador Esfuerzo Torsión (kfs)" VerticalAlignment="Top"/>
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,159,0,0"  VerticalAlignment="Top" Symbol="TextNumberFormat20"/>
-            <ToggleButton
-                Content="{Binding ViewModel.UnitSystemContent, Mode=OneWay}"
-                Checked="ToggleButton_Checked"
-                Margin="41,201,0,0"
-                Height="34"
+        <Grid
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="350"
+            Height="300"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top">
+            <ui:TextBox
+                Margin="41,0,0,0"
                 VerticalAlignment="Top"
-                Width="299" 
-                />
-            <ui:SymbolIcon HorizontalAlignment="Left" Margin="20,209,0,0"  VerticalAlignment="Top" Symbol="BracesVariable20"/>
+                PlaceholderText="Numero de Vueltas (N)"
+                Text="{Binding ViewModel.FormDataModel.numeroVuelta, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
+                <!-- IsReadOnly="True" -->
+            <ui:SymbolIcon
+                Margin="20,10,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Symbol="TextNumberFormat20" />
+            <ui:TextBox
+                x:Name="KR"
+                Margin="41,50,0,0"
+                VerticalAlignment="Top"
+                PlaceholderText="Confiabilidad (kr)"
+                Text="{Binding ViewModel.FormDataModel.confiabilidad, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
+            <ui:SymbolIcon
+                Margin="20,59,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Symbol="TextNumberFormat20" />
+            <ui:TextBox
+                x:Name="SY"
+                Margin="41,100,0,0"
+                VerticalAlignment="Top"
+                PlaceholderText="Límite Fluencia (Sy)"
+                Text="{Binding ViewModel.FormDataModel.limiteFluencia, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
+            <ui:SymbolIcon
+                Margin="20,109,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Symbol="TextNumberFormat20" />
+            <ui:TextBox
+                x:Name="SUT"
+                Margin="41,150,0,0"
+                VerticalAlignment="Top"
+                PlaceholderText="Límite Máxima Fractura (Sut)"
+                Text="{Binding ViewModel.FormDataModel.limiteMaximaFractura, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
+            <ui:SymbolIcon
+                Margin="20,159,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Symbol="TextNumberFormat20" />
+            <ComboBox
+                Height="34.62"
+                Margin="41,200,0,0"
+                VerticalAlignment="Top"
+                Text="Sentido de Giro del Eje"
+                IsEditable="True"
+                SelectedValue="{Binding ViewModel.FormDataModel.sentidoGiro, Mode=TwoWay}">
+                <ComboBoxItem Content="Horario" />
+                <ComboBoxItem Content="Antihorario" />
+            </ComboBox>
+            <ui:SymbolIcon
+                Margin="20,209,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Symbol="TextNumberFormat20" />
+        </Grid>
+        <Grid
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="350"
+            Height="250"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top">
+            <ui:TextBox
+                x:Name="n"
+                Margin="41,0,10,0"
+                VerticalAlignment="Top"
+                PlaceholderText="Factor Seguridad (n)"
+                Text="{Binding ViewModel.FormDataModel.factorSeguridad, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
+            <ui:SymbolIcon
+                Margin="20,10,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Symbol="TextNumberFormat20" />
+            <ui:TextBox
+                x:Name="K"
+                Margin="41,50,10,0"
+                VerticalAlignment="Top"
+                PlaceholderText="Coeficiente Global (k)"
+                Text="{Binding ViewModel.FormDataModel.coeficienteGlobal, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
+            <ui:SymbolIcon
+                Margin="20,59,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Symbol="TextNumberFormat20" />
+            <ui:TextBox
+                x:Name="KF"
+                Margin="41,100,10,0"
+                VerticalAlignment="Top"
+                PlaceholderText="Factor Concentrador Esfuerzo Flexión (kf)"
+                Text="{Binding ViewModel.FormDataModel.factorConcentradorEsfuerzoFlexion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
+            <ui:SymbolIcon
+                Margin="20,109,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Symbol="TextNumberFormat20" />
+            <ui:TextBox
+                x:Name="KFS"
+                Margin="41,150,10,0"
+                VerticalAlignment="Top"
+                PlaceholderText="Factor Concentrador Esfuerzo Torsión (kfs)"
+                Text="{Binding ViewModel.FormDataModel.factorConcentradorEsfuerzoTorsion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
+            <ui:SymbolIcon
+                Margin="20,159,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Symbol="TextNumberFormat20" />
+            <ToggleButton
+                Width="299"
+                Height="34"
+                Margin="41,201,0,0"
+                VerticalAlignment="Top"
+                Checked="ToggleButton_Checked"
+                Content="{Binding ViewModel.UnitSystemContent, Mode=OneWay}" />
+            <ui:SymbolIcon
+                Margin="20,209,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Symbol="BracesVariable20" />
         </Grid>
 
-        <ui:ToggleSwitch Content="Probar" IsChecked="{Binding ViewModel.TestGeneralDataToggle}" Grid.Column="1" Margin="509,0,103,44" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="20" Grid.RowSpan="2"/>
-        <ui:Button Content="Guardar" Command="{Binding ViewModel.ClickGuardarGeneralDataCommand, Mode=OneWay}" Icon="Save20" VerticalAlignment="Bottom" Appearance="Primary" BorderThickness="1,1,1,1" SnapsToDevicePixels="True" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" IsEnabled="{Binding ViewModel.SaveGeneralDataButton}" Margin="0,0,0,44" Grid.RowSpan="2"/>
-        <Label Grid.Column="1" Content="Datos Generales" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="22" FontWeight="Bold"/>
+        <ui:ToggleSwitch
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Height="20"
+            Margin="509,0,103,44"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Bottom"
+            Content="Probar"
+            IsChecked="{Binding ViewModel.TestGeneralDataToggle}" />
+        <ui:Button
+            Grid.Row="1"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            Margin="0,0,0,44"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Appearance="Primary"
+            BorderThickness="1,1,1,1"
+            Command="{Binding ViewModel.ClickGuardarGeneralDataCommand, Mode=OneWay}"
+            Content="Guardar"
+            Icon="Save20"
+            IsEnabled="{Binding ViewModel.SaveGeneralDataButton}"
+            SnapsToDevicePixels="True" />
+        <Label
+            Grid.Column="1"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Content="Datos Generales"
+            FontSize="22"
+            FontWeight="Bold" />
     </Grid>
 </ui:UiPage>

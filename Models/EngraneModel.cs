@@ -4,9 +4,14 @@ using System.Collections.Generic;
 
 namespace EjesUI.Models
 {
-    public class EngraneFormDataModel: FormDataModel
+    public class EngraneFormDataModel : FormDataModel
     {
-        public string tipo { get; set; }
+        private string _tipo = "Tipo";
+        public string tipo
+        {
+            get { return _tipo; }
+            set { _tipo = value; }
+        }
         public double diametro { get; set; }
         public double potencia { get; set; }
         public double presion { get; set; }
@@ -14,7 +19,7 @@ namespace EjesUI.Models
         public double inclinacion { get; set; }
     }
 
-    public class EngraneCalculateModel: CalculateModel
+    public class EngraneCalculateModel : CalculateModel
     {
         public double inclinacionTangencial { get; set; }
         public double fuerzaTangencial { get; set; }

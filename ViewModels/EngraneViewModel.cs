@@ -18,7 +18,7 @@ namespace EjesUI.ViewModels
         private ApiService api;
         private AppConfig appConfig;
         private PdfService pdf;
-        private SnackBarService snackbar;
+        private SnackBarNotifierService snackbar;
 
         [ObservableProperty]
         private string  _filenamePath = string.Empty;
@@ -40,7 +40,7 @@ namespace EjesUI.ViewModels
             this.api = new ApiService();
             this.appConfig = new AppConfig();
             this.pdf = new PdfService();
-            this.snackbar = new SnackBarService(snackbarService);
+            this.snackbar = new SnackBarNotifierService(snackbarService);
         }
 
         public void OnNavigatedTo()
@@ -53,7 +53,7 @@ namespace EjesUI.ViewModels
 
         public void OnNavigatedFrom()
         {
-            // TODO: Limpiar formulario
+            ResetForm();
         }
 
         [RelayCommand]
@@ -61,6 +61,7 @@ namespace EjesUI.ViewModels
         {
             pdf.Download(FilenamePath);
             Process.Start("explorer.exe", this.appConfig.DefaultDownloadPath);
+            snackbar.Show("Ejes", "Componente Añadido!", 3);
         }
 
         [RelayCommand]
@@ -78,49 +79,63 @@ namespace EjesUI.ViewModels
 
             FilenamePath = filename;
             EngraneFrontalImg = img;
-            EngraneLateralImg = img;
+
+            if (!string.IsNullOrEmpty(payload.images?.lateral.Value))
+            {
+                BitmapImage imgL = ImageProcessor.ProcessImage(payload.images?.lateral.Value);
+                EngraneLateralImg = imgL;
+            }
+
+            ExerciseModel.Components.Add(new ComponentModel
+            {
+                FormData = FormDataModel,
+                Calculate = calculateData
+            });
+
             DownloadPDFEngraneButton = true;
             AddEngraneButton = false;
-
+                
             snackbar.Show("Ejes", "Componente Añadido!", 3);
+
         }
 
         private void PopulateFormData()
         {
+            var tipo = FormDataModel.tipo.Split(":")[1].Trim();
             FormDataModel.title = "Engrane " + ExerciseModel.GetNextComponentLetter();
             FormDataModel.opts = new Opts
             {
                 type = "engrane",
-                subtype = FormDataModel.tipo
+                subtype = tipo
             };
 
             if (TestEngraneToggle)
             {
                 // Ejemplo 1 - Engrane Recto
-                FormDataModel.tipo = "Recto";
-                FormDataModel.opts.subtype = "Recto";
-                FormDataModel.ubicacion = 4;
-                FormDataModel.energia = "Consume";
-                FormDataModel.peso = 5;
-                FormDataModel.diametro = 3;
-                FormDataModel.potencia = 5;
-                FormDataModel.presion = 20;
-                FormDataModel.inclinacion = 270;
-                FormDataModel.helice = 0;
-                FormDataModel.direccionFuerzaAxial = "";
+                // FormDataModel.tipo = "Recto";
+                //FormDataModel.opts.subtype = "Recto";
+                //FormDataModel.ubicacion = 4;
+                //FormDataModel.energia = "Consume";
+                //FormDataModel.peso = 5;
+                //FormDataModel.diametro = 3;
+                //FormDataModel.potencia = 5;
+                //FormDataModel.presion = 20;
+                //FormDataModel.inclinacion = 270;
+                //FormDataModel.helice = 0;
+                //FormDataModel.direccionFuerzaAxial = "";
 
                 // Ejemplo 2 - Engrane Cónico
-                // FormDataModel.tipo = "Conico";
-                // FormDataModel.opts.subtype = "Conico";
-                // FormDataModel.ubicacion = 0;
-                // FormDataModel.energia = "Consume";
-                // FormDataModel.peso = 0;
-                // FormDataModel.diametro = 70;
-                // FormDataModel.potencia = 3.191;
-                // FormDataModel.presion = 20;
-                // FormDataModel.inclinacion = 270;
-                // FormDataModel.helice = 25;
-                // FormDataModel.direccionFuerzaAxial = "Derecha";
+                FormDataModel.tipo = "Conico";
+                FormDataModel.opts.subtype = "Conico";
+                FormDataModel.ubicacion = 0;
+                FormDataModel.energia = "Consume";
+                FormDataModel.peso = 0;
+                FormDataModel.diametro = 140;
+                FormDataModel.potencia = 3.191;
+                FormDataModel.presion = 20;
+                FormDataModel.inclinacion = 180;
+                FormDataModel.helice = 25;
+                FormDataModel.direccionFuerzaAxial = "Derecha";
 
                 // Ejemplo 2 - Engrane Helicoidal
                 // FormDataModel.tipo = "Helicoidal";
@@ -189,21 +204,33 @@ namespace EjesUI.ViewModels
 
                 return;
             }
+
+            if (!FormDataModel.direccionFuerzaAxial.Equals("Dir. F. Axial"))
+            {
+                FormDataModel.direccionFuerzaAxial = FormDataModel.direccionFuerzaAxial.Split(":")[1].Trim();
+            } else
+            {
+                FormDataModel.direccionFuerzaAxial = "";
+            }
+            FormDataModel.tipo = tipo;
+            FormDataModel.energia = FormDataModel.energia.Split(":")[1].Trim();
         }
 
         private Pdf BuildData(EngraneCalculateModel data)
         {
             GeneralDataModel generalData = ExerciseModel.GeneralData;
+            FormDataModel.opts.system = generalData.unidades ? appConfig.SI : appConfig.FPS;
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
             dynamic images = api.Get(
                 "/engrane",
-                ("system", generalData.sistemaUnidades),
+                ("system", FormDataModel.opts.system),
                 ("diameter", FormDataModel.diametro.ToString()),
                 ("inclination_degree", FormDataModel.inclinacion.ToString()),
                 ("orientation", FormDataModel.energia),
                 ("type", FormDataModel.tipo.ToString()),
                 ("direction", generalData.sentidoGiro),
-                ("name", ExerciseModel.GetNextComponentLetter())
+                ("name", ExerciseModel.GetNextComponentLetter()),
+                ("directionFa", FormDataModel.direccionFuerzaAxial.ToString())
             );
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
 
@@ -217,7 +244,6 @@ namespace EjesUI.ViewModels
             List<dynamic> descomposition_torque = new();
             List<dynamic> momentDescomposition = new();
             List<dynamic> anguloTransversalPresion = new();
-            FormDataModel.opts.system = generalData.sistemaUnidades;
 
             if (FormDataModel.tipo.Equals("Recto"))
             {
@@ -229,22 +255,39 @@ namespace EjesUI.ViewModels
                 descompositionY = new List<dynamic>{ data.fuerzaRadialY, data.fuerzaTangencialY, data.fuerzaY };
             }
 
-            //if (FormDataModel.tipo.Equals("Helicoidal"))
-            //{
-            //    torqueValues = { FormDataModel.potencia, generalData.numeroVuelta, data.torque };
-            //    generalForces = { data.torque, data.fuerzaTangencial, data.fuerzaRadial, data.radio, FormDataModel.presion, FormDataModel.helice };
-            //    axialDescomposition = { null /* TODO: verificar a que corresponde f*/, null, data.fuerzaTangencial, data.fuerzaAxial };
-            //    momentDescomposition = { data.radio, FormDataModel.inclinacion, data.fuerzaAxial, data.momento, data.momentoZ, data.momentoY };
-            //    anguloTransversalPresion = { FormDataModel.presion, FormDataModel.helice, data.anguloTransversalPresion };
-            //}
+            if (FormDataModel.tipo.Equals("Helicoidal"))
+            {
+                torqueValues = new List<dynamic> { FormDataModel.potencia, generalData.numeroVuelta, data.torque };
+                generalForces = new List<dynamic?> { data.torque, data.fuerzaTangencial, data.fuerzaRadial, data.radio, FormDataModel.presion, FormDataModel.helice };
+                tangentialDescomposition = new List<dynamic> { data.inclinacionTangencial, data.fuerzaTangencial, data.fuerzaTangencialZ, data.fuerzaTangencialY };
+                radialDescomposition = new List<dynamic> { data.inclinacionRadial, data.fuerzaRadial, data.fuerzaRadialZ, data.fuerzaRadialY };
+                descompositionZ = new List<dynamic> { data.fuerzaRadialZ, data.fuerzaTangencialZ, data.fuerzaZ };
+                descompositionY = new List<dynamic> { data.fuerzaRadialY, data.fuerzaTangencialY, data.fuerzaY };
+                if (data.GetType() == typeof(EngraneHelicoidalCalculateModel))
+                {
+                    EngraneHelicoidalCalculateModel dataHelicoidal = (EngraneHelicoidalCalculateModel)data;
+                    momentDescomposition = new List<dynamic> { data.radio, FormDataModel.inclinacion, dataHelicoidal.fuerzaAxial, dataHelicoidal.momento, dataHelicoidal.momentoZ, dataHelicoidal.momentoY };
+                    axialDescomposition = new List<dynamic> { FormDataModel.presion, null, data.fuerzaTangencial, dataHelicoidal.fuerzaAxial };
+                    anguloTransversalPresion = new List<dynamic> { FormDataModel.presion, FormDataModel.helice, dataHelicoidal.anguloTransversalPresion };
+                }
+            }
 
-            //if (FormDataModel.tipo.Equals("Conico"))
-            //{
-            //    torqueValues = { FormDataModel.potencia, generalData.numeroVuelta, data.torque };
-            //    generalForces = { data.torque, data.fuerzaTangencial, data.fuerzaRadial, data.radio, FormDataModel.presion, FormDataModel.helice };
-            //    axialDescomposition = { null /* TODO: verificar a que corresponde f*/, FormDataModel.helice, data.fuerzaTangencial, data.fuerzaAxial };
-            //    momentDescomposition = { data.radio, FormDataModel.inclinacion, data.fuerzaAxial, data.momento, data.momentoZ, data.momentoY };
-            //}
+            if (FormDataModel.tipo.Equals("Conico"))
+            {
+                torqueValues = new List<dynamic> { FormDataModel.potencia, generalData.numeroVuelta, data.torque };
+                generalForces = new List<dynamic?> { data.torque, data.fuerzaTangencial, data.fuerzaRadial, data.radio, FormDataModel.presion, FormDataModel.helice };
+                tangentialDescomposition = new List<dynamic> { data.inclinacionTangencial, data.fuerzaTangencial, data.fuerzaTangencialZ, data.fuerzaTangencialY };
+                radialDescomposition = new List<dynamic> { data.inclinacionRadial, data.fuerzaRadial, data.fuerzaRadialZ, data.fuerzaRadialY };
+                descompositionZ = new List<dynamic> { data.fuerzaRadialZ, data.fuerzaTangencialZ, data.fuerzaZ };
+                descompositionY = new List<dynamic> { data.fuerzaRadialY, data.fuerzaTangencialY, data.fuerzaY };
+
+                if (data.GetType() == typeof(EngraneConicoCalculateModel))
+                {
+                    EngraneConicoCalculateModel dataConico = (EngraneConicoCalculateModel) data;
+                    momentDescomposition = new List<dynamic> { data.radio, FormDataModel.inclinacion, dataConico.fuerzaAxial, dataConico.momento, dataConico.momentoZ, dataConico.momentoY };
+                    axialDescomposition = new List<dynamic> { FormDataModel.presion, FormDataModel.helice, data.fuerzaTangencial, dataConico.fuerzaAxial };
+                }
+            }
 
             Pdf pdf = new()
             {
@@ -285,9 +328,9 @@ namespace EjesUI.ViewModels
         {
             GeneralDataModel generalData = ExerciseModel.GeneralData;
 
-            int constante = (generalData.sistemaUnidades == "SI") ? appConfig.CONSTANTE_TORQUE_SI : appConfig.CONSTANTE_TORQUE_FPS;
+            int constante = generalData.unidades ? appConfig.CONSTANTE_TORQUE_SI : appConfig.CONSTANTE_TORQUE_FPS;
             double torque = constante * (FormDataModel.potencia / generalData.numeroVuelta);
-            double radio = (generalData.sistemaUnidades == "SI") ? (FormDataModel.diametro / 2) / 1000 : FormDataModel.diametro / 2;
+            double radio = generalData.unidades ? (FormDataModel.diametro / 2) / 1000 : FormDataModel.diametro / 2;
             double fuerzaTangencial = torque / radio;
             double fuerzaRadial = fuerzaTangencial * Math.Tan(FormDataModel.presion * Math.PI / 180);
 
@@ -343,13 +386,13 @@ namespace EjesUI.ViewModels
         {
             GeneralDataModel generalData = ExerciseModel.GeneralData;
 
-            int constante = (generalData.sistemaUnidades == "SI") ? appConfig.CONSTANTE_TORQUE_SI : appConfig.CONSTANTE_TORQUE_FPS;
+            int constante = generalData.unidades ? appConfig.CONSTANTE_TORQUE_SI : appConfig.CONSTANTE_TORQUE_FPS;
             double torque = constante * (FormDataModel.potencia / generalData.numeroVuelta);
-            double radio = (generalData.sistemaUnidades == "SI") ? (FormDataModel.diametro / 2) / 1000 : FormDataModel.diametro / 2;
+            double radio = generalData.unidades ? (FormDataModel.diametro / 2) / 1000 : FormDataModel.diametro / 2;
             double fuerzaTangencial = torque / radio;
             double anguloTransversalPresion = Math.Atan(Math.Tan(FormDataModel.presion * Math.PI / 180) / Math.Cos(FormDataModel.helice * Math.PI / 180));
             double fuerzaRadial = fuerzaTangencial * Math.Tan(anguloTransversalPresion);
-            double fuerzaAxial = fuerzaTangencial * Math.Tan(FormDataModel.helice);
+            double fuerzaAxial = fuerzaTangencial * Math.Tan(FormDataModel.helice * Math.PI / 180);
             double momento = fuerzaAxial * radio;
 
             // Angulos
@@ -381,7 +424,7 @@ namespace EjesUI.ViewModels
             double fuerzaY = fuerzaRadialY + fuerzaTangencialY;
             // Momento
             double momentoZ = momento * Math.Cos(inclinacionTangencial);
-            double momentoY = momento * Math.Cos(inclinacionTangencial);
+            double momentoY = momento * Math.Sin(inclinacionTangencial);
             // TODO: mover esta logica al cs de la page
             //mainHandler.datoEngranes.fuerzaFinalZ.Add(fuerzaZ);
             //mainHandler.datoEngranes.fuerzaFinalY.Add(fuerzaY - FormDataModel.peso);
@@ -390,6 +433,8 @@ namespace EjesUI.ViewModels
 
             return new EngraneHelicoidalCalculateModel
             {
+                radio = radio,
+                torque = torque,
                 fuerzaAxial = fuerzaAxial,
                 momento = momento,
                 momentoZ = momentoZ,
@@ -412,9 +457,9 @@ namespace EjesUI.ViewModels
         {
             GeneralDataModel generalData = ExerciseModel.GeneralData;
 
-            int constante = (generalData.sistemaUnidades == "SI") ? appConfig.CONSTANTE_TORQUE_SI : appConfig.CONSTANTE_TORQUE_FPS;
+            int constante = generalData.unidades ? appConfig.CONSTANTE_TORQUE_SI : appConfig.CONSTANTE_TORQUE_FPS;
             double torque = constante * (FormDataModel.potencia / generalData.numeroVuelta);
-            double radio = (generalData.sistemaUnidades == "SI") ? (FormDataModel.diametro / 2) / 1000 : FormDataModel.diametro / 2;
+            double radio = generalData.unidades ? (FormDataModel.diametro / 2) / 1000 : FormDataModel.diametro / 2;
             double fuerzaTangencial = torque / radio;
             double fuerzaRadial = fuerzaTangencial * Math.Tan(FormDataModel.presion * Math.PI / 180) * Math.Cos(FormDataModel.helice * Math.PI / 180);
             double fuerzaAxial = fuerzaTangencial * Math.Tan(FormDataModel.presion * Math.PI / 180) * Math.Sin(FormDataModel.helice * Math.PI / 180);
@@ -449,7 +494,7 @@ namespace EjesUI.ViewModels
             double fuerzaY = fuerzaRadialY + fuerzaTangencialY;
             // Momento
             double momentoZ = momento * Math.Cos(inclinacionTangencial);
-            double momentoY = momento * Math.Cos(inclinacionTangencial);
+            double momentoY = momento * Math.Sin(inclinacionTangencial);
             // TODO: mover esta logica al cs de la page
             //mainHandler.datoEngranes.fuerzaFinalZ.Add(fuerzaZ);
             //mainHandler.datoEngranes.fuerzaFinalY.Add(fuerzaY - FormDataModel.peso);
@@ -458,6 +503,8 @@ namespace EjesUI.ViewModels
 
             return new EngraneConicoCalculateModel
             {
+                radio = radio,
+                torque = torque,
                 fuerzaAxial = fuerzaAxial,
                 momento = momento,
                 momentoZ = momentoZ,
@@ -473,6 +520,11 @@ namespace EjesUI.ViewModels
                 fuerzaZ = fuerzaZ,
                 fuerzaY = fuerzaY
             };
+        }
+
+        private void ResetForm()
+        {
+            FormDataModel = new EngraneFormDataModel();
         }
     }
 }

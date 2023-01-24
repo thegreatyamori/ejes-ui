@@ -14,7 +14,7 @@ namespace EjesUI.ViewModels
     public partial class MainWindowViewModel : ObservableObject
     {
         private bool _isInitialized = false;
-        private SnackBarService snackbar;
+        private SnackBarNotifierService snackbar;
 
         [ObservableProperty]
         private string _applicationTitle = String.Empty;
@@ -29,11 +29,11 @@ namespace EjesUI.ViewModels
         private ObservableCollection<MenuItem> _trayMenuItems = new();
 
         //[ObservableProperty]
-        //private bool _isNewExerciseEnabled = true;
+        //private bool _isNewExerciseEnabled = false;
 
         public MainWindowViewModel(INavigationService navigationService, ISnackbarService snackbarService)
         {
-            this.snackbar = new SnackBarService(snackbarService);
+            this.snackbar = new SnackBarNotifierService(snackbarService);
             if (!_isInitialized)
                 InitializeViewModel();
         }
@@ -116,7 +116,7 @@ namespace EjesUI.ViewModels
         {
             ExerciseModel.Name = "Ejercicio Ejes #1";
             ExerciseModel.Uuid = Guid.NewGuid().ToString();
-            ExerciseModel.IsExerciseActive = false;
+            ExerciseModel.IsActive = true;
             snackbar.Show("Nuevo Ejercicio", "En progreso!", 2);
         }
     }

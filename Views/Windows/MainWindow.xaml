@@ -9,7 +9,7 @@
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     Title="{Binding ViewModel.ApplicationTitle, Mode=OneWay}"
     Width="1100"
-    Height="500"
+    Height="650"
     d:DataContext="{d:DesignInstance local:MainWindow,
                                      IsDesignTimeCreatable=True}"
     d:Background="{DynamicResource ApplicationBackgroundBrush}"
@@ -49,14 +49,14 @@
                         Text="Fluent design" />
                 </StackPanel>
 
-                <ui:Button 
-                    Content="Nuevo Ejercicio" 
-                    Command="{Binding ViewModel.ClickNewExerciseCommand, Mode=OneWay}" 
-                    Grid.Row="1" 
-                    VerticalAlignment="Top" 
-                    HorizontalAlignment="Center" 
-                    Width="250" 
-                    Appearance="Light" 
+                <ui:Button
+                    Content="Nuevo Ejercicio"
+                    Command="{Binding ViewModel.ClickNewExerciseCommand, Mode=OneWay}"
+                    Grid.Row="1"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Center"
+                    Width="250"
+                    Appearance="Light"
                     />
 
                 <!--  This is the main navigation of the application.  -->

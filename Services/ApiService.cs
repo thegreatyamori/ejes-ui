@@ -47,7 +47,8 @@ namespace EjesUI.Services
 
             RestRequest request = new(resource, Method.Post);
             request.AddHeader("content-type", "application/json");
-            request.AddParameter("application/json", json, ParameterType.RequestBody);
+            if (json != string.Empty)
+                request.AddParameter("application/json", json, ParameterType.RequestBody);
 
             RestResponse response = client.Execute(request);
 

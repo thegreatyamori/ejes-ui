@@ -1,26 +1,37 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Wpf.Ui.Common.Interfaces;
-using EjesUI.Models;
 using System.Collections.Generic;
 using System;
+using EjesUI.Models;
 using EjesUI.Helpers;
+using EjesUI.Services;
 using System.Windows.Media.Imaging;
 using System.IO;
-using EjesUI.Services;
 using Wpf.Ui.Mvvm.Contracts;
+using System.Windows;
+using System.Diagnostics;
 
 namespace EjesUI.ViewModels
 {
     public partial class DashboardViewModel : ObservableObject, INavigationAware
     {
         private ApiService api;
-        private AppConfig appConfig;
         private PdfService pdf;
-        private SnackBarService snackbar;
+        private AppConfig appConfig;
+        private GraphicService graphics;
+        private SnackBarNotifierService snackbar;
 
         [ObservableProperty]
         private string _exercise = string.Empty;
+        [ObservableProperty]
+        private Visibility _labelVisibility = Visibility.Visible;
+        [ObservableProperty]
+        private Visibility _buttonsVisibility = Visibility.Hidden;
+        [ObservableProperty]
+        private bool _pdfButtonEnabled = false;
+        [ObservableProperty]
+        private bool _wordButtonEnabled = false;
         [ObservableProperty]
         private IEnumerable<ComponentButton> _buttons;
 
@@ -29,14 +40,25 @@ namespace EjesUI.ViewModels
             this.api = new ApiService();
             this.appConfig = new AppConfig();
             this.pdf = new PdfService();
-            this.snackbar = new SnackBarService(snackbarService);
+            this.snackbar = new SnackBarNotifierService(snackbarService);
+            this.graphics = new GraphicService();
 
             Exercise = ExerciseModel.Name;
         }
 
         public void OnNavigatedTo()
         {
+            var rodamientoItems = ExerciseModel.rodamientoCount == 2;
+            if (rodamientoItems)
+            {
+                graphics.Generate();
+            }
+
             Exercise = ExerciseModel.Name;
+            LabelVisibility = ExerciseModel.IsActive ? Visibility.Hidden : Visibility.Visible;
+            ButtonsVisibility = ExerciseModel.IsActive ? Visibility.Visible : Visibility.Hidden;
+            PdfButtonEnabled = rodamientoItems;
+
             InitializeViewModel();
         }
 
@@ -47,14 +69,18 @@ namespace EjesUI.ViewModels
         [RelayCommand]
         private void OnClickSavePDF()
         {
+
 #pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-           dynamic rawPdf = this.api.Get("/join-pdf", ("uuid", ExerciseModel.Uuid));
+            dynamic rawPdf = api.Get("/join-pdf", ("uuid", ExerciseModel.Uuid));
 #pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-           string downloadURL = $"{this.appConfig.DefaultDownloadPath}result_{ExerciseModel.Uuid}.pdf";
+            string downloadURL = $"{this.appConfig.DefaultDownloadPath}result_{ExerciseModel.Uuid}.pdf";
 
-           File.WriteAllBytes(downloadURL, rawPdf);
+            File.WriteAllBytes(downloadURL, rawPdf);
+            Process.Start("explorer.exe", this.appConfig.DefaultDownloadPath);
 
-            snackbar.Show("PDF", "PDF descargado !");
+            WordButtonEnabled = PdfButtonEnabled;
+
+            snackbar.Show("PDF", "PDF descargado !", 2);
         }
 
         [RelayCommand]
@@ -102,10 +128,15 @@ namespace EjesUI.ViewModels
                     image = ImageProcessor.SetDefaultImage("/Assets/polea.png");
                 }
 
+                if (title == "Rodamiento")
+                {
+                    image = ImageProcessor.SetDefaultImage("/Assets/polea.png");
+                }
+
                 buttonCollection.Add(new ComponentButton
                 {
-                    Title= components[i].FormData.title,
-                    OnClick= new RelayCommand(NavigateTo(components[i].FormData.title)),
+                    Title= title,
+                    OnClick= new RelayCommand(NavigateTo(title)),
                     Image= image
                 });
             };
@@ -117,7 +148,7 @@ namespace EjesUI.ViewModels
 
         private Action NavigateTo(string message)
         {
-            return () => { System.Windows.MessageBox.Show(message); };
+            return () => { snackbar.Show("Componente", message, 2); };
         }
     }
 }

@@ -11,6 +11,6 @@
         public double factorConcentradorEsfuerzoFlexion { get; set; }
         public double factorConcentradorEsfuerzoTorsion { get; set; }
         public string sentidoGiro { get; set; }
-        public string sistemaUnidades { get; set; }
+        public bool unidades { get; set; }
     }
 }

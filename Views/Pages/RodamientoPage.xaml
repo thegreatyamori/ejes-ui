@@ -66,9 +66,18 @@
                 VerticalAlignment="Top"
                 Symbol="TextNumberFormat20" />
         </Grid>
-        <!-- <Grid Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,54">
-            <Image Source="{Binding ViewModel.RodamientoImg, Mode=OneWay}" HorizontalAlignment="Left" Height="245" Width="345" VerticalAlignment="Top"/>
-        </Grid>-->
+        <ui:Button
+            Grid.Row="1"
+            Grid.Column="2"
+            Margin="0,0,87,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Appearance="Caution"
+            BorderThickness="1,1,1,1"
+            Command="{Binding ViewModel.ClickGuardarGeneralDataCommand, Mode=OneWay}"
+            Content="Limpiar"
+            Icon="ArrowReset20"
+            SnapsToDevicePixels="True" />
         <ui:Button
             Grid.Row="1"
             Grid.Column="2"

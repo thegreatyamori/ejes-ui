@@ -165,12 +165,25 @@
         <ui:ToggleSwitch
             Grid.Row="1"
             Grid.Column="2"
-            Width="89"
-            Margin="0,0,180,7"
+            Width="79"
+            Height="28"
+            Margin="0,0,270,1"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
             Content="Probar"
             IsChecked="{Binding ViewModel.TestEngraneToggle}" />
+        <ui:Button
+            Grid.Row="1"
+            Grid.Column="2"
+            Margin="0,0,174,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Appearance="Caution"
+            BorderThickness="1,1,1,1"
+            Command="{Binding ViewModel.ClickGuardarGeneralDataCommand, Mode=OneWay}"
+            Content="Limpiar"
+            Icon="ArrowReset20"
+            SnapsToDevicePixels="True" />
         <ui:Button
             Grid.Row="1"
             Grid.Column="2"
@@ -190,7 +203,7 @@
             Grid.Column="2"
             Width="87"
             Height="32"
-            Margin="0,0,89,0"
+            Margin="0,0,87,0"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
             Appearance="Danger"

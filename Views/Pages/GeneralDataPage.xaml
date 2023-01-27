@@ -156,6 +156,8 @@
                 Margin="41,201,0,0"
                 VerticalAlignment="Top"
                 Checked="ToggleButton_Checked"
+                Unchecked="ToggleButton_Checked"
+                CommandParameter=""
                 Content="{Binding ViewModel.UnitSystemContent, Mode=OneWay}" />
         </Grid>
 
@@ -178,7 +180,7 @@
             VerticalAlignment="Bottom"
             Appearance="Caution"
             BorderThickness="1,1,1,1"
-            Command="{Binding ViewModel.ClickGuardarGeneralDataCommand, Mode=OneWay}"
+            Command="{Binding ViewModel.CleanFormCommand, Mode=OneWay}"
             Content="Limpiar"
             Icon="ArrowReset20"
             IsEnabled="{Binding ViewModel.SaveGeneralDataButton}"

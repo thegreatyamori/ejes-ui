@@ -43,10 +43,6 @@
                 IsEditable="True"
                 SelectedValue="{Binding ViewModel.FormDataModel.tipo, Mode=TwoWay}"
                 Text="Tipo">
-                <ComboBoxItem
-                    Content="Tipo"
-                    IsEnabled="False"
-                    IsSelected="True" />
                 <ComboBoxItem Content="Empuje" />
                 <ComboBoxItem Content="Radial" />
             </ComboBox>
@@ -74,7 +70,7 @@
             VerticalAlignment="Bottom"
             Appearance="Caution"
             BorderThickness="1,1,1,1"
-            Command="{Binding ViewModel.ClickGuardarGeneralDataCommand, Mode=OneWay}"
+            Command="{Binding ViewModel.ClearFormCommand, Mode=OneWay}"
             Content="Limpiar"
             Icon="ArrowReset20"
             SnapsToDevicePixels="True" />

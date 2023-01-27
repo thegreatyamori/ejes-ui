@@ -142,7 +142,7 @@
             VerticalAlignment="Bottom"
             Appearance="Caution"
             BorderThickness="1,1,1,1"
-            Command="{Binding ViewModel.ClickGuardarGeneralDataCommand, Mode=OneWay}"
+            Command="{Binding ViewModel.ClearFormCommand, Mode=OneWay}"
             Content="Limpiar"
             Icon="ArrowReset20"
             SnapsToDevicePixels="True" />

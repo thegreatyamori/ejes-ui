@@ -15,10 +15,10 @@ namespace EjesUI.ViewModels
 {
     public partial class EngraneViewModel : ObservableObject, INavigationAware
     {
-        private ApiService api;
-        private AppConfig appConfig;
-        private PdfService pdf;
-        private SnackBarNotifierService snackbar;
+        private readonly ApiService api;
+        private readonly AppConfig appConfig;
+        private readonly PdfService pdf;
+        private readonly SnackBarNotifierService snackbar;
 
         [ObservableProperty]
         private string  _filenamePath = string.Empty;
@@ -52,6 +52,12 @@ namespace EjesUI.ViewModels
         }
 
         public void OnNavigatedFrom()
+        {
+            ResetForm();
+        }
+
+        [RelayCommand]
+        public void ClearForm()
         {
             ResetForm();
         }

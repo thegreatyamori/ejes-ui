@@ -9,10 +9,7 @@ namespace EjesUI.ViewModels
 {
     public partial class RodamientoViewModel : ObservableObject, INavigationAware
     {
-        private ApiService api;
-        private PdfService pdf;
-        private AppConfig appConfig;
-        private SnackBarNotifierService snackbar;
+        private readonly SnackBarNotifierService snackbar;
 
         [ObservableProperty]
         private string _filenamePath = string.Empty;
@@ -21,9 +18,6 @@ namespace EjesUI.ViewModels
 
         public RodamientoViewModel(ISnackbarService snackbarService)
         {
-            this.api = new ApiService();
-            this.appConfig = new AppConfig();
-            this.pdf = new PdfService();
             this.snackbar = new SnackBarNotifierService(snackbarService);
         }
 
@@ -32,6 +26,12 @@ namespace EjesUI.ViewModels
         }
 
         public void OnNavigatedFrom()
+        {
+            ResetForm();
+        }
+
+        [RelayCommand]
+        public void ClearForm()
         {
             ResetForm();
         }

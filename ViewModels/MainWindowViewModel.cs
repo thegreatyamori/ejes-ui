@@ -13,6 +13,7 @@ namespace EjesUI.ViewModels
 {
     public partial class MainWindowViewModel : ObservableObject
     {
+        private ApiService api;
         private bool _isInitialized = false;
         private SnackBarNotifierService snackbar;
 
@@ -33,6 +34,7 @@ namespace EjesUI.ViewModels
 
         public MainWindowViewModel(INavigationService navigationService, ISnackbarService snackbarService)
         {
+            this.api = new ApiService();
             this.snackbar = new SnackBarNotifierService(snackbarService);
             if (!_isInitialized)
                 InitializeViewModel();
@@ -117,6 +119,9 @@ namespace EjesUI.ViewModels
             ExerciseModel.Name = "Ejercicio Ejes #1";
             ExerciseModel.Uuid = Guid.NewGuid().ToString();
             ExerciseModel.IsActive = true;
+
+            api.Post("/generate-caratula", "");
+
             snackbar.Show("Nuevo Ejercicio", "En progreso!", 2);
         }
     }

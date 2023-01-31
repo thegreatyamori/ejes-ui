@@ -15,7 +15,7 @@ namespace EjesUI.Services
         }
 
         public string Generate(Pdf pdfData) {
-            string payloadPdf = JsonConvert.SerializeObject(pdfData); ;
+            string payloadPdf = JsonConvert.SerializeObject(pdfData);
             dynamic? pdfResult = api.Post("/generate-pdf", payloadPdf);
 
             return pdfResult.filename.Value;

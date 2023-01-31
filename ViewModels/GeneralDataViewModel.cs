@@ -4,6 +4,7 @@ using Wpf.Ui.Common.Interfaces;
 using EjesUI.Models;
 using Wpf.Ui.Mvvm.Contracts;
 using EjesUI.Services;
+using Newtonsoft.Json;
 
 namespace EjesUI.ViewModels
 {
@@ -61,7 +62,8 @@ namespace EjesUI.ViewModels
         {
             PopulateFormData();
 
-            api.Post("/generate-caratula", "");
+            string payload = JsonConvert.SerializeObject(FormDataModel);
+            api.Post("/generate-data", payload);
 
             SaveGeneralDataButton = false;
 

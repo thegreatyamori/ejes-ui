@@ -6,6 +6,7 @@ using EjesUI.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Windows;
 using System.Windows.Media.Imaging;
 using Wpf.Ui.Common.Interfaces;
 using Wpf.Ui.Mvvm.Contracts;
@@ -34,6 +35,8 @@ namespace EjesUI.ViewModels
         private EngraneFormDataModel _formDataModel = new();
         [ObservableProperty]
         private bool _testEngraneToggle = false;
+        [ObservableProperty]
+        private Visibility _displayHelice = Visibility.Visible;
 
         public EngraneViewModel(ISnackbarService snackbarService)
         {
@@ -54,6 +57,12 @@ namespace EjesUI.ViewModels
         public void OnNavigatedFrom()
         {
             ResetForm();
+        }
+
+        [RelayCommand]
+        public void OnTypeSelectChange()
+        {
+            snackbar.Show("1", "selected", 3);
         }
 
         [RelayCommand]

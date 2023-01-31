@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-
-namespace EjesUI.Models
+﻿namespace EjesUI.Models
 {
     public class EngraneFormDataModel : FormDataModel
     {

@@ -1,4 +1,7 @@
-﻿using Wpf.Ui.Common.Interfaces;
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
+using Wpf.Ui.Common.Interfaces;
 
 namespace EjesUI.Views.Pages
 {
@@ -16,6 +19,20 @@ namespace EjesUI.Views.Pages
             ViewModel = viewModel;
 
             InitializeComponent();
+        }
+
+        private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            foreach (ComboBoxItem item in e.AddedItems)
+            {
+                if ((string)item.Content == "Recto")
+                {
+                    ViewModel.DisplayHelice = Visibility.Hidden;
+                } else
+                {
+                    ViewModel.DisplayHelice = Visibility.Visible;
+                }
+            }
         }
     }
 }

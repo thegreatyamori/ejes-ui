@@ -43,6 +43,7 @@
                 VerticalAlignment="Top"
                 IsEditable="True"
                 SelectedValue="{Binding ViewModel.FormDataModel.tipo, Mode=TwoWay}"
+                SelectionChanged="ComboBox_SelectionChanged"
                 Text="Tipo">
                 <ComboBoxItem Content="Recto" />
                 <ComboBoxItem Content="Helicoidal" />
@@ -104,7 +105,8 @@
                 Margin="195,200,10,0"
                 VerticalAlignment="Top"
                 PlaceholderText="Áng. Hélice (°)"
-                Text="{Binding ViewModel.FormDataModel.helice, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
+                Text="{Binding ViewModel.FormDataModel.helice, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}"
+                Visibility="{Binding ViewModel.DisplayHelice}" />
             <ui:SymbolIcon
                 Margin="20,210,0,0"
                 HorizontalAlignment="Left"

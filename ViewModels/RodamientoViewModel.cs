@@ -15,6 +15,8 @@ namespace EjesUI.ViewModels
         private string _filenamePath = string.Empty;
         [ObservableProperty]
         private RodamientoFormDataModel _formDataModel = new();
+        [ObservableProperty]
+        private string _diametroPH = string.Empty;
 
         public RodamientoViewModel(ISnackbarService snackbarService)
         {
@@ -23,6 +25,8 @@ namespace EjesUI.ViewModels
 
         public void OnNavigatedTo()
         {
+            bool isButtonChecked = ExerciseModel.GeneralData.unidades;
+            DiametroPH = isButtonChecked ? "mm" : "in";
         }
 
         public void OnNavigatedFrom()

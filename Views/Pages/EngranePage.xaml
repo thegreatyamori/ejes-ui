@@ -37,9 +37,8 @@
             Height="340"
             VerticalAlignment="Top">
             <ComboBox
-                Width="299"
-                Height="34.62"
-                Margin="41,0,10,0"
+                Height="35"
+                Margin="41,0,40,0"
                 VerticalAlignment="Top"
                 IsEditable="True"
                 SelectedValue="{Binding ViewModel.FormDataModel.tipo, Mode=TwoWay}"
@@ -55,9 +54,9 @@
                 VerticalAlignment="Top"
                 Symbol="SelectAllOn20" />
             <ui:TextBox
-                Margin="41,40,10,0"
+                Margin="41,40,40,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Ubicación (mm)"
+                PlaceholderText="Ubicación"
                 Text="{Binding ViewModel.FormDataModel.ubicacion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <ui:SymbolIcon
                 Margin="20,50,0,0"
@@ -65,9 +64,9 @@
                 VerticalAlignment="Top"
                 Symbol="TextNumberFormat20" />
             <ui:TextBox
-                Margin="41,80,10,0"
+                Margin="41,80,40,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Peso (N)"
+                PlaceholderText="Peso"
                 Text="{Binding ViewModel.FormDataModel.peso, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <ui:SymbolIcon
                 Margin="20,90,0,0"
@@ -75,9 +74,9 @@
                 VerticalAlignment="Top"
                 Symbol="TextNumberFormat20" />
             <ui:TextBox
-                Margin="41,120,10,0"
+                Margin="41,120,40,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Diametro (mm)"
+                PlaceholderText="Diametro"
                 Text="{Binding ViewModel.FormDataModel.diametro, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <ui:SymbolIcon
                 Margin="20,130,0,0"
@@ -85,9 +84,9 @@
                 VerticalAlignment="Top"
                 Symbol="TextNumberFormat20" />
             <ui:TextBox
-                Margin="41,160,10,0"
+                Margin="41,160,40,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Potencia (kW)"
+                PlaceholderText="Potencia"
                 Text="{Binding ViewModel.FormDataModel.potencia, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <ui:SymbolIcon
                 Margin="20,170,0,0"
@@ -95,16 +94,14 @@
                 VerticalAlignment="Top"
                 Symbol="TextNumberFormat20" />
             <ui:TextBox
-                Width="145"
-                Margin="41,200,164,0"
+                Margin="41,200,181,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Áng. Presión (°)"
+                PlaceholderText="Áng. Presión"
                 Text="{Binding ViewModel.FormDataModel.presion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <ui:TextBox
-                Width="145"
-                Margin="195,200,10,0"
+                Margin="195,200,40,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Áng. Hélice (°)"
+                PlaceholderText="Áng. Hélice"
                 Text="{Binding ViewModel.FormDataModel.helice, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}"
                 Visibility="{Binding ViewModel.DisplayHelice}" />
             <ui:SymbolIcon
@@ -113,7 +110,7 @@
                 VerticalAlignment="Top"
                 Symbol="TextNumberFormat20" />
             <ui:TextBox
-                Margin="41,240,10,0"
+                Margin="41,240,40,0"
                 VerticalAlignment="Top"
                 PlaceholderText="Inclinación"
                 Text="{Binding ViewModel.FormDataModel.inclinacion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
@@ -123,8 +120,7 @@
                 VerticalAlignment="Top"
                 Symbol="TextNumberFormat20" />
             <ComboBox
-                Width="145"
-                Margin="195,280,10,0"
+                Margin="195,280,40,0"
                 VerticalAlignment="Top"
                 IsEditable="True"
                 SelectedValue="{Binding ViewModel.FormDataModel.energia, Mode=TwoWay}"
@@ -147,6 +143,40 @@
                 <ComboBoxItem Content="Derecha" />
                 <ComboBoxItem Content="Izquierda" />
             </ComboBox>
+            <!-- <Label
+                Margin="0,10,0,0"
+                VerticalAlignment="Top"
+                Content="SelectAllOn20" HorizontalAlignment="Right" /> -->
+            <Label
+                Margin="0,50,0,0"
+                VerticalAlignment="Top"
+                Content="{Binding ViewModel.DiametroPH}" HorizontalAlignment="Right" />
+            <Label
+                Margin="0,90,0,0"
+                VerticalAlignment="Top"
+                Content="{Binding ViewModel.PesoPH}" HorizontalAlignment="Right" />
+            <Label
+                Margin="0,130,0,0"
+                VerticalAlignment="Top"
+                Content="{Binding ViewModel.DiametroPH}" HorizontalAlignment="Right" />
+            <Label
+                Margin="0,170,0,0"
+                VerticalAlignment="Top"
+                Content="{Binding ViewModel.PotenciaPH}" HorizontalAlignment="Right" />
+            <Label
+                Margin="0,250,0,0"
+                VerticalAlignment="Top"
+                Content="{Binding ViewModel.InclinacionPH}" HorizontalAlignment="Right" />
+            <Label
+                Margin="175,210,0,0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Content="{Binding ViewModel.InclinacionPH}" />
+            <Label
+                Margin="0,210,0,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Content="{Binding ViewModel.InclinacionPH}" />
         </Grid>
         <Grid
             Grid.Row="1"

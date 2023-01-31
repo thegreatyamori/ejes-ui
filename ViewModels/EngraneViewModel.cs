@@ -37,6 +37,14 @@ namespace EjesUI.ViewModels
         private bool _testEngraneToggle = false;
         [ObservableProperty]
         private Visibility _displayHelice = Visibility.Visible;
+        [ObservableProperty]
+        private string _pesoPH = string.Empty;
+        [ObservableProperty]
+        private string _diametroPH = string.Empty;
+        [ObservableProperty]
+        private string _potenciaPH = string.Empty;
+        [ObservableProperty]
+        private string _inclinacionPH = string.Empty;
 
         public EngraneViewModel(ISnackbarService snackbarService)
         {
@@ -52,6 +60,12 @@ namespace EjesUI.ViewModels
             AddEngraneButton = true;
             EngraneFrontalImg = ImageProcessor.SetDefaultImage("https://via.placeholder.com/345x143.png");
             EngraneLateralImg = ImageProcessor.SetDefaultImage("https://via.placeholder.com/345x143.png");
+
+            bool isButtonChecked = ExerciseModel.GeneralData.unidades;
+            PesoPH = isButtonChecked ? "N" : "Lbf";
+            DiametroPH = isButtonChecked ? "mm" : "in";
+            PotenciaPH = isButtonChecked ? "kW" : "Hp";
+            InclinacionPH = isButtonChecked ? "°" : "°";
         }
 
         public void OnNavigatedFrom()
@@ -109,7 +123,7 @@ namespace EjesUI.ViewModels
 
             DownloadPDFEngraneButton = true;
             AddEngraneButton = false;
-                
+
             snackbar.Show("Ejes", "Componente Añadido!", 3);
 
         }
@@ -376,9 +390,6 @@ namespace EjesUI.ViewModels
             double fuerzaTangencialY = Math.Round(fuerzaTangencial * Math.Sin(inclinacionTangencial), 3);
             double fuerzaRadialY = Math.Round(fuerzaRadial * Math.Sin(inclinacionRadial), 3);
             double fuerzaY = fuerzaRadialY + fuerzaTangencialY;
-            // TODO: mover esta logica al cs de la page
-            //mainHandler.datoEngranes.fuerzaFinalZ.Add(fuerzaZ);
-            //mainHandler.datoEngranes.fuerzaFinalY.Add(fuerzaY - FormDataModel.peso);
 
             return new EngraneCalculateModel
             {

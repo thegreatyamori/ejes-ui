@@ -39,7 +39,7 @@
             <ui:TextBox
                 Margin="41,1,40,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Peso (N)"
+                PlaceholderText="Peso"
                 Text="{Binding ViewModel.FormDataModel.peso, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <ui:SymbolIcon
                 Margin="20,10,0,0"
@@ -49,7 +49,7 @@
             <ui:TextBox
                 Margin="41,50,40,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Diametro (mm)"
+                PlaceholderText="Diametro"
                 Text="{Binding ViewModel.FormDataModel.diametro, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <ui:SymbolIcon
                 Margin="20,59,0,0"
@@ -59,7 +59,7 @@
             <ui:TextBox
                 Margin="41,100,40,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Potencia (kW)"
+                PlaceholderText="Potencia"
                 Text="{Binding ViewModel.FormDataModel.potencia, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <ui:SymbolIcon
                 Margin="20,109,0,0"
@@ -69,7 +69,7 @@
             <ui:TextBox
                 Margin="41,150,40,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Ángulo de Inclinación (°)"
+                PlaceholderText="Ángulo de Inclinación"
                 Text="{Binding ViewModel.FormDataModel.inclinacion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <ui:SymbolIcon
                 Margin="20,159,0,0"
@@ -79,7 +79,7 @@
             <ui:TextBox
                 Margin="41,200,40,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Ubicación (mm)"
+                PlaceholderText="Ubicación"
                 Text="{Binding ViewModel.FormDataModel.ubicacion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <ui:SymbolIcon
                 Margin="20,209,0,0"
@@ -97,7 +97,6 @@
                 VerticalAlignment="Top"
                 Symbol="TextNumberFormat20" />
             <ComboBox
-                Width="299"
                 Margin="41,300,40,0"
                 VerticalAlignment="Top"
                 IsEditable="True"
@@ -135,8 +134,12 @@
                 Margin="0,209,14,0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
+                Content="{Binding ViewModel.DiametroPH}" />
+            <Label
+                Margin="0,259,14,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
                 Content="{Binding ViewModel.TensionesPH}" />
-            <!-- <Label Margin="0,259,14,0" HorizontalAlignment="Right" VerticalAlignment="Top" Content="SelectAllOn20" />-->
         </Grid>
         <Grid
             Grid.Row="1"

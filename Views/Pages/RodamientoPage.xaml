@@ -37,8 +37,7 @@
             Height="340"
             VerticalAlignment="Top">
             <ComboBox
-                Width="299"
-                Margin="41,1,10,0"
+                Margin="41,1,40,0"
                 VerticalAlignment="Top"
                 IsEditable="True"
                 SelectedValue="{Binding ViewModel.FormDataModel.tipo, Mode=TwoWay}"
@@ -52,15 +51,20 @@
                 VerticalAlignment="Top"
                 Symbol="SelectAllOn20" />
             <ui:TextBox
-                Margin="41,50,10,0"
+                Margin="41,50,40,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Ubicación (mm)"
+                PlaceholderText="Ubicación"
                 Text="{Binding ViewModel.FormDataModel.ubicacion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <ui:SymbolIcon
                 Margin="20,59,0,0"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Symbol="TextNumberFormat20" />
+            <Label
+                Margin="0,59,15,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Content="{Binding ViewModel.DiametroPH}" />
         </Grid>
         <ui:Button
             Grid.Row="1"

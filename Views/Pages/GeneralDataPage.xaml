@@ -38,9 +38,9 @@
             HorizontalAlignment="Left"
             VerticalAlignment="Top">
             <ui:TextBox
-                Margin="41,0,0,0"
+                Margin="41,0,30,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Numero de Vueltas (N)"
+                PlaceholderText="Numero de vueltas"
                 Text="{Binding ViewModel.FormDataModel.numeroVuelta, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <Label
                 Margin="20,10,0,0"
@@ -50,9 +50,9 @@
             </Label>
             <ui:TextBox
                 x:Name="KR"
-                Margin="41,50,0,0"
+                Margin="41,50,30,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Confiabilidad (kr)"
+                PlaceholderText="Confiabilidad"
                 Text="{Binding ViewModel.FormDataModel.confiabilidad, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <Label
                 Margin="20,59,0,0"
@@ -62,9 +62,9 @@
             </Label>
             <ui:TextBox
                 x:Name="SY"
-                Margin="41,100,0,0"
+                Margin="41,100,30,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Límite Fluencia (Sy)"
+                PlaceholderText="Límite Fluencia"
                 Text="{Binding ViewModel.FormDataModel.limiteFluencia, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <Label
                 Margin="20,109,0,0"
@@ -74,9 +74,9 @@
             </Label>
             <ui:TextBox
                 x:Name="SUT"
-                Margin="41,150,0,0"
+                Margin="41,150,30,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Límite Máxima Fractura (Sut)"
+                PlaceholderText="Límite Máxima Fractura"
                 Text="{Binding ViewModel.FormDataModel.limiteMaximaFractura, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <Label
                 Margin="20,159,0,0"
@@ -86,7 +86,7 @@
             </Label>
             <ComboBox
                 Height="34.62"
-                Margin="41,200,0,0"
+                Margin="41,200,30,0"
                 VerticalAlignment="Top"
                 IsEditable="True"
                 SelectedValue="{Binding ViewModel.FormDataModel.sentidoGiro, Mode=TwoWay}"
@@ -94,6 +94,25 @@
                 <ComboBoxItem Content="Horario" />
                 <ComboBoxItem Content="Antihorario" />
             </ComboBox>
+            <Label
+                Margin="0,10,10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Content="{Binding ViewModel.NumeroVueltaPH}" />
+            <!--<Label
+                Margin="0,59,10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top" Content="kr"/>-->
+            <Label
+                Margin="0,109,10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Content="{Binding ViewModel.LimitePH}" />
+            <Label
+                Margin="0,159,10,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Content="{Binding ViewModel.LimitePH}" />
         </Grid>
         <Grid
             Grid.Row="1"
@@ -104,9 +123,9 @@
             VerticalAlignment="Top">
             <ui:TextBox
                 x:Name="n"
-                Margin="41,0,10,0"
+                Margin="41,0,40,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Factor Seguridad (n)"
+                PlaceholderText="Factor Seguridad"
                 Text="{Binding ViewModel.FormDataModel.factorSeguridad, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <Label
                 Margin="20,10,0,0"
@@ -116,9 +135,9 @@
             </Label>
             <ui:TextBox
                 x:Name="K"
-                Margin="41,50,10,0"
+                Margin="41,50,40,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Coeficiente Global (k)"
+                PlaceholderText="Coeficiente Global"
                 Text="{Binding ViewModel.FormDataModel.coeficienteGlobal, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <Label
                 Margin="20,59,0,0"
@@ -128,9 +147,9 @@
             </Label>
             <ui:TextBox
                 x:Name="KF"
-                Margin="41,100,10,0"
+                Margin="41,100,40,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Factor Concentrador Esfuerzo Flexión (kf)"
+                PlaceholderText="Factor Concentrador Esfuerzo Flexión"
                 Text="{Binding ViewModel.FormDataModel.factorConcentradorEsfuerzoFlexion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <Label
                 Margin="20,109,0,0"
@@ -140,9 +159,9 @@
             </Label>
             <ui:TextBox
                 x:Name="KFS"
-                Margin="41,150,10,0"
+                Margin="41,150,40,0"
                 VerticalAlignment="Top"
-                PlaceholderText="Factor Concentrador Esfuerzo Torsión (kfs)"
+                PlaceholderText="Factor Concentrador Esfuerzo Torsión"
                 Text="{Binding ViewModel.FormDataModel.factorConcentradorEsfuerzoTorsion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
             <Label
                 Margin="20,159,0,0"
@@ -156,9 +175,9 @@
                 Margin="41,201,0,0"
                 VerticalAlignment="Top"
                 Checked="ToggleButton_Checked"
-                Unchecked="ToggleButton_Checked"
                 CommandParameter=""
-                Content="{Binding ViewModel.UnitSystemContent, Mode=OneWay}" />
+                Content="{Binding ViewModel.UnitSystemContent, Mode=OneWay}"
+                Unchecked="ToggleButton_Checked" />
         </Grid>
 
         <ui:ToggleSwitch

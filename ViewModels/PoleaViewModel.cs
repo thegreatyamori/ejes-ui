@@ -31,6 +31,16 @@ namespace EjesUI.ViewModels
         private PoleaFormDataModel _formDataModel = new();
         [ObservableProperty]
         private bool _testPoleaToggle = false;
+        [ObservableProperty]
+        private string _pesoPH = string.Empty;
+        [ObservableProperty]
+        private string _diametroPH = string.Empty;
+        [ObservableProperty]
+        private string _potenciaPH = string.Empty;
+        [ObservableProperty]
+        private string _inclinacionPH = string.Empty;
+        [ObservableProperty]
+        private string _tensionesPH = string.Empty;
 
         public PoleaViewModel(ISnackbarService snackbarService)
         {
@@ -45,6 +55,13 @@ namespace EjesUI.ViewModels
             DownloadPDFPoleaButton = false;
             AddPoleaButton = true;
             PoleaImg = ImageProcessor.SetDefaultImage();
+
+            bool isButtonChecked = ExerciseModel.GeneralData.unidades;
+            PesoPH = isButtonChecked ? "N" : "Lbf";
+            DiametroPH = isButtonChecked ? "mm" : "in";
+            PotenciaPH = isButtonChecked ? "kW" : "Hp";
+            InclinacionPH = isButtonChecked ? "°" : "°";
+            TensionesPH = isButtonChecked ? "T1/T2" : "T1/T2";
         }
 
         public void OnNavigatedFrom()

@@ -1,4 +1,5 @@
-﻿using EjesUI.Models;
+﻿using EjesUI.Helpers;
+using EjesUI.Models;
 using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
@@ -29,7 +30,10 @@ namespace EjesUI.Views.Pages
             ToggleButton someButton = (ToggleButton)sender;
             bool isButtonChecked = (bool)someButton.IsChecked;
             string system = isButtonChecked ? appConfig.SI : this.appConfig.FPS;
+
             ViewModel.OnChangeToggleButton(system, isButtonChecked);
+            ViewModel.NumeroVueltaPH = isButtonChecked ? "Rpm" : "Rpm";
+            ViewModel.LimitePH = isButtonChecked ? "MPa" : "Ksi";
         }
     }
 }

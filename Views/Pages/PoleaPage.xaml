@@ -37,7 +37,7 @@
             Height="340"
             VerticalAlignment="Top">
             <ui:TextBox
-                Margin="41,1,10,0"
+                Margin="41,1,40,0"
                 VerticalAlignment="Top"
                 PlaceholderText="Peso (N)"
                 Text="{Binding ViewModel.FormDataModel.peso, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
@@ -47,7 +47,7 @@
                 VerticalAlignment="Top"
                 Symbol="TextNumberFormat20" />
             <ui:TextBox
-                Margin="41,50,10,0"
+                Margin="41,50,40,0"
                 VerticalAlignment="Top"
                 PlaceholderText="Diametro (mm)"
                 Text="{Binding ViewModel.FormDataModel.diametro, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
@@ -57,7 +57,7 @@
                 VerticalAlignment="Top"
                 Symbol="TextNumberFormat20" />
             <ui:TextBox
-                Margin="41,100,10,0"
+                Margin="41,100,40,0"
                 VerticalAlignment="Top"
                 PlaceholderText="Potencia (kW)"
                 Text="{Binding ViewModel.FormDataModel.potencia, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
@@ -67,7 +67,7 @@
                 VerticalAlignment="Top"
                 Symbol="TextNumberFormat20" />
             <ui:TextBox
-                Margin="41,150,10,0"
+                Margin="41,150,40,0"
                 VerticalAlignment="Top"
                 PlaceholderText="Ángulo de Inclinación (°)"
                 Text="{Binding ViewModel.FormDataModel.inclinacion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
@@ -77,7 +77,7 @@
                 VerticalAlignment="Top"
                 Symbol="TextNumberFormat20" />
             <ui:TextBox
-                Margin="41,200,10,0"
+                Margin="41,200,40,0"
                 VerticalAlignment="Top"
                 PlaceholderText="Ubicación (mm)"
                 Text="{Binding ViewModel.FormDataModel.ubicacion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
@@ -87,7 +87,7 @@
                 VerticalAlignment="Top"
                 Symbol="TextNumberFormat20" />
             <ui:TextBox
-                Margin="41,250,10,0"
+                Margin="41,250,40,0"
                 VerticalAlignment="Top"
                 PlaceholderText="Relación de Tensiones"
                 Text="{Binding ViewModel.FormDataModel.relacionTension, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
@@ -98,7 +98,7 @@
                 Symbol="TextNumberFormat20" />
             <ComboBox
                 Width="299"
-                Margin="41,300,10,0"
+                Margin="41,300,40,0"
                 VerticalAlignment="Top"
                 IsEditable="True"
                 SelectedValue="{Binding ViewModel.FormDataModel.energia, Mode=TwoWay}"
@@ -111,6 +111,32 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
                 Symbol="SelectAllOn20" />
+            <Label
+                Margin="0,10,14,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Content="{Binding ViewModel.PesoPH}" />
+            <Label
+                Margin="0,59,14,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Content="{Binding ViewModel.DiametroPH}" />
+            <Label
+                Margin="0,109,14,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Content="{Binding ViewModel.PotenciaPH}" />
+            <Label
+                Margin="0,159,14,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Content="{Binding ViewModel.InclinacionPH}" />
+            <Label
+                Margin="0,209,14,0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Content="{Binding ViewModel.TensionesPH}" />
+            <!-- <Label Margin="0,259,14,0" HorizontalAlignment="Right" VerticalAlignment="Top" Content="SelectAllOn20" />-->
         </Grid>
         <Grid
             Grid.Row="1"

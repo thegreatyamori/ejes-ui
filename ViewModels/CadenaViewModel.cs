@@ -31,6 +31,14 @@ namespace EjesUI.ViewModels
         private CadenaFormDataModel _formDataModel = new();
         [ObservableProperty]
         private bool _testCadenaToggle = false;
+        [ObservableProperty]
+        private string _pesoPH = string.Empty;
+        [ObservableProperty]
+        private string _diametroPH = string.Empty;
+        [ObservableProperty]
+        private string _potenciaPH = string.Empty;
+        [ObservableProperty]
+        private string _inclinacionPH = string.Empty;
 
         public CadenaViewModel(ISnackbarService snackbarService)
         {
@@ -45,7 +53,13 @@ namespace EjesUI.ViewModels
             DownloadPDFCadenaButton = false;
             AddCadenaButton = true;
             CadenaImg = ImageProcessor.SetDefaultImage();
-        }
+
+            bool isButtonChecked = ExerciseModel.GeneralData.unidades;
+            PesoPH = isButtonChecked ? "N" : "Lbf";
+            DiametroPH = isButtonChecked ? "mm" : "in";
+            PotenciaPH = isButtonChecked ? "kW" : "Hp";
+            InclinacionPH = isButtonChecked ? "°" : "°";
+         }
 
         public void OnNavigatedFrom()
         {

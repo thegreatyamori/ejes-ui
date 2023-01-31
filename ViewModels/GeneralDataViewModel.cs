@@ -4,8 +4,6 @@ using Wpf.Ui.Common.Interfaces;
 using EjesUI.Models;
 using Wpf.Ui.Mvvm.Contracts;
 using EjesUI.Services;
-using System;
-using EjesUI.Services;
 
 namespace EjesUI.ViewModels
 {
@@ -25,6 +23,10 @@ namespace EjesUI.ViewModels
         private string _unitSystemContent = "Sistema de Unidades: FPS";
         [ObservableProperty]
         private GeneralDataModel _formDataModel = new GeneralDataModel();
+        [ObservableProperty]
+        private string numeroVueltaPH = "Rpm";
+        [ObservableProperty]
+        private string limitePH = "Ksi";
 
         public GeneralPageViewModel(ISnackbarService snackbarService)
         {

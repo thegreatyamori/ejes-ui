@@ -107,7 +107,7 @@
                                                     VerticalAlignment="Center"
                                                     Content="{Binding Title}"
                                                     FontWeight="Bold"
-                                                    Foreground="#FBFFFFFF" />
+                                                    Foreground="{Binding Color}" />
                                             </Grid>
                                         </ui:Button>
                                         <ui:SymbolIcon

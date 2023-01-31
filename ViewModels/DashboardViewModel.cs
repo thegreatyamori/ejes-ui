@@ -9,18 +9,21 @@ using EjesUI.Services;
 using System.Windows.Media.Imaging;
 using System.IO;
 using Wpf.Ui.Mvvm.Contracts;
+using Wpf.Ui.Appearance;
 using System.Windows;
 using System.Diagnostics;
+using System.Windows.Media;
 
 namespace EjesUI.ViewModels
 {
     public partial class DashboardViewModel : ObservableObject, INavigationAware
     {
-        private ApiService api;
-        private PdfService pdf;
-        private AppConfig appConfig;
-        private GraphicService graphics;
-        private SnackBarNotifierService snackbar;
+        private readonly ApiService api;
+        private readonly PdfService pdf;
+        private readonly AppConfig appConfig;
+        private readonly GraphicService graphics;
+        private readonly SnackBarNotifierService snackbar;
+        private Wpf.Ui.Appearance.ThemeType CurrentTheme = Wpf.Ui.Appearance.ThemeType.Unknown;
 
         [ObservableProperty]
         private string _exercise = string.Empty;
@@ -50,9 +53,7 @@ namespace EjesUI.ViewModels
         {
             var rodamientoItems = ExerciseModel.rodamientoCount == 2;
             if (rodamientoItems)
-            {
                 graphics.Generate();
-            }
 
             Exercise = ExerciseModel.Name;
             LabelVisibility = ExerciseModel.IsActive ? Visibility.Hidden : Visibility.Visible;
@@ -107,6 +108,8 @@ namespace EjesUI.ViewModels
         {
             var buttonCollection = new List<ComponentButton>();
             var components = ExerciseModel.Components;
+            CurrentTheme = Theme.GetAppTheme();
+            var titleColor = new SolidColorBrush(CurrentTheme == ThemeType.Light ? Color.FromRgb(0, 0, 0) : Color.FromRgb(255, 255, 255));
 
             for (int i = 0; i < components.Count; i++)
             {
@@ -135,9 +138,10 @@ namespace EjesUI.ViewModels
 
                 buttonCollection.Add(new ComponentButton
                 {
-                    Title= title,
-                    OnClick= new RelayCommand(NavigateTo(title)),
-                    Image= image
+                    Title = title,
+                    OnClick = new RelayCommand(NavigateTo(title)),
+                    Image = image,
+                    Color = titleColor
                 });
             };
 

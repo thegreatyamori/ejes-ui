@@ -10,7 +10,7 @@ namespace EjesUI.Models
         public string ApiURL {
             get
             {
-                return "http://localhost:3003";
+                return "https://54b5-190-110-60-138.sa.ngrok.io";
             }
         }
         public string DefaultDownloadPath {

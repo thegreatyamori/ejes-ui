@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="clr-namespace:EjesUI.Helpers"
     xmlns:local="clr-namespace:EjesUI.Views.Pages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:EjesUI.Models"
@@ -15,6 +16,9 @@
     d:DesignWidth="800"
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
+    <ui:UiPage.Resources>
+        <helpers:StringToDoubleConverter x:Key="StringToDoubleConverter" />
+    </ui:UiPage.Resources>
 
     <Grid Margin="0,10,0,0">
         <Grid.ColumnDefinitions>
@@ -134,7 +138,6 @@
             </ui:Card>
         </ScrollViewer>
 
-        <!--<Grid>-->
         <Label
             Grid.Row="1"
             Grid.Column="1"
@@ -143,48 +146,46 @@
             Margin="30,0,0,129"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
-            Content="Segunda Iteración" />
+            Content="Segunda Iteración"
+            IsEnabled="{Binding ViewModel.PdfButtonEnabled}" />
         <ui:TextBox
             x:Name="K"
             Grid.Row="1"
             Grid.Column="1"
             Height="35"
-            Margin="31,0,0,83"
-            HorizontalAlignment="Left"
+            Margin="31,0,454,83"
             VerticalAlignment="Bottom"
-            PlaceholderText="Coeficiente Global"
-            Text="{Binding ViewModel.FormDataModel.factorCondicionSuperficial, Mode=TwoWay}" />
+            IsEnabled="{Binding ViewModel.PdfButtonEnabled}"
+            PlaceholderText="Factor de Condición Superficial"
+            Text="{Binding ViewModel.FormDataModel.factorCondicionSuperficial, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
         <ui:TextBox
             x:Name="K_Copy"
             Grid.Row="1"
             Grid.Column="1"
-            Height="35"
-            Margin="31,0,0,33"
-            HorizontalAlignment="Left"
+            Margin="32,0,453,33"
             VerticalAlignment="Bottom"
-            PlaceholderText="Coeficiente Global"
-            Text="{Binding ViewModel.FormDataModel.factorTemperatura, Mode=TwoWay}" />
+            IsEnabled="{Binding ViewModel.PdfButtonEnabled}"
+            PlaceholderText="Factor de Temperatura"
+            Text="{Binding ViewModel.FormDataModel.factorTemperatura, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" Height="35" />
         <ui:TextBox
             x:Name="K_Copy1"
             Grid.Row="1"
             Grid.Column="1"
             Height="35"
-            Margin="191,0,0,33"
-            HorizontalAlignment="Left"
+            Margin="261,0,186,33"
             VerticalAlignment="Bottom"
-            PlaceholderText="Coeficiente Global"
-            Text="{Binding ViewModel.FormDataModel.factorConcentradorEsfuerzoFlexion, Mode=TwoWay}" />
+            IsEnabled="{Binding ViewModel.PdfButtonEnabled}"
+            PlaceholderText="Factor Concentrador Esfuerzo Flexión"
+            Text="{Binding ViewModel.FormDataModel.factorConcentradorEsfuerzoFlexion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
         <ui:TextBox
             x:Name="K_Copy2"
             Grid.Row="1"
             Grid.Column="1"
             Height="35"
-            Margin="191,0,0,83"
-            HorizontalAlignment="Left"
+            Margin="261,0,185,83"
             VerticalAlignment="Bottom"
-            PlaceholderText="Coeficiente Global"
-            Text="{Binding ViewModel.FormDataModel.factorConcentradorEsfuerzoTorsion, Mode=TwoWay}" />
-        <!--</Grid>-->
-
+            IsEnabled="{Binding ViewModel.PdfButtonEnabled}"
+            PlaceholderText="Factor Concentrador Esfuerzo Torsión"
+            Text="{Binding ViewModel.FormDataModel.factorConcentradorEsfuerzoTorsion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
     </Grid>
 </ui:UiPage>

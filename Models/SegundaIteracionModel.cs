@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EjesUI.Models
 {
-    internal class SegundaIteracionModel
+    public class SegundaIteracionModel
     {
         public double factorCondicionSuperficial { get; set; }
         public double factorTemperatura{ get; set; }

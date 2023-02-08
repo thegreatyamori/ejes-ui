@@ -41,7 +41,9 @@ namespace EjesUI.ViewModels
         [ObservableProperty]
         private SegundaIteracionModel _formDataModel = new();
 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public DashboardViewModel(ISnackbarService snackbarService)
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             this.api = new ApiService();
             this.appConfig = new AppConfig();

@@ -131,12 +131,12 @@ namespace EjesUI.ViewModels
 
         private void PopulateFormData()
         {
-            //var tipo = FormDataModel.tipo.Split(":")[1].Trim();
+            var tipo = FormDataModel.tipo.Split(":")[1].Trim();
             FormDataModel.title = "Engrane " + ExerciseModel.GetNextComponentLetter();
             FormDataModel.opts = new Opts
             {
                 type = "engrane",
-                //subtype = tipo
+                subtype = tipo
             };
 
             if (TestEngraneToggle)
@@ -242,7 +242,7 @@ namespace EjesUI.ViewModels
             {
                 FormDataModel.direccionFuerzaAxial = "";
             }
-            //FormDataModel.tipo = tipo;
+            FormDataModel.tipo = tipo;
             FormDataModel.energia = FormDataModel.energia.Split(":")[1].Trim();
         }
 

@@ -1,4 +1,6 @@
-﻿namespace EjesUI.Models
+﻿using System;
+
+namespace EjesUI.Models
 {
     public class GeneralDataModel
     {

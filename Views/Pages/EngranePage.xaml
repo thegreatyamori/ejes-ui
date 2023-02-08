@@ -139,34 +139,40 @@
                 VerticalAlignment="Top"
                 IsEditable="True"
                 SelectedValue="{Binding ViewModel.FormDataModel.direccionFuerzaAxial, Mode=TwoWay}"
-                Text="Dir. F. Axial">
+                Text="Dir. F. Axial"
+                Visibility="{Binding ViewModel.DisplayHelice}">
                 <ComboBoxItem Content="Derecha" />
                 <ComboBoxItem Content="Izquierda" />
             </ComboBox>
             <!-- <Label
                 Margin="0,10,0,0"
                 VerticalAlignment="Top"
-                Content="SelectAllOn20" HorizontalAlignment="Right" /> -->
+                Content="SelectAllOn20" HorizontalAlignment="Right" />-->
             <Label
                 Margin="0,50,0,0"
+                HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Content="{Binding ViewModel.DiametroPH}" HorizontalAlignment="Right" />
+                Content="{Binding ViewModel.DiametroPH}" />
             <Label
                 Margin="0,90,0,0"
+                HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Content="{Binding ViewModel.PesoPH}" HorizontalAlignment="Right" />
+                Content="{Binding ViewModel.PesoPH}" />
             <Label
                 Margin="0,130,0,0"
+                HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Content="{Binding ViewModel.DiametroPH}" HorizontalAlignment="Right" />
+                Content="{Binding ViewModel.DiametroPH}" />
             <Label
                 Margin="0,170,0,0"
+                HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Content="{Binding ViewModel.PotenciaPH}" HorizontalAlignment="Right" />
+                Content="{Binding ViewModel.PotenciaPH}" />
             <Label
                 Margin="0,250,0,0"
+                HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Content="{Binding ViewModel.InclinacionPH}" HorizontalAlignment="Right" />
+                Content="{Binding ViewModel.InclinacionPH}" />
             <Label
                 Margin="175,210,0,0"
                 HorizontalAlignment="Left"

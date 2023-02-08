@@ -73,6 +73,7 @@ namespace EjesUI.ViewModels
         public void ClearForm()
         {
             ResetForm();
+            AddPoleaButton = true;
         }
 
         [RelayCommand]

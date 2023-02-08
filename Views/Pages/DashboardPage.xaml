@@ -31,6 +31,17 @@
             Grid.Column="1"
             Margin="4,0,0,0"
             VerticalAlignment="Top"
+            Appearance="Success"
+            BorderThickness="1,1,1,1"
+            Command="{Binding ViewModel.ClickGenerateGraphicsCommand, Mode=OneWay}"
+            Content="Gráficos"
+            Icon="Flowchart20"
+            IsEnabled="{Binding ViewModel.PdfButtonEnabled}"
+            SnapsToDevicePixels="True" />
+        <ui:Button
+            Grid.Column="1"
+            Margin="105,0,0,0"
+            VerticalAlignment="Top"
             Appearance="Danger"
             BorderThickness="1,1,1,1"
             Command="{Binding ViewModel.ClickSavePDFCommand, Mode=OneWay}"
@@ -40,7 +51,7 @@
             SnapsToDevicePixels="True" />
         <ui:Button
             Grid.Column="1"
-            Margin="85,0,0,0"
+            Margin="182,0,0,0"
             VerticalAlignment="Top"
             Appearance="Primary"
             BorderThickness="1,1,1,1"
@@ -122,5 +133,6 @@
                 </Grid>
             </ui:Card>
         </ScrollViewer>
+
     </Grid>
 </ui:UiPage>

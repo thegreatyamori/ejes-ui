@@ -13,6 +13,7 @@ using Wpf.Ui.Appearance;
 using System.Windows;
 using System.Diagnostics;
 using System.Windows.Media;
+using Newtonsoft.Json;
 
 namespace EjesUI.ViewModels
 {
@@ -52,8 +53,6 @@ namespace EjesUI.ViewModels
         public void OnNavigatedTo()
         {
             var rodamientoItems = ExerciseModel.rodamientoCount == 2;
-            if (rodamientoItems)
-                graphics.Generate();
 
             Exercise = ExerciseModel.Name;
             LabelVisibility = ExerciseModel.IsActive ? Visibility.Hidden : Visibility.Visible;
@@ -82,6 +81,21 @@ namespace EjesUI.ViewModels
             WordButtonEnabled = PdfButtonEnabled;
 
             snackbar.Show("PDF", "PDF descargado !", 2);
+        }
+
+        [RelayCommand]
+        private void OnClickGenerateGraphics()
+        {
+            graphics.Generate();
+
+            Dictionary<string, object> data = new Dictionary<string, object>()
+            {
+                {"generalData", ExerciseModel.GeneralData},
+                {"elements", ExerciseModel.Components}
+            };
+            string payload = JsonConvert.SerializeObject(data);
+            api.Post("/generate-data", payload);
+            snackbar.Show("Gráficos", "Generados !");
         }
 
         [RelayCommand]

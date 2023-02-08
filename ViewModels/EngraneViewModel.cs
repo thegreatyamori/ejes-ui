@@ -83,6 +83,7 @@ namespace EjesUI.ViewModels
         public void ClearForm()
         {
             ResetForm();
+            AddEngraneButton = true;
         }
 
         [RelayCommand]

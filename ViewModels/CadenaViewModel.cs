@@ -70,6 +70,7 @@ namespace EjesUI.ViewModels
         public void ClearForm()
         {
             ResetForm();
+            AddCadenaButton = true;
         }
 
         [RelayCommand]

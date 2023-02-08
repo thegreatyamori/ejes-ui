@@ -10,7 +10,7 @@ namespace EjesUI.Models
         public string ApiURL {
             get
             {
-                return "http://localhost:3003";
+                return "http://nuc.jerson:3003";
             }
         }
         public string DefaultDownloadPath {

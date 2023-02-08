@@ -55,15 +55,13 @@ namespace EjesUI.ViewModels
         public void CleanForm()
         {
             ResetForm();
+            SaveGeneralDataButton = true;
         }
 
         [RelayCommand]
         public void OnClickGuardarGeneralData()
         {
             PopulateFormData();
-
-            string payload = JsonConvert.SerializeObject(FormDataModel);
-            api.Post("/generate-data", payload);
 
             SaveGeneralDataButton = false;
 

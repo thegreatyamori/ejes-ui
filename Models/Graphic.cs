@@ -9,6 +9,17 @@ namespace EjesUI.Models
         public string uuid { get; set; }
         public string sistema { get; set; }
         public string sentidoEje { get; set; }
+
+        public double numeroVuelta { get; set; }
+        public double confiabilidad { get; set; }
+        public double limiteFluencia { get; set; }
+        public double limiteMaximaFractura { get; set; }
+        public double factorSeguridad { get; set; }
+        public double coeficienteGlobal { get; set; }
+        public double factorConcentradorEsfuerzoFlexion { get; set; }
+        public double factorConcentradorEsfuerzoTorsion { get; set; }
+        
+
         public int posicionRodamientoUno { get; set; }
         public int posicionRodamientoDos { get; set; }
         public List<string> nombre { get; set; }

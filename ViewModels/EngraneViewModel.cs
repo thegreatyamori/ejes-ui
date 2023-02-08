@@ -131,41 +131,41 @@ namespace EjesUI.ViewModels
 
         private void PopulateFormData()
         {
-            var tipo = FormDataModel.tipo.Split(":")[1].Trim();
+            //var tipo = FormDataModel.tipo.Split(":")[1].Trim();
             FormDataModel.title = "Engrane " + ExerciseModel.GetNextComponentLetter();
             FormDataModel.opts = new Opts
             {
                 type = "engrane",
-                subtype = tipo
+                //subtype = tipo
             };
 
             if (TestEngraneToggle)
             {
                 // Ejemplo 1 - Engrane Recto
-                // FormDataModel.tipo = "Recto";
-                //FormDataModel.opts.subtype = "Recto";
-                //FormDataModel.ubicacion = 4;
-                //FormDataModel.energia = "Consume";
-                //FormDataModel.peso = 5;
-                //FormDataModel.diametro = 3;
-                //FormDataModel.potencia = 5;
-                //FormDataModel.presion = 20;
-                //FormDataModel.inclinacion = 270;
-                //FormDataModel.helice = 0;
-                //FormDataModel.direccionFuerzaAxial = "";
+                FormDataModel.tipo = "Recto";
+                FormDataModel.opts.subtype = "Recto";
+                FormDataModel.ubicacion = 4;
+                FormDataModel.energia = "Consume";
+                FormDataModel.peso = 5;
+                FormDataModel.diametro = 3;
+                FormDataModel.potencia = 5;
+                FormDataModel.presion = 20;
+                FormDataModel.inclinacion = 270;
+                FormDataModel.helice = 0;
+                FormDataModel.direccionFuerzaAxial = "";
 
                 // Ejemplo 2 - Engrane Cónico
-                FormDataModel.tipo = "Conico";
-                FormDataModel.opts.subtype = "Conico";
-                FormDataModel.ubicacion = 0;
-                FormDataModel.energia = "Consume";
-                FormDataModel.peso = 0;
-                FormDataModel.diametro = 140;
-                FormDataModel.potencia = 3.191;
-                FormDataModel.presion = 20;
-                FormDataModel.inclinacion = 180;
-                FormDataModel.helice = 25;
-                FormDataModel.direccionFuerzaAxial = "Derecha";
+                //FormDataModel.tipo = "Conico";
+                // FormDataModel.opts.subtype = "Conico";
+                // FormDataModel.ubicacion = 0;
+                // FormDataModel.energia = "Consume";
+                //FormDataModel.peso = 0;
+                //FormDataModel.diametro = 140;
+                //FormDataModel.potencia = 3.191;
+                //FormDataModel.presion = 20;
+                //FormDataModel.inclinacion = 180;
+                //FormDataModel.helice = 25;
+                //FormDataModel.direccionFuerzaAxial = "Derecha";
 
                 // Ejemplo 2 - Engrane Helicoidal
                 // FormDataModel.tipo = "Helicoidal";
@@ -242,7 +242,7 @@ namespace EjesUI.ViewModels
             {
                 FormDataModel.direccionFuerzaAxial = "";
             }
-            FormDataModel.tipo = tipo;
+            //FormDataModel.tipo = tipo;
             FormDataModel.energia = FormDataModel.energia.Split(":")[1].Trim();
         }
 

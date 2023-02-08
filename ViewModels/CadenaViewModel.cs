@@ -134,10 +134,10 @@ namespace EjesUI.ViewModels
                 // Ejemplo 2
                 FormDataModel.peso = 18;
                 FormDataModel.diametro = 10;
-                FormDataModel.potencia = 5;
-                FormDataModel.inclinacion = 30;
+                FormDataModel.potencia = 11;
+                FormDataModel.inclinacion = 15;
                 FormDataModel.ubicacion = 6;
-                FormDataModel.energia = "Consume";
+                FormDataModel.energia = "Recibe";
                 return;
             }
 

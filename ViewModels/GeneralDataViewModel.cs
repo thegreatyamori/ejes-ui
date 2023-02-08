@@ -73,7 +73,7 @@ namespace EjesUI.ViewModels
             if (TestGeneralDataToggle)
             {
                 string component = "engrane";
-                int ejercicio = 2;
+                int ejercicio = 1;
                 SetTestData(component, ejercicio);
                 return;
             }
@@ -90,13 +90,13 @@ namespace EjesUI.ViewModels
             if (component == "engrane" && ejercicio == 1)
             {
                 generalData.numeroVuelta = 480;
-                generalData.confiabilidad = 2;
-                generalData.limiteFluencia = 2;
-                generalData.limiteMaximaFractura = 4;
-                generalData.factorSeguridad = 5;
-                generalData.coeficienteGlobal = 6;
-                generalData.factorConcentradorEsfuerzoFlexion = 7;
-                generalData.factorConcentradorEsfuerzoTorsion = 8;
+                generalData.confiabilidad = 0.99;
+                generalData.limiteFluencia = 30000;
+                generalData.limiteMaximaFractura = 55000;
+                generalData.factorSeguridad = 2;
+                generalData.coeficienteGlobal = 0.6;
+                generalData.factorConcentradorEsfuerzoFlexion = 1.6;
+                generalData.factorConcentradorEsfuerzoTorsion = 1.4;
                 generalData.sentidoGiro = "Horario";
                 generalData.unidades = false;
                 return;

@@ -128,7 +128,15 @@ namespace EjesUI.Services
                 momentoZ = momentoZ,
                 momentoY = momentoY,
                 energia = energia,
-                torque = torque
+                torque = torque,
+                numeroVuelta = ExerciseModel.GeneralData.numeroVuelta,
+                confiabilidad = ExerciseModel.GeneralData.confiabilidad,
+                limiteFluencia = ExerciseModel.GeneralData.limiteFluencia,
+                limiteMaximaFractura = ExerciseModel.GeneralData.limiteMaximaFractura,
+                factorSeguridad = ExerciseModel.GeneralData.factorSeguridad,
+                coeficienteGlobal = ExerciseModel.GeneralData.coeficienteGlobal,
+                factorConcentradorEsfuerzoFlexion = ExerciseModel.GeneralData.factorConcentradorEsfuerzoFlexion,
+                factorConcentradorEsfuerzoTorsion = ExerciseModel.GeneralData.factorConcentradorEsfuerzoTorsion
             };
 
             //Graphic graphicData = new Graphic

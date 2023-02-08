@@ -134,5 +134,57 @@
             </ui:Card>
         </ScrollViewer>
 
+        <!--<Grid>-->
+        <Label
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="104"
+            Height="23"
+            Margin="30,0,0,129"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Content="Segunda Iteración" />
+        <ui:TextBox
+            x:Name="K"
+            Grid.Row="1"
+            Grid.Column="1"
+            Height="35"
+            Margin="31,0,0,83"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            PlaceholderText="Coeficiente Global"
+            Text="{Binding ViewModel.FormDataModel.factorCondicionSuperficial, Mode=TwoWay}" />
+        <ui:TextBox
+            x:Name="K_Copy"
+            Grid.Row="1"
+            Grid.Column="1"
+            Height="35"
+            Margin="31,0,0,33"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            PlaceholderText="Coeficiente Global"
+            Text="{Binding ViewModel.FormDataModel.factorTemperatura, Mode=TwoWay}" />
+        <ui:TextBox
+            x:Name="K_Copy1"
+            Grid.Row="1"
+            Grid.Column="1"
+            Height="35"
+            Margin="191,0,0,33"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            PlaceholderText="Coeficiente Global"
+            Text="{Binding ViewModel.FormDataModel.factorConcentradorEsfuerzoFlexion, Mode=TwoWay}" />
+        <ui:TextBox
+            x:Name="K_Copy2"
+            Grid.Row="1"
+            Grid.Column="1"
+            Height="35"
+            Margin="191,0,0,83"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            PlaceholderText="Coeficiente Global"
+            Text="{Binding ViewModel.FormDataModel.factorConcentradorEsfuerzoTorsion, Mode=TwoWay}" />
+        <!--</Grid>-->
+
     </Grid>
 </ui:UiPage>

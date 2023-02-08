@@ -38,6 +38,8 @@ namespace EjesUI.ViewModels
         private bool _wordButtonEnabled = false;
         [ObservableProperty]
         private IEnumerable<ComponentButton> _buttons;
+        [ObservableProperty]
+        private SegundaIteracionModel _formDataModel = new();
 
         public DashboardViewModel(ISnackbarService snackbarService)
         {
@@ -86,7 +88,7 @@ namespace EjesUI.ViewModels
         [RelayCommand]
         private void OnClickGenerateGraphics()
         {
-            graphics.Generate();
+            graphics.Generate(FormDataModel);
 
             Dictionary<string, object> data = new Dictionary<string, object>()
             {

@@ -18,7 +18,13 @@ namespace EjesUI.Models
         public double coeficienteGlobal { get; set; }
         public double factorConcentradorEsfuerzoFlexion { get; set; }
         public double factorConcentradorEsfuerzoTorsion { get; set; }
-        
+
+
+        public double factorCondicionSuperficial { get; set; }
+        public double factorTemperatura { get; set; }
+        public double factorConcentradorEsfuerzoFlexion2 { get; set; }
+        public double factorConcentradorEsfuerzoTorsion2 { get; set; }
+
 
         public int posicionRodamientoUno { get; set; }
         public int posicionRodamientoDos { get; set; }

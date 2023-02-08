@@ -1,11 +1,6 @@
 ﻿using EjesUI.Models;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EjesUI.Services
 {
@@ -20,7 +15,7 @@ namespace EjesUI.Services
             this.appConfig = new AppConfig();
         }
 
-        public dynamic Generate()
+        public dynamic Generate(dynamic dataModel)
         {
             var components = ExerciseModel.Components;
             List<string> nombre = new();
@@ -136,7 +131,11 @@ namespace EjesUI.Services
                 factorSeguridad = ExerciseModel.GeneralData.factorSeguridad,
                 coeficienteGlobal = ExerciseModel.GeneralData.coeficienteGlobal,
                 factorConcentradorEsfuerzoFlexion = ExerciseModel.GeneralData.factorConcentradorEsfuerzoFlexion,
-                factorConcentradorEsfuerzoTorsion = ExerciseModel.GeneralData.factorConcentradorEsfuerzoTorsion
+                factorConcentradorEsfuerzoTorsion = ExerciseModel.GeneralData.factorConcentradorEsfuerzoTorsion,
+                factorCondicionSuperficial = dataModel.factorCondicionSuperficial,
+                factorTemperatura = dataModel.factorTemperatura,
+                factorConcentradorEsfuerzoFlexion2 = dataModel.factorConcentradorEsfuerzoFlexion,
+                factorConcentradorEsfuerzoTorsion2 = dataModel.factorConcentradorEsfuerzoTorsion
             };
 
             //Graphic graphicData = new Graphic

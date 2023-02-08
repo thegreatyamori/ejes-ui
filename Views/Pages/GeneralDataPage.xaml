@@ -170,9 +170,10 @@
                 kfs
             </Label>
             <ToggleButton
-                Width="299"
+                Width="269"
                 Height="34"
-                Margin="41,201,0,0"
+                Margin="0,201,0,0"
+                HorizontalAlignment="Center"
                 VerticalAlignment="Top"
                 Checked="ToggleButton_Checked"
                 CommandParameter=""

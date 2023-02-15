@@ -135,7 +135,8 @@ namespace EjesUI.Services
                 factorCondicionSuperficial = dataModel.factorCondicionSuperficial,
                 factorTemperatura = dataModel.factorTemperatura,
                 factorConcentradorEsfuerzoFlexion2 = dataModel.factorConcentradorEsfuerzoFlexion,
-                factorConcentradorEsfuerzoTorsion2 = dataModel.factorConcentradorEsfuerzoTorsion
+                factorConcentradorEsfuerzoTorsion2 = dataModel.factorConcentradorEsfuerzoTorsion,
+                moduloYoung = dataModel.moduloYoung
             };
 
             //Graphic graphicData = new Graphic

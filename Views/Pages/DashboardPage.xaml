@@ -187,5 +187,15 @@
             IsEnabled="{Binding ViewModel.PdfButtonEnabled}"
             PlaceholderText="Factor Concentrador Esfuerzo Torsión"
             Text="{Binding ViewModel.FormDataModel.factorConcentradorEsfuerzoTorsion, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
+        <ui:TextBox
+            x:Name="K_Copy3"
+            Grid.Row="1"
+            Grid.Column="1"
+            Height="35"
+            Margin="526,0,20,83"
+            VerticalAlignment="Bottom"
+            IsEnabled="{Binding ViewModel.PdfButtonEnabled}"
+            PlaceholderText="Módulo de Young"
+            Text="{Binding ViewModel.FormDataModel.moduloYoung, Converter={StaticResource StringToDoubleConverter}, Mode=TwoWay}" />
     </Grid>
 </ui:UiPage>

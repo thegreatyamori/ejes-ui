@@ -24,6 +24,7 @@ namespace EjesUI.Models
         public double factorTemperatura { get; set; }
         public double factorConcentradorEsfuerzoFlexion2 { get; set; }
         public double factorConcentradorEsfuerzoTorsion2 { get; set; }
+        public double moduloYoung { get; set; }
 
 
         public int posicionRodamientoUno { get; set; }
